@@ -1,0 +1,11 @@
+-----------------------------------------------------------FOR SOLUTION DEPLOYS--------------------------------------------------------------------------
+
+POWERSHELL COMMAND:
+./Sln_Deploy.ps1 -environment "Prod" -svnrepopath "file:///c:/users/bbista/desktop/svn/" -solutionname "ADV/adventureworks sample reports sql2012.sln"
+
+
+PARAMS:
+
+ENVIRONMENT: DEV/TEST/PROD/UAT : SELECT PROD FOR DEPLOYS OR AS MENTIONED IN THE CONFIGURATION FILE OF THE SOLUTION
+SVNREPOPATH: PATH TO SVN REPOSITORY (NOTE: PATH TO SUB-DIRECTORY INSIDE THE REPO WON'T WORK. EX: "file:///c:/users/bbista/desktop/svn/ADV" ABOVE WON'T WORK)
+SOLUTIONNAME: PATH TO THE SOLUTION OR SOLUTION NAME

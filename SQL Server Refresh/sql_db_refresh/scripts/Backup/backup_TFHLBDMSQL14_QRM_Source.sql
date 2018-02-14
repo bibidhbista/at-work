@@ -1,0 +1,3 @@
+USE master
+BACKUP DATABASE [QRM_Source] TO  DISK = N'\\pfs02\SQLtempBackup\TEST\QRM_Source.bak' WITH NOFORMAT, NOINIT,  NAME = N'QRM_Source-Full Database Backup', SKIP, NOREWIND, NOUNLOAD, COMPRESSION,  STATS = 10
+GO

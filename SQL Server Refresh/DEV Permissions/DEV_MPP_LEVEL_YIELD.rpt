@@ -1,0 +1,71 @@
+﻿--stmt
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- [-- DB CONTEXT --] --
+USE [MPP_Level_Yield]
+
+-- [-- DB USERS --] --
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'FHLBDM\G-FHLB-Developers') BEGIN CREATE USER  [FHLBDM\G-FHLB-Developers] FOR LOGIN [FHLBDM\G-FHLB-Developers] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'FHLBDM\G-SQL Public') BEGIN CREATE USER  [FHLBDM\G-SQL Public] FOR LOGIN [FHLBDM\G-SQL Public] WITH DEFAULT_SCHEMA = [dbo] END; 
+-- [-- ORPHANED USERS --] --
+-- [-- DB ROLES --] --
+EXEC sp_addrolemember @rolename = 'db_datareader', @membername = 'FHLBDM\G-FHLB-Developers'
+EXEC sp_addrolemember @rolename = 'db_owner', @membername = 'FHLBDM\G-FHLB-Developers'
+
+-- [-- OBJECT LEVEL PERMISSIONS --] --
+GRANT SELECT ON [dbo].[Economic_SMS_BA] TO [FHLBDM\G-SQL Public]
+GRANT SELECT ON [dbo].[Economic_SMS_BA_Fact_EOM] TO [FHLBDM\G-SQL Public]
+GRANT SELECT ON [dbo].[ufn_Ex_CYPrevMonth] TO [FHLBDM\G-SQL Public]
+GRANT SELECT ON [dbo].[ufn_Ex_IRRTooLarge] TO [FHLBDM\G-SQL Public]
+GRANT SELECT ON [dbo].[ufn_Ex_IRRWrongDirection] TO [FHLBDM\G-SQL Public]
+GRANT SELECT ON [dbo].[ufn_Ex_NegLoanBalance] TO [FHLBDM\G-SQL Public]
+GRANT SELECT ON [dbo].[v_PwC_tblResultsCombined] TO [FHLBDM\G-SQL Public]
+GRANT SELECT ON [dbo].[v_PwC_tblResultsCombined] TO [public]
+GRANT SELECT ON [dbo].[v_PwC_tblResultsFinal] TO [FHLBDM\G-SQL Public]
+GRANT SELECT ON [dbo].[v_PwC_tblResultsFinal] TO [public]
+GRANT VIEW DEFINITION ON [dbo].[Economic_SMS_BA] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[Economic_SMS_BA_Fact_EOM] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[LevelYieldPatch1] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[Summarized_TABLE_PRIVILEGES] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[TABLE_PRIVILEGES] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_Ex_AllLoanExceptions] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_Ex_AmortGreaterThanAgentFee] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_Ex_AmortSignDifferent] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_Ex_CYPrevMonth] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_Ex_IRRTooLarge] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_Ex_IRRWrongDirection] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_Ex_NegLoanBalance] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_PreviousUnamortAmt] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[ufn_YearMonth] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_ClearResultsTables] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_ClearWorkingTables] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LevelYieldPatch] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadCurrentLoanSet] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadLoanExceptions] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadNewLoans] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadNewLoans_origversion] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadPaymentHistory] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadResultsCombined] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadResultsCY] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadResultsFinal] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[usp_LoadResultsLY] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[uv_Ex_AmortGreaterThanAgentFee] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[uv_Ex_AmortSignDifferent] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[uv_Ex_IRRTooLarge] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[uv_Ex_IRRWrongDirection] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[uv_Ex_NegLoanBalance] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[uv_Payments_FAS133_OLD] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[uv_Payments_OLD] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[uv_Payments_SwapFee_OLD] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[v_PwC_tblResultsCombined] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[v_PwC_tblResultsFinal] TO [View_Definitions]
+GRANT VIEW DEFINITION ON [dbo].[v_tblResultsFinal] TO [View_Definitions]
+-- [-- TYPE LEVEL PERMISSIONS --] --
+
+-- [--DB LEVEL PERMISSIONS --] --
+GRANT CONNECT TO [FHLBDM\bxu]
+GRANT CONNECT TO [FHLBDM\G-FHLB-Developers]
+GRANT CONNECT TO [FHLBDM\G-SQL Public]
+GRANT SHOWPLAN TO [FHLBDM\G-FHLB-Developers]
+
+-- [--DB LEVEL SCHEMA PERMISSIONS --] --
+
