@@ -15,7 +15,7 @@ DATABASENAME             : NAME OF THE DATABASE TO BE MOVED FROM SOURCE SERVER T
 
 #>
 
-
+#
 
 param( 
    [Parameter(Mandatory=$True, HelpMessage='ENTER A VALID SQL SERVER ENVIRONMENT FOR CONNECTION - NO ALIASES')]
@@ -40,55 +40,102 @@ param(
    
    [Parameter(Mandatory=$true, HelpMessage='ENTER A VALID SQL SERVER DATABASE FOR MIGRATION')]
    [ValidateNotNullorEmpty()] 
-   [string] $DatabaseName
-)
+   [string] $SourceDatabaseName,
+   [Parameter(Mandatory=$true, HelpMessage='ENTER A VALID SQL SERVER DATABASE FOR MIGRATION. Leave Blank if same as the Source Database Name')]
+   [string] $DestDatabaseName
+   
+   )
 
 
 $backupDirectory = "\\pfs02\sqlbackup\dbatools_staging\"
+$daysToStoreBackups= 7
+# $fromBakPath  ################################ for restore from a backup path
 
-############################################################################################
-############################## Script out permissions ######################################
-############################################################################################
-Write-Host "#################################################      Sripting out permissions from $DatabaseName : $SourceServer #################################################" 
-$timestamp = get-date -f MMddyyyy_HHmm
-$logfile = "$PSScriptRoot\Permission_Scripts\$DatabaseName`_$SourceServer`_Permissions_$timestamp.sql"
-try{
-    Invoke-Sqlcmd -InputFile "$PSScriptRoot\Permission Extract.sql"  -serverinstance $SourceServer -database $DatabaseName -Verbose 4> $logfile #routes verbose outputs to file
-    Write-Host "Successfully extracted all permissions from $SourceServer : $DatabaseName and saved the query file to $logfile" -BackgroundColor Green
-}catch{
-    Write-Error "Couldn't extract permissions from $SourceServer : $DatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
+if($DestDatabaseName.Length -le 0){
+    $DestDatabaseName = $SourceDatabaseName
 }
 
 
 ############################################################################################
-###################################### Migrate DB ##########################################
+############################## Script out permissions ######################################
 ############################################################################################
-Write-Host "#################################################   Migrating $DatabaseName from $SourceServer to $DestinationServer #################################################"
+Write-Host "#################################################      Sripting out permissions from $DestDatabaseName : $DestinationServer #################################################" 
+$timestamp = get-date -f MMddyyyy_HHmm
+$logPath = "\$PSScriptRoot\Permisssion_Scripts\Destination\$DestinationServer"
+md $logPath -Force|Out-Null
+$logfile = "$logPath\$SourceDatabaseName`_to_$DestDatabaseName`_Perms_$timestamp.sql"
+try{
+    Invoke-Sqlcmd -InputFile "$PSScriptRoot\Permission Extract.sql"  -serverinstance $DestinationServer -database $DestDatabaseName -Verbose 4> $logfile #routes verbose outputs to file
+    Write-Host "Successfully extracted all permissions from $DestinationServer : $DestDatabaseName and saved the query file to $logfile" -BackgroundColor Green
+}catch{
+    Write-Error "Couldn't extract permissions from $DestinationServer : $DestDatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
+}
+
+    
+
+###########################################################################################
+################ Backup destination database before overwriting it (CYA) ##################
+###########################################################################################
+$backupDirectoryCya = "filesystem::$backupDirectory\$DestinationServer\"
+md $backupDirectoryCya -force|Out-null # Creates if it doesn't exist
+
+# Backup db for CYA purposes: Format=> ssw_010141996_1301_CYA.bak    
+Write-Host "#################################################      Backing up $DestDatabaseName : $DestinationServer to $backupDirectoryCya for CYA #################################################" 
+try{
+    Backup-DbaDatabase -SqlInstance $DestinationServer -Database $DestDatabaseName -BackupDirectory $backupDirectory -CompressBackup -CopyOnly -BackupFileName "$DestDatabaseName`_$timestamp`_CYA.bak"
+    # Remove older backups for specific databases matchine ssw*CYA.bak
+    Write-Host "#################################################      Removing all previous backups of $DatabaseName done for CYA older than $daysToStoreBackups days #################################################" 
+    gci "$backupDirectoryCya\*$DestDatabaseName*_CYA.bak" |? { $_.lastwritetime -le (Get-Date).AddDays(-$daysToStoreBackups)} |% {Remove-Item $_ -force }  
+    }
+
+catch{
+    Write-Error "Error: Backup of $DestDatabaseName from $DestinationServer failed to $backupDirectoryCya. Make sure you have installed dbatools before trying again. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop    
+}
+
+
+
+############################################################################################
+###################################### Refreshing Database #################################
+############################################################################################
+Write-Host "#################################################   Refreshing $SourceDatabaseName from $SourceServer to $DestinationServer as $DestDatabaseName #################################################"
 try{
     #$DatabaseName = (Get-DbaDatabase -SqlInstance $SourceServer|Out-GridView -PassThru)
     #$DatabaseName = $DatabaseName.name
     #Copy-dbadatabase -Source $SourceServer -Destination $DestinationServer -Database $DatabaseName -BackupRestore -NetworkShare "\\pfs02\sqlbackup\dbaTools_Staging" -force
     
     #Copy dbadatbase acting weird and fails to restore
-    Backup-DbaDatabase -SqlInstance $SourceServer -Database $DatabaseName -BackupDirectory $backupDirectory -CopyOnly|Restore-DbaDatabase -SqlInstance $DestinationServer
-    Write-Host "Migration of $SourceServer : $DatabaseName to $DestinationServer : $DatabaseName completed successfully" -BackgroundColor Green
+    Backup-DbaDatabase -SqlInstance $SourceServer -Database $SourceDatabaseName -BackupDirectory $backupDirectory -CompressBackup -CopyOnly|Restore-DbaDatabase -SqlInstance $DestinationServer -RestoredDatabaseNamePrefix -WithReplace
+
+    ################################## restore from file path ####################################
+    #Restore-DbaBackupFromDirectory -SqlInstance $DestinationServer -Path $fromBakPath -withreplace
+
+    Write-Host "Refresh of $SourceServer : $SourceDatabaseName to $DestinationServer : $DestDatabaseName completed successfully" -BackgroundColor Green
 
 }catch{
-    Write-Error "Error: Migration of $DatabaseName from $SourceServer to $DestinationServer failed. Make sure you have installed dbatools before trying again. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop    
+    Write-Error "Error: Refresh of $SourceDatabaseName from $SourceServer to $DestinationServer as $DestDatabaseName failed. Make sure you have installed dbatools before trying again. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop    
 }
+
+
+###########################################################################################
+###########################################################################################
+###########################################################################################
+Write-Host "################################################# Removing permissions from $DestinationServer : $DestDatabaseName that came from $SourceServer : $SourceDatabaseName #################################################" 
+Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance $DestinationServer -Database $DestDatabaseName | Remove-DbaDbUser
 
 
 ############################################################################################
 ############################# Apply permissions on destination server ######################
 ############################################################################################
-Write-Host "################################################# Applying permissions to $DestinationServer : $DatabaseName #################################################" 
+Write-Host "################################################# Applying permissions to $DestinationServer : $DestDatabaseName #################################################" 
 try{
-    Invoke-Sqlcmd -InputFile $logfile -serverinstance $DestinationServer -database $DatabaseName -Verbose 
-    Write-Host "Successfully applied all permissions from $SourceServer : $DatabaseName to $DestinationServer : $DatabaseName and saved the query file to $logfile" -BackgroundColor Green
+    Invoke-Sqlcmd -InputFile $logfile -serverinstance $DestinationServer -database $DestDatabaseName -Verbose 
+    Write-Host "Successfully reapplied all permissions from for $DestinationServer : $DestDatabaseName and saved the query file to $logfile" -BackgroundColor Green
 }catch{
-    Write-Error "Couldn't apply permissions to $DestinationServer : $DatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
+    Write-Error "Couldn't apply permissions to $DestinationServer : $DestDatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
 }
 
+
+## There shouldn't be orphan users!!
 
 
 ############################################################################################
