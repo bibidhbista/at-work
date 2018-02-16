@@ -53,7 +53,7 @@ Write-Host "#################################################      Sripting out 
 $timestamp = get-date -f MMddyyyy_HHmm
 $logfile = "$PSScriptRoot\Permission_Scripts\$DatabaseName`_$SourceServer`_Permissions_$timestamp.sql"
 try{
-    Invoke-Sqlcmd -InputFile "$PSScriptRoot\Permission Extract.sql"  -serverinstance $SourceServer -database $DatabaseName -Verbose 4> $logfile #routes verbose outputs to file
+    Invoke-Sqlcmd -InputFile "$PSScriptRoot\Permission_Extract.sql"  -serverinstance $SourceServer -database $DatabaseName -Verbose 4> $logfile #routes verbose outputs to file
     Write-Host "Successfully extracted all permissions from $SourceServer : $DatabaseName and saved the query file to $logfile" -BackgroundColor Green
 }catch{
     Write-Error "Couldn't extract permissions from $SourceServer : $DatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
@@ -112,7 +112,7 @@ try{
 
     # For Windows Orphan Users
     try{
-        Invoke-Sqlcmd -InputFile "$PSScriptRoot\Windows Orphan Fix.sql" -serverinstance $DestinationServer -database $DatabaseName -Verbose 
+        Invoke-Sqlcmd -InputFile "$PSScriptRoot\Windows_Orphan_Fix.sql" -serverinstance $DestinationServer -database $DatabaseName -Verbose 
     }catch{
         Write-Error "Couldn't fix Windows Orphaned Users. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
     }
