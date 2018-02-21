@@ -43,20 +43,34 @@ param(
    [string] $DatabaseName
 )
 
+#### Check
+$SourceEnv = $SourceServer.tolower().Substring(0,1)
+$DestEnv = $DestinationServer.tolower().Substring(0,1)
 
-$backupDirectory = "\\pfs02\sqlbackup\dbatools_staging\"
+if (($DestEnv -eq "p") -and ($SourceEnv -ne "p")){
+  Write-Error "Environment Mismatch! Can only migrate to lower environment" -ErrorAction Stop
+}
+
+$backupDirectory = "\\pfs02\sqlbackup\dbatools_staging\For_Migration\$SourceServer`_to_$DestinationServer"
+md $backupDirectory -Force|Out-Null
+$daysToStoreBackups= 7
+
 
 ############################################################################################
 ############################## Script out permissions ######################################
 ############################################################################################
-Write-Host "#################################################      Sripting out permissions from $DatabaseName : $SourceServer #################################################" 
+Write-Host "#################################################      Scripting out permissions from $DatabaseName : $SourceServer #################################################" 
 $timestamp = get-date -f MMddyyyy_HHmm
-$logfile = "$PSScriptRoot\Permission_Scripts\$DatabaseName`_$SourceServer`_Permissions_$timestamp.sql"
+$logPath = "$backupDirectory\Permission_Scripts"
+md $logPath -Force|Out-Null
+$logFileName = "$DatabaseName`_$SourceServer`_Permissions_$timestamp.sql"
+$logfile = "$logPath\$logFileName"
+
 try{
     Invoke-Sqlcmd -InputFile "$PSScriptRoot\Permission_Extract.sql"  -serverinstance $SourceServer -database $DatabaseName -Verbose 4> $logfile #routes verbose outputs to file
     Write-Host "Successfully extracted all permissions from $SourceServer : $DatabaseName and saved the query file to $logfile" -BackgroundColor Green
 }catch{
-    Write-Error "Couldn't extract permissions from $SourceServer : $DatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
+    Write-Error "Couldn't extract permissions from $SourceServer : $DatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot! $_.Exception.Message" -ErrorAction Stop
 }
 
 
@@ -70,7 +84,7 @@ try{
     #Copy-dbadatabase -Source $SourceServer -Destination $DestinationServer -Database $DatabaseName -BackupRestore -NetworkShare "\\pfs02\sqlbackup\dbaTools_Staging" -force
     
     #Copy dbadatbase acting weird and fails to restore
-    Backup-DbaDatabase -SqlInstance $SourceServer -Database $DatabaseName -BackupDirectory $backupDirectory -CopyOnly|Restore-DbaDatabase -SqlInstance $DestinationServer
+    Backup-DbaDatabase -SqlInstance $SourceServer -Database $DatabaseName -BackupDirectory $backupDirectory -CopyOnly -BackupFileName "$DatabaseName`_$timestamp`_$SourceServer.bak"|Restore-DbaDatabase -SqlInstance $DestinationServer
     Write-Host "Migration of $SourceServer : $DatabaseName to $DestinationServer : $DatabaseName completed successfully" -BackgroundColor Green
 
 }catch{
@@ -86,7 +100,7 @@ try{
     Invoke-Sqlcmd -InputFile $logfile -serverinstance $DestinationServer -database $DatabaseName -Verbose 
     Write-Host "Successfully applied all permissions from $SourceServer : $DatabaseName to $DestinationServer : $DatabaseName and saved the query file to $logfile" -BackgroundColor Green
 }catch{
-    Write-Error "Couldn't apply permissions to $DestinationServer : $DatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
+    Write-Error "Couldn't apply permissions to $DestinationServer : $DatabaseName . Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot! $_.Exception.Message" -ErrorAction Stop
 }
 
 
@@ -120,7 +134,7 @@ try{
     Write-Host "Fixed both SQL and Windows Orphan Users!" -BackgroundColor Green
     Write-Host "End of Migration: Successfully copied $DatabaseName from $SourceServer to $DestinationServer and reapplied required permissions."
 }catch{
-    Write-Error "Error: Couldn't repair orphan users. Make sure you have installed dbatools before trying again. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop            
+    Write-Error "Error: Couldn't repair orphan users. Make sure you have installed dbatools before trying again. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot! $_.Exception.Message" -ErrorAction Stop            
 }
 
 
