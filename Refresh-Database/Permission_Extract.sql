@@ -1,4 +1,9 @@
-CREATE TABLE ##tbl_db_principals_statements (stmt varchar(max), result_order decimal(4,1))
+if not exists (select * FROM tempdb.[sys].[sysobjects] WHERE name='##tbl_db_principals_statements')
+	CREATE TABLE ##tbl_db_principals_statements (stmt varchar(max), result_order decimal(4,1));
+ELSE
+	TRUNCATE TABLE	##tbl_db_principals_statements;
+
+
 IF ((SELECT SUBSTRING(convert(sysname, SERVERPROPERTY('productversion')), 1, charindex('.',convert(sysname, SERVERPROPERTY('productversion')))-1)) > 10)
 EXEC ('
 INSERT INTO ##tbl_db_principals_statements (stmt, result_order)
@@ -8,7 +13,7 @@ INSERT INTO ##tbl_db_principals_statements (stmt, result_order)
                   END AS [-- SQL STATEMENTS --],
                   3.1 AS [-- RESULT ORDER HOLDER --]
       FROM  sys.database_principals AS rm
-      WHERE [type] IN (''U'', ''S'', ''G'') /* windows users, sql users, windows groups */')
+      WHERE [type] IN (''U'', ''S'', ''G'') and [name] != ''GUEST''/* windows users, sql users, windows groups */')
 
 ELSE IF ((SELECT SUBSTRING(convert(sysname, SERVERPROPERTY('productversion')), 1, charindex('.',convert(sysname, SERVERPROPERTY('productversion')))-1)) IN (9,10))
 EXEC ('

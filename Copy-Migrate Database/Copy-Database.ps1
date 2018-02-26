@@ -48,7 +48,7 @@ $SourceEnv = $SourceServer.tolower().Substring(0,1)
 $DestEnv = $DestinationServer.tolower().Substring(0,1)
 
 if (($DestEnv -eq "p") -and ($SourceEnv -ne "p")){
-  Write-Error "Environment Mismatch! Can only migrate to lower environment" -ErrorAction Stop
+    Write-Error "Environment Mismatch! Can only migrate to lower environment" -ErrorAction Stop
 }
 
 $backupDirectory = "\\pfs02\sqlbackup\dbatools_staging\For_Migration\$SourceServer`_to_$DestinationServer"
