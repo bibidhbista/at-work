@@ -25,3 +25,20 @@ GO
 --recover the database:  
 RESTORE DATABASE AdventureWorks2012 WITH RECOVERY;  
 GO  
+
+
+-- POINT IN TIME
+
+RESTORE DATABASE AdventureWorks  
+   FROM AdventureWorksBackups  
+   WITH FILE=3, NORECOVERY;  
+
+RESTORE LOG AdventureWorks  
+   FROM AdventureWorksBackups  
+   WITH FILE=4, NORECOVERY, STOPAT = 'Apr 15, 2020 12:00 AM';  
+
+RESTORE LOG AdventureWorks  
+   FROM AdventureWorksBackups  
+   WITH FILE=5, NORECOVERY, STOPAT = 'Apr 15, 2020 12:00 AM';  
+RESTORE DATABASE AdventureWorks WITH RECOVERY;   
+GO  
