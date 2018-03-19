@@ -1,4 +1,6 @@
-if not exists (select * FROM tempdb.[sys].[sysobjects] WHERE name='##tbl_db_principals_statements')
+SET NOCOUNT ON
+
+IF not exists (select * FROM tempdb.[sys].[sysobjects] WHERE name='##tbl_db_principals_statements')
 	CREATE TABLE ##tbl_db_principals_statements (stmt varchar(max), result_order decimal(4,1));
 ELSE
 	TRUNCATE TABLE	##tbl_db_principals_statements;
@@ -91,9 +93,29 @@ UNION
 SELECT '-- [-- DB ROLES --] --' AS [-- SQL STATEMENTS --],
             5 AS [-- RESULT ORDER HOLDER --]
 UNION
+
+
+
+SELECT      'IF NOT EXISTS(SELECT USER_NAME(p.grantee_principal_id) FROM sys.database_permissions p WHERE USER_NAME(grantee_principal_id) = '
+			+ QUOTENAME(USER_NAME(p.grantee_principal_id), '''')+') BEGIN; CREATE ROLE '
+			+ SPACE(1) + QUOTENAME(USER_NAME(p.grantee_principal_id), '[]') + '; END;' AS [-- SQL STATEMENTS --],
+            5.1 AS [-- RESULT ORDER HOLDER --]
+FROM  sys.database_role_members AS rm
+JOIN sys.database_permissions p
+ON p.grantee_principal_id = rm.role_principal_id
+JOIN sys.database_principals dp
+ON p.grantee_principal_id = dp.principal_id WHERE dp.type_desc ='database_role' AND USER_NAME(p.grantee_principal_id) NOT IN ('public') GROUP BY USER_NAME(p.grantee_principal_id)
+
+
+UNION
+
+SELECT '' AS [-- SQL STATEMENTS --],
+            5.2 AS [-- RESULT ORDER HOLDER --]
+
+UNION
 SELECT      'EXEC sp_addrolemember @rolename ='
       + SPACE(1) + QUOTENAME(USER_NAME(rm.role_principal_id), '''') + ', @membername =' + SPACE(1) + QUOTENAME(USER_NAME(rm.member_principal_id), '''') AS [-- SQL STATEMENTS --],
-            5.1 AS [-- RESULT ORDER HOLDER --]
+            5.3 AS [-- RESULT ORDER HOLDER --]
 FROM  sys.database_role_members AS rm
 WHERE USER_NAME(rm.member_principal_id) IN (    
                                                                         --get user names on the database
@@ -102,13 +124,10 @@ WHERE USER_NAME(rm.member_principal_id) IN (
                                                                         WHERE [principal_id] > 4 -- 0 to 4 are system users/schemas
                                                                         and [type] IN ('G', 'S', 'U') -- S = SQL user, U = Windows user, G = Windows group
                                                                     )
---ORDER BY rm.role_principal_id ASC
-
-
 UNION
-
+--ORDER BY rm.role_principal_id ASC
 SELECT '' AS [-- SQL STATEMENTS --],
-            7 AS [-- RESULT ORDER HOLDER --]
+            5.4 AS [-- RESULT ORDER HOLDER --]
 
 UNION
 
