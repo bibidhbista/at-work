@@ -11,3 +11,30 @@ SSMS: Grant SSIS roles to the user/group on msdb access
 dtutil /sourceserver sqltest2016 /fc SQL;\;AHP\;bbdh
 needs to be 
 dtutil /sourceserver sqltest2016 /fc SQL;AHP;bbdh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--install ssis 
+--component services permissions
+--ssms permissions
+   XX database perm
+   XX msdb perm
+--Registry change
+	XX for logging 
+	XXHKLM\S\M\MSS\130\SSIS\LogPackageExec
+--upgrade 
+		XXif it doesnt upgrade, just import to newer ssis server
+
+

@@ -27,7 +27,7 @@ AND Inactive = 0
 "@
  
  
- $AllServers = gc "N:\Projects\Maint_Plans\AllSQLServers.txt" 
+ $AllServers = gc "N:\Projects_\at-work\Maint_Plans\AllSQLServers.txt" 
  $count=0
  $AllServers|%{
     $count+=1
