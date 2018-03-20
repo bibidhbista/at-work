@@ -1,0 +1,4 @@
+https://pgitapp01.fhlbdm.com/SSRS/Market_Risk/blob/WO39735_Investment_Pricing/Market_Risk_SSRS/Investment%20Pricing.rdl
+https://pgitapp01.fhlbdm.com/SSRS/Market_Risk/blob/WO39735_Investment_Pricing/Market_Risk_SSRS/Investment%20Pricing%20Exceptions%20-%20Exceeds%20Threshold.rdl
+https://pgitapp01.fhlbdm.com/SSRS/Market_Risk/blob/WO39735_Investment_Pricing/Market_Risk_SSRS/Investment%20Pricing%20Exceptions%20-%20Price%20Change.rdl
+https://pgitapp01.fhlbdm.com/SSRS/Market_Risk/blob/WO39735_Investment_Pricing/Market_Risk_SSRS/Investment%20Pricing%20Exceptions%20-%20Zero%20and%20One%20Price.rdl
