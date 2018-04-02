@@ -7,7 +7,7 @@ LAST UPDATE DATE: 09/07/2017
 
 ************* USE YOUR OWN PRIVATE TOKEN FROM GITLAB TO AUTHENTICATE: ONLY NEEDS TO BE DONE ONCE *************
 
-THE FOLDER MUST CONTAIN A COMMONSCRIPT.RSS FILE!
+THE FOLDER MUST CONTAIN A COMMONSCRIPT.RSS FILE! CURL MUST BE INSTALLED
 
 
 
@@ -88,7 +88,7 @@ DATASOURCEPATH		                                :DEFAULT:	"/DATA SOURCES"
 ################################################################################################################################################################################
  
  $gitlabpath =$gitLabPath.Trim()
- $currentFolder =$PSScriptRoot+'\'
+ $currentFolder =$PSScriptRoot
  $daysForLogRetention = 45
  $reportName =$reportName.Replace('%20',' ')
 
@@ -163,10 +163,10 @@ if ($gitLabPath.Contains('/blob/')){
 $timestamp =$(get-date -f yyyy-MM-dd)
 $StagingPath = "$currentFolder\ReportStaged_For_Deploy_$timestamp\Reports\"
 
-if((test-path "$StagingPath")){
-    rd $StagingPath -recurse -Force 
-    write-host "Deleted the existing reports under the Staging Folder."
-}
+#if((test-path "$StagingPath")){
+#    rd $StagingPath -recurse -Force 
+#    write-host "Deleted the existing reports under the Staging Folder."
+#}
 
 md $StagingPath -Force| out-null
 md "$currentFolder\Report Backup" -Force |Out-Null
@@ -174,15 +174,16 @@ md "$currentFolder\Report Backup" -Force |Out-Null
        
 #cURL from the GitLab Url to a local path for staging the report
 Write-Host "***** Downloading raw file $reportName from $gitLabPath to $StagingPath *****`n"
-$cURLEXEPath = "C:\Users\$currentUser\AppData\Local\Programs\Git\mingw64\bin\"
+$cURLEXEPath = "`"C:\Program Files\Git\mingw64\bin\curl.exe`""                            #"C:\Users\$currentUser\AppData\Local\Programs\Git\mingw64\bin\"
+$curlParam =" --header `"PRIVATE-TOKEN: $token`" `"$gitLabPath`" -o `"$StagingPath$reportname`"`""
 
-
+#$cURLEXEPath+=$curlParam
 
 try{
-    .$cURLEXEPath\curl.exe --header "PRIVATE-TOKEN: $token" "$gitLabPath" -o "$StagingPath\$reportname" -s
+    .$cURLEXEPath --header "PRIVATE-TOKEN: $token" "$gitLabPath" -o "$StagingPath\$reportname" 
 }
 catch{
-        Write-Error "Failed to download the raw file. Couldn't cURL from $gitLabPath to $StagingPath.`nMake sure you have sufficient permissions." -ErrorAction Stop
+    Write-Error "Failed to download the raw file. Couldn't cURL from $gitLabPath to $StagingPath.`n$ErrorMessage`n`nMake sure you have sufficient permissions." -ErrorAction Stop
 }
 
 
