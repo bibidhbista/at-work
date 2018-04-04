@@ -1,4 +1,6 @@
-﻿$list = New-Object ([System.Collections.Generic.List[PSObject]])
+﻿icm -cn pfhlbdmsql15 {
+
+        $list = New-Object ([System.Collections.Generic.List[PSObject]])
 
         foreach ($provider in [System.Data.OleDb.OleDbEnumerator]::GetRootEnumerator())
         {
@@ -9,4 +11,6 @@
             }
             $list.Add($v)
         }
-        $list
+        $list|? sources_name -like '*ora*'
+        
+    }
