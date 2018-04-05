@@ -138,7 +138,7 @@ Write-host "Processing..."
 "*** Begin Scan for $response ***" | Out-file $OutFileName
 " " | Out-file $OutFileName -Append
     
-foreach ($SQLsvr in get-content "c:\Powershell\SQLServerInstances.txt")  
+foreach ($SQLsvr in get-content "$PSScriptRoot\AllSQLServers.txt")  
   {  
     $svr = new-object ("Microsoft.SqlServer.Management.Smo.Server") $SQLsvr   
     "=================================================================================" | Out-file $OutFileName -Append
