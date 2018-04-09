@@ -183,6 +183,8 @@ $vserver
 $vservice.state
 $vservice.startname
 $vagent.state
-$vagent.startname}
+$vagent.startname
 write-host --------------------------------------
+}
+
 }

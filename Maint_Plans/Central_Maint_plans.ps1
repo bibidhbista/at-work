@@ -1,8 +1,6 @@
-﻿
-
- $AllServers = gc "N:\Projects\Maint_Plans\AllSQLServers.txt" 
- #Remove-Item "N:\Projects\Maint_Plans\Results.csv" -force
- $AllServers| %{
+﻿$AllServers = gc "$PSScriptRoot\AllSQLServers.txt" 
+Remove-Item "$PSScriptRoot\Results_CMPlans.csv" -force
+$AllServers| %{
     # Execute a command
          Write-Host "[processing '$_' inside the loop]"
          
@@ -31,7 +29,7 @@ $sqlQuery = @"
              group by s.job_id,l.name,s.name,s.enabled,jh.run_status,s.description,s.date_created,s.date_modified,l.dbname
 
 "@
-         & INVOKE-SQLCMD -Query $sqlQuery -ServerInstance $_ -Database 'MASTER'|Export-Csv -Append -Path "N:\Projects\Maint_Plans\Results_CMPlans.csv" -Encoding ascii -NoTypeInformation -Force
+         & INVOKE-SQLCMD -Query $sqlQuery -ServerInstance $_ -Database 'MASTER'|Export-Csv -Append -Path "$PSScriptRoot\Results_CMPlans.csv" -Encoding ascii -NoTypeInformation -Force
  }
 
- Invoke-Item -Path "N:\Projects\Maint_Plans\Results_CMPlans.csv"
+ Invoke-Item -Path "$PSScriptRoot\Results_CMPlans.csv"
