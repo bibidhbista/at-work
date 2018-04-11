@@ -132,8 +132,8 @@ try{
     #Copy-dbadatabase -Source $SourceServer -Destination $DestinationServer -Database $SourceDatabaseName -BackupRestore -NetworkShare $backupDirectory -force
 
     
-    Backup-DbaDatabase -SqlInstance $SourceServer -Database $SourceDatabaseName -BackupDirectory $backupDirectory -CompressBackup -CopyOnly -BackupFileName "$SourceDatabaseName`_$timestamp`_forRefresh_CYA.bak"|Restore-DbaDatabase -SqlInstance $DestinationServer -WithReplace
-
+    Backup-DbaDatabase -SqlInstance $SourceServer -Database $SourceDatabaseName -BackupDirectory $backupDirectory -CompressBackup -CopyOnly -BackupFileName "$SourceDatabaseName`_$timestamp`_forRefresh_CYA.bak"|Restore-DbaDatabase -SqlInstance $DestinationServer -WithReplace 
+    Rename-DbaDatabase -SqlInstance $DestinationServer -Database $SourceDatabaseName -DatabaseName $DestDatabaseName |Select *
     ################################## restore from file path ####################################
     #Restore-DbaBackupFromDirectory -SqlInstance $DestinationServer -Path $fromBakPath -withreplace
 

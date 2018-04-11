@@ -1,37 +1,51 @@
 ﻿
 
 # Change these to whatever you want it to point to
-#$driveName='g:'
-$ServerName = 'ufhlbdmsql07'
-$sp10 ="                  "
+$driveName='E:'
 
+
+
+$ServerName = 'dfhlbdmsql10','tfhlbdmsql10'#,'pfhlbdmsql12'
+$sp10 ="                  "
+$gb = " GB"
 #Command
 $ServerName|%{
-$disk = Get-WmiObject Win32_LogicalDisk -ComputerName $_|Select-Object name,Size,FreeSpace
- #-Filter "DeviceID='$driveName'" 
- write-host $_ -BackgroundColor red -NoNewline
+$disk = Get-WmiObject Win32_LogicalDisk -ComputerName $_ -Filter "DeviceID='$driveName'"|Select-Object name,Size,FreeSpace,volumeName 
+ write-host $_ -BackgroundColor red 
 
     #Output
     $disk|%{
-        Write-host $_.name -BackgroundColor green -NoNewline
-        $D=[math]::round($_.Size/1GB,2)
-        WRITE-HOST ($D) -NoNewline
-        wr-te-host $sp10 -nonewline
+        try{$sp10
+        Write-host $_.name -BackgroundColor red -NoNewline
+        Write-host $_.volumename -BackgroundColor red -NoNewline
         
-        write-host "       Free Space" -BackgroundColor Green -NoNewline
+        WRITE-host $sp10 -nonewline
+        $D=[math]::round($_.Size/1GB,2)
+        
+        #WRITE-HOST ($D) -NoNewline
+        #WRITE-host $sp10 -nonewline
+        
+        write-host "Free Space: " -BackgroundColor Green -NoNewline
         $f=[math]::round($_.FreeSpace/1Gb,2)
-        write-host $f -NoNewline
-        wr-te-host $sp10 -nonewline
-        write-host "       % Filled" -BackgroundColor Red -NoNewline
+        
+        write-host "    $f GB out of $D GB" -NoNewline
+        WRITE-host $sp10 -nonewline
+        write-host "% Filled: " -BackgroundColor Red -NoNewline
         
         $p=[math]::round(100-($_.FreeSpace/$_.size)*100,2)
-        write-host $p -nonewline
-        wr-te-host $sp10 -nonewline
         
-        write-host "       Occupied" -BackgroundColor Red -NoNewline
+        write-host "  $p%" -nonewline
+        WRITE-host $sp10 -nonewline
+        
+        write-host "Occupied: " -BackgroundColor Red -NoNewline
         $o=[math]::round($d-$f,2)
-        $o
-        wr-te-host $sp10 -nonewline
+        
+        write-host "  $o GB"
+        WRITE-host $sp10 -nonewline
+        }
+        catch{
+            Write-Host ''
+        }
         }
     WRITE-HOST ''     }
     

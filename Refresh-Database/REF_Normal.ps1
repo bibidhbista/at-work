@@ -128,7 +128,7 @@ try{
     #$SourceDatabaseName='Collateral_Staging'
     #$DestDatabaseName='Collateral_Staging_OLD'
     #$backupDirectory='\\pfs02\sqlbackup\dbaTools_Staging\For_Refresh\pfhlbdmsql12_to_dfhlbdmsql12'
-    Remove-DbaDatabase -SqlInstance $DestinationServer -Database $DestDatabaseName -Confirm:$True
+    #Remove-DbaDatabase -SqlInstance $DestinationServer -Database $DestDatabaseName -Confirm:$True
     #Copy-dbadatabase -Source $SourceServer -Destination $DestinationServer -Database $SourceDatabaseName -BackupRestore -NetworkShare $backupDirectory -force
 
     

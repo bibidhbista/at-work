@@ -10,3 +10,14 @@ $server|%{
     Get-DbaDatabaseUser -ExcludeSystemUser -serverinstance $_ |? name -like "*$name*"| Remove-DbaDbUser #-WhatIf
 
     }
+
+
+
+    #Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance dfhlbdmsql12 -Database Collateral_Interface|Remove-DbaDbUser -WhatIf
+
+
+
+    #Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance tfhlbdmsql12 -Database Collateral_Reporting_OLD|Remove-DbaDbUser
+    #Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance dfhlbdmsql10 -Database Collateral_Reporting|Remove-DbaDbUser
+    #Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance tfhlbdmsql10 -Database Collateral_Reporting|Remove-DbaDbUser
+    Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance dfhlbdmsql10 -Database Collateral_Reporting|Remove-DbaDbUser

@@ -1,11 +1,13 @@
-﻿$SourceServer = 'pfhlbdmsql14'
-$DestinationServer = 'sqltest2016'
+﻿$SourceServer = 'pfhlbdmsql12'
+$DestinationServer = 'dfhlbdmsql12'
 
 
-$databasesList = 'Hub','HubPersistent', 'HubStaging','InfoGov'
+#$databasesList = 'Hub','HubPersistent', 'HubStaging','InfoGov'
+$databasesList =   'COLLATERAL_INTERFACE','DATA_DEPOT','COLLATERAL_STAGING','COLLATERAL_REPORTING'
 
 $databasesList|%{
-    $databaseName = $_
-    write-host "Currently working on $databaseName"
-    .\$PSScriptRoot\refresh-database.ps1 -SourceServer $SourceServer -DestinationServer $DestinationServer -SourceDatabaseName $databaseName -DestDatabaseName $databaseName
+    $SourcedatabaseName = $_
+    $DestinationDatabaseName = "$SourcedatabaseName`_old"
+    write-host "Currently working on $SourcedatabaseName database on $SourceServer to $DestinationDatabaseName database on $DestinationServer server."
+    .$PSScriptRoot\Refresh-Database.ps1 -SourceServer $SourceServer -DestinationServer $DestinationServer -SourceDatabaseName $SourcedatabaseName -DestDatabaseName $DestinationDatabaseName
 }
