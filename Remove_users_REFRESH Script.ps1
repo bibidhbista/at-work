@@ -21,3 +21,4 @@ $server|%{
     #Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance dfhlbdmsql10 -Database Collateral_Reporting|Remove-DbaDbUser
     #Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance tfhlbdmsql10 -Database Collateral_Reporting|Remove-DbaDbUser
     Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance dfhlbdmsql10 -Database Collateral_Reporting|Remove-DbaDbUser
+    Get-DbaDatabaseUser -ExcludeSystemUser -SqlInstance tfhlbdmsql15 -Database Derivatives|Remove-DbaDbUser

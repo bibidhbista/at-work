@@ -128,7 +128,7 @@ try{
     #$SourceDatabaseName='Collateral_Staging'
     #$DestDatabaseName='Collateral_Staging_OLD'
     #$backupDirectory='\\pfs02\sqlbackup\dbaTools_Staging\For_Refresh\pfhlbdmsql12_to_dfhlbdmsql12'
-    Remove-DbaDatabase -SqlInstance $DestinationServer -Database $DestDatabaseName -Confirm:$True
+    #Remove-DbaDatabase -SqlInstance $DestinationServer -Database $DestDatabaseName -Confirm:$True
     #Copy-dbadatabase -Source $SourceServer -Destination $DestinationServer -Database $SourceDatabaseName -BackupRestore -NetworkShare $backupDirectory -force
 
     
@@ -176,13 +176,13 @@ try{
 
 
 
-<#
+
 ############################################################################################
 ###################### Take care of orphan users/Migrate Logins ############################
 ############################################################################################
 Write-Host "###################################    Migrating logins and fixing of orphan users  #################################################" 
 try{
-    # For SQL Orphan Users
+    # For Windows/SQL Orphan Users
     $object = Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DatabaseName
     $users = $object.user
     $count = $users.count
@@ -191,25 +191,34 @@ try{
     if($count -gt 0){
        Write-Host "Following SQL Orphan User(s) were fixed: " -BackgroundColor Green
        #foreach($user in $users){
-       #        Copy-DbaLogin -Source $SourceServer -Destination $DestinationServer -Login $user # Migrates Logins with password so they don't have to be reentered for SQL Logins
+               Copy-DbaLogin -Source $SourceServer -Destination tfhlbdmsql12 -Login $user # Migrates Logins with password so they don't have to be reentered for SQL Logins
        #}
-        Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DatabaseName|ft -AutoSize
+        Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DatabaseName -Verbose|ft -AutoSize
     }
 
     # For Windows Orphan Users
-    try{
-        Invoke-Sqlcmd -InputFile "$PSScriptRoot\Windows_Orphan_Fix.sql" -serverinstance $DestinationServer -database $DatabaseName -Verbose 
-    }catch{
-        Write-Error "Couldn't fix Windows Orphaned Users. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
-    }
-
-    Write-Host "Fixed both SQL and Windows Orphan Users!" -BackgroundColor Green
-    Write-Host "End of Migration: Successfully copied $DatabaseName from $SourceServer to $DestinationServer and reapplied required permissions."
+    #try{
+    #    Invoke-Sqlcmd -InputFile "$PSScriptRoot\Windows_Orphan_Fix.sql" -serverinstance $DestinationServer -database $DatabaseName -Verbose 
+    #}catch{
+    #    Write-Error "Couldn't fix Windows Orphaned Users. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
+    #}
+    #
+    #Write-Host "Fixed both SQL and Windows Orphan Users!" -BackgroundColor Green
+    #Write-Host "End of Migration: Successfully copied $DatabaseName from $SourceServer to $DestinationServer and reapplied required permissions."
 }catch{
     Write-Error "Error: Couldn't repair orphan users. Make sure you have installed dbatools before trying again. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot! $_.Exception.Message" -ErrorAction Stop            
 }
 
-#>
+
+try{
+    Write-Host "#################################################      Removing all previous backups of $DatabaseName done for backups older than $daysToStoreBackups days #################################################" 
+    gci "$backupDirectory\*$DestDatabaseName*.bak" -Recurse |? { $_.lastwritetime -le (Get-Date).AddDays(-$daysToStoreBackups)} |% {Remove-Item $_ -force }  
+}catch{
+    Write-Error "Couldn't remove older backups of $DestDatabaseName from $backupDirectory. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot! $_.Exception.Message" -ErrorAction Stop
+}
+
+
+
 
 
 #specific database

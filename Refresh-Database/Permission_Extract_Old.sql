@@ -1,65 +1,34 @@
 SET NOCOUNT ON
 
 IF not exists (select * FROM tempdb.[sys].[sysobjects] WHERE name='##tbl_db_principals_statements')
-BEGIN
 	CREATE TABLE ##tbl_db_principals_statements (stmt varchar(max), result_order decimal(4,1));
-	CREATE TABLE ##tbl_db_principals_statements_2 (stmt varchar(max), result_order decimal(4,1));
-End
 ELSE
-BEGIN
 	TRUNCATE TABLE	##tbl_db_principals_statements;
-	TRUNCATE TABLE	##tbl_db_principals_statements_2;
-END
 
-
-
--- FOR SERVER LEVEL LOGIN CREATION	  
-IF ((SELECT SUBSTRING(convert(sysname, SERVERPROPERTY('productversion')), 1, charindex('.',convert(sysname, SERVERPROPERTY('productversion')))-1)) > 10)
-EXEC ('
-INSERT INTO ##tbl_db_principals_statements_2 (stmt, result_order)
-      SELECT
-	  CASE WHEN rm.authentication_type IN (2, 0) /* 2=contained database user with password, 0 =user without login; create users without logins*/ THEN (''IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] = '' + SPACE(1) + '''''''' + [name] + '''''''' + '') BEGIN CREATE USER '' + SPACE(1) + QUOTENAME([name]) + '' WITHOUT LOGIN WITH DEFAULT_SCHEMA = '' + QUOTENAME([default_schema_name]) + SPACE(1) + '', SID = '' + CONVERT(varchar(1000), sid) + SPACE(1) + '' END; '')    
-            ELSE (''IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID(''+''''''''+ [name]+''''''''+'')) BEGIN CREATE LOGIN ''+QUOTENAME(suser_sname([sid]))+'' FROM WINDOWS END;'') 
-			END AS [-- SQL STATEMENTS --],
-            2.1 AS [-- RESULT ORDER HOLDER --]
-      FROM  sys.database_principals AS rm
-      WHERE [type] IN (''U'', ''G'') and [name] not in (''GUEST'',''dbo'');/* windows users, sql users, windows groups */')
-
-ELSE IF ((SELECT SUBSTRING(convert(sysname, SERVERPROPERTY('productversion')), 1, charindex('.',convert(sysname, SERVERPROPERTY('productversion')))-1)) IN (9,10))
-EXEC ('
-INSERT INTO ##tbl_db_principals_statements_2 (stmt, result_order)
-
-      SELECT      (''IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID(''+''''''''+ [name]+''''''''+'')) BEGIN CREATE LOGIN ''+QUOTENAME(suser_sname([sid]))+'' FROM WINDOWS END;'') 
-			 AS [-- SQL STATEMENTS --],
-            2.1 AS [-- RESULT ORDER HOLDER --]
-      FROM  sys.database_principals AS rm
-      WHERE [type] IN (''U'', ''G'') and [name] not in (''GUEST'',''dbo'');')
-	
-	--SELECT * FROM sys.database_principals WHERE [type] IN ('U', 'S', 'G') and [name] != 'GUEST'
--- FOR DB LEVEL USER CREATION	
 
 IF ((SELECT SUBSTRING(convert(sysname, SERVERPROPERTY('productversion')), 1, charindex('.',convert(sysname, SERVERPROPERTY('productversion')))-1)) > 10)
 EXEC ('
 INSERT INTO ##tbl_db_principals_statements (stmt, result_order)
       SELECT      
             CASE WHEN rm.authentication_type IN (2, 0) /* 2=contained database user with password, 0 =user without login; create users without logins*/ THEN (''IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] = '' + SPACE(1) + '''''''' + [name] + '''''''' + '') BEGIN CREATE USER '' + SPACE(1) + QUOTENAME([name]) + '' WITHOUT LOGIN WITH DEFAULT_SCHEMA = '' + QUOTENAME([default_schema_name]) + SPACE(1) + '', SID = '' + CONVERT(varchar(1000), sid) + SPACE(1) + '' END; '')
-                  ELSE (''IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] = '' + SPACE(1) + '''''''' + [name] + '''''''' + '') BEGIN CREATE USER'' + SPACE(1) + QUOTENAME([name]) + '' FOR LOGIN '' + QUOTENAME([name]) + '' WITH DEFAULT_SCHEMA = '' + QUOTENAME(ISNULL([default_schema_name], ''dbo'')) + SPACE(1) + ''END; '') 
+                  ELSE (''IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] = '' + SPACE(1) + '''''''' + [name] + '''''''' + '') BEGIN CREATE USER '' + SPACE(1) + QUOTENAME([name]) + '' FOR LOGIN '' + QUOTENAME(suser_sname([sid])) + '' WITH DEFAULT_SCHEMA = '' + QUOTENAME(ISNULL([default_schema_name], ''dbo'')) + SPACE(1) + ''END; '') 
                   END AS [-- SQL STATEMENTS --],
                   3.1 AS [-- RESULT ORDER HOLDER --]
       FROM  sys.database_principals AS rm
-      WHERE [type] IN (''U'',''G'') and [name] not in  (''GUEST'',''INFORMATION_SCHEMA'',''sys'')/* windows users, sql users, windows groups */')
+      WHERE [type] IN (''U'', ''S'', ''G'') and [name] != ''GUEST''/* windows users, sql users, windows groups */')
 
 ELSE IF ((SELECT SUBSTRING(convert(sysname, SERVERPROPERTY('productversion')), 1, charindex('.',convert(sysname, SERVERPROPERTY('productversion')))-1)) IN (9,10))
 EXEC ('
 INSERT INTO ##tbl_db_principals_statements (stmt, result_order)
-      SELECT      (''IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] = '' + SPACE(1) + '''''''' + [name] + '''''''' + '') BEGIN CREATE USER'' + SPACE(1) + QUOTENAME([name]) + '' FOR LOGIN '' + QUOTENAME([name]) + '' WITH DEFAULT_SCHEMA = '' + QUOTENAME(ISNULL([default_schema_name], ''dbo'')) + SPACE(1) + ''END; '') AS [-- SQL STATEMENTS --],
+      SELECT      (''IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] = '' + SPACE(1) + '''''''' + [name] + '''''''' + '') BEGIN CREATE USER '' + SPACE(1) + QUOTENAME([name]) + '' FOR LOGIN '' + QUOTENAME(suser_sname([sid])) + '' WITH DEFAULT_SCHEMA = '' + QUOTENAME(ISNULL([default_schema_name], ''dbo'')) + SPACE(1) + ''END; '') AS [-- SQL STATEMENTS --],
                   3.1 AS [-- RESULT ORDER HOLDER --]
       FROM  sys.database_principals AS rm
-      WHERE [type] IN (''U'',''G'') and [name]  not in  (''GUEST'',''INFORMATION_SCHEMA'',''sys'')/* windows users, sql users, windows groups */')
-
+      WHERE [type] IN (''U'', ''S'', ''G'') /* windows users, sql users, windows groups */')
 
 --SELECT * FROM ##tbl_db_principals_statements
---SELECT * FROM ##tbl_db_principals_statements_2
+
+
+
 
 DECLARE 
     @sql VARCHAR(2048)
@@ -72,15 +41,15 @@ DECLARE tmp CURSOR FOR
 /*********   DB CONTEXT STATEMENT    *********/
 /*********************************************/
 SELECT '-- [-- DB CONTEXT --] --' AS [-- SQL STATEMENTS --],
-            0 AS [-- RESULT ORDER HOLDER --]
+            1 AS [-- RESULT ORDER HOLDER --]
 UNION
 SELECT      'USE' + SPACE(1) + QUOTENAME(DB_NAME()) AS [-- SQL STATEMENTS --],
-            0.1 AS [-- RESULT ORDER HOLDER --]
+            1.1 AS [-- RESULT ORDER HOLDER --]
 
 UNION
 
 SELECT '' AS [-- SQL STATEMENTS --],
-            1 AS [-- RESULT ORDER HOLDER --]
+            2 AS [-- RESULT ORDER HOLDER --]
 
 UNION
 
@@ -88,23 +57,10 @@ UNION
 /*********     DB USER CREATION      *********/
 /*********************************************/
 
-      SELECT '-- [-- SQL LOGINS --] --' AS [-- SQL STATEMENTS --],
-                  2 AS [-- RESULT ORDER HOLDER --]
-      UNION
-	  
-      SELECT      
-            [stmt],
-                  2.1 AS [-- RESULT ORDER HOLDER --]
-      FROM  ##tbl_db_principals_statements_2
-      --WHERE [type] IN ('U', 'S', 'G') -- windows users, sql users, windows groups
-      WHERE [stmt] IS NOT NULL
-	  UNION
-
-
-	  
       SELECT '-- [-- DB USERS --] --' AS [-- SQL STATEMENTS --],
                   3 AS [-- RESULT ORDER HOLDER --]
       UNION
+
       SELECT      
             [stmt],
                   3.1 AS [-- RESULT ORDER HOLDER --]
@@ -324,6 +280,4 @@ CLOSE tmp
 DEALLOCATE tmp 
 
 DROP TABLE ##tbl_db_principals_statements
-DROP TABLE ##tbl_db_principals_statements_2
-
 

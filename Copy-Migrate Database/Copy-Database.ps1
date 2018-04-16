@@ -110,7 +110,7 @@ try{
 ############################################################################################
 Write-Host "###################################    Migrating logins and fixing of orphan users  #################################################" 
 try{
-    # For SQL Orphan Users
+    # For Windows/SQL Orphan Users
     $object = Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DatabaseName
     $users = $object.user
     $count = $users.count
@@ -125,14 +125,14 @@ try{
     }
 
     # For Windows Orphan Users
-    try{
-        Invoke-Sqlcmd -InputFile "$PSScriptRoot\Windows_Orphan_Fix.sql" -serverinstance $DestinationServer -database $DatabaseName -Verbose 
-    }catch{
-        Write-Error "Couldn't fix Windows Orphaned Users. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
-    }
-
-    Write-Host "Fixed both SQL and Windows Orphan Users!" -BackgroundColor Green
-    Write-Host "End of Migration: Successfully copied $DatabaseName from $SourceServer to $DestinationServer and reapplied required permissions."
+    #try{
+    #    Invoke-Sqlcmd -InputFile "$PSScriptRoot\Windows_Orphan_Fix.sql" -serverinstance $DestinationServer -database $DatabaseName -Verbose 
+    #}catch{
+    #    Write-Error "Couldn't fix Windows Orphaned Users. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop
+    #}
+    #
+    #Write-Host "Fixed both SQL and Windows Orphan Users!" -BackgroundColor Green
+    #Write-Host "End of Migration: Successfully copied $DatabaseName from $SourceServer to $DestinationServer and reapplied required permissions."
 }catch{
     Write-Error "Error: Couldn't repair orphan users. Make sure you have installed dbatools before trying again. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot! $_.Exception.Message" -ErrorAction Stop            
 }
@@ -141,7 +141,7 @@ try{
 
 try{
     Write-Host "#################################################      Removing all previous backups of $DatabaseName done for backups older than $daysToStoreBackups days #################################################" 
-    gci "$backupDirectory\*$DestDatabaseName*_CYA.bak" -Recurse |? { $_.lastwritetime -le (Get-Date).AddDays(-$daysToStoreBackups)} |% {Remove-Item $_ -force }  
+    gci "$backupDirectory\*$SourceServer*.bak" -Recurse |? { $_.lastwritetime -le (Get-Date).AddDays(-$daysToStoreBackups)} |% {Remove-Item $_ -force }  
 }catch{
     Write-Error "Couldn't remove older backups of $DestDatabaseName from $backupDirectory. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot! $_.Exception.Message" -ErrorAction Stop
 }
