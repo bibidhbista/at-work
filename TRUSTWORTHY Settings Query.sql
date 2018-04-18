@@ -21,7 +21,7 @@ INNER JOIN sys.server_principals p ON
 p.principal_id = m.member_principal_id
 inner join sys.databases d on suser_sname(d.owner_sid) = p.name
 WHERE is_trustworthy_on = 1
--- AND d.name NOT IN ('MSDB') and r.type = 'R' and r.name = N'sysadmin'
+ AND d.name NOT IN ('MSDB') and r.type = 'R' and r.name = N'sysadmin'
 
 
 ALTER DATABASE Products_Interface SET TRUSTWORTHY ON

@@ -51,7 +51,7 @@ if (($DestEnv -eq "p") -and ($SourceEnv -ne "p")){
     Write-Error "Environment Mismatch! Can only migrate to lower environment" -ErrorAction Stop
 }
 
-$backupDirectory = "\\pfs02\sqlbackup\dbatools_staging\For_Migration\$SourceServer`_to_$DestinationServer\$SourceDatabaseName"
+$backupDirectory = "\\pfs02\sqlbackup\dbatools_staging\For_Migration\$SourceServer`_to_$DestinationServer\$DatabaseName"
 md $backupDirectory -Force|Out-Null
 $daysToStoreBackups= 7
 

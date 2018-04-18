@@ -191,7 +191,7 @@ try{
     if($count -gt 0){
        Write-Host "Following SQL Orphan User(s) were fixed: " -BackgroundColor Green
        #foreach($user in $users){
-               Copy-DbaLogin -Source $SourceServer -Destination tfhlbdmsql12 -Login $user # Migrates Logins with password so they don't have to be reentered for SQL Logins
+              # Copy-DbaLogin -Source $SourceServer -Destination tfhlbdmsql12  -Login $user # Migrates Logins with password so they don't have to be reentered for SQL Logins
        #}
         Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DatabaseName -Verbose|ft -AutoSize
     }
