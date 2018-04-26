@@ -5,7 +5,7 @@
 
 
 
-$ServerName = 'dsqlhub','tsqlhub','usqlhub'#,'psqlhub'#,'pfhlbdmsql12'
+$ServerName = 'pfhlbdmsql08'#'dsqlhub','tsqlhub','usqlhub'#,'psqlhub'#,'pfhlbdmsql12'
 $sp10 ="                  "
 $gb = " GB"
 #Command

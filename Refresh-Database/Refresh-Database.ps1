@@ -183,7 +183,7 @@ try{
 Write-Host "###################################    Migrating logins and fixing of orphan users  #################################################" 
 try{
     # For Windows/SQL Orphan Users
-    $object = Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DatabaseName
+    $object = Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DestDatabaseName
     $users = $object.user
     $count = $users.count
 
@@ -193,7 +193,7 @@ try{
        #foreach($user in $users){
               # Copy-DbaLogin -Source $SourceServer -Destination tfhlbdmsql12  -Login $user # Migrates Logins with password so they don't have to be reentered for SQL Logins
        #}
-        Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DatabaseName -Verbose|ft -AutoSize
+        Repair-DbaOrphanUser -SqlInstance $DestinationServer -Database $DestDatabaseName -Verbose|ft -AutoSize
     }
 
     # For Windows Orphan Users

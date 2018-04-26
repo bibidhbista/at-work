@@ -174,13 +174,13 @@ md "$currentFolder\Report Backup" -Force |Out-Null
        
 #cURL from the GitLab Url to a local path for staging the report
 Write-Host "***** Downloading raw file $reportName from $gitLabPath to $StagingPath *****`n"
-$cURLEXEPath = "`"C:\Program Files\Git\mingw64\bin\curl.exe`""                            #"C:\Users\$currentUser\AppData\Local\Programs\Git\mingw64\bin\"
+$cURLEXEPath = "$currentFolder\curl.exe"                            #"C:\Users\$currentUser\AppData\Local\Programs\Git\mingw64\bin\"
 $curlParam =" --header `"PRIVATE-TOKEN: $token`" `"$gitLabPath`" -o `"$StagingPath$reportname`"`""
 
 #$cURLEXEPath+=$curlParam
-
+echo "$cURLEXEPath --header ""PRIVATE-TOKEN: $token"" ""$gitLabPath"" -o ""$StagingPath$reportname""" 
 try{
-    .$cURLEXEPath --header "PRIVATE-TOKEN: $token" "$gitLabPath" -o "$StagingPath\$reportname" 
+    .$cURLEXEPath --header "PRIVATE-TOKEN: $token" "$gitLabPath" -o "$StagingPath$reportname" 
 }
 catch{
     Write-Error "Failed to download the raw file. Couldn't cURL from $gitLabPath to $StagingPath.`n$ErrorMessage`n`nMake sure you have sufficient permissions." -ErrorAction Stop

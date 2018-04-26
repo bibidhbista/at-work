@@ -1,5 +1,5 @@
 ﻿$DBNames= gc $PSScriptRoot\DBNames.txt
-$ServerName = 'Tfhlbdmsql07'
+$ServerName = 'Ufhlbdmsql07'
 Start-Transcript "$PSScriptRoot\MultipleDB_Dropped_$ServerName.log"
 
 # backup up
