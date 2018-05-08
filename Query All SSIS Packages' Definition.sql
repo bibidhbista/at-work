@@ -51,3 +51,8 @@ FROM msdb.dbo.sysssispackages AS PCK
      LEFT JOIN sys.syslogins AS LG 
          ON PCK.ownersid = LG.sid 
 ORDER BY PCK.name;
+
+
+
+
+SELECT * FROM msdb..sysssispackages WHERE name LIKE '%principia_download%'
