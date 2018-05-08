@@ -1,0 +1,30 @@
+execution plans
+		live query stats
+		remedy parameter sniffing with OPTION Recompile variations for stored procs for better cached plan
+		shoot for higher ple(page life expectancy)
+Instant File initialization through group policy for non-zeroing data files (*doesn't work on log files cuz they must be zeroed first)
+sp_deletebackuphistory: deltes old bak hist from msdb db
+right tempdb init sizing
+				--10% of the total size of databases greater than 1TB
+				--15% of the total size of databases greater than 100GB and less than 1TB
+				--25% of the total size of databases greater less than 100GB
+				datafiles ~ num of cores upto 8
+				VLF sizing ~ 16vlf for temp file>1gb
+sch maint jobs
+log truncation/backup for FULL: only backedup at a CHECKPOINT or log backup to preserve the backup chain (*LSN/minLSN)
+group permissions: least privilege perm
+ola/monitoring: alerts/indexfrag/statistics out of date
+fill factor for preventing page splits
+				not needed for tables where data is usually inserted at the end of the index
+dbo is setup correctly: ownership chaining doesn't work otherwise: easily done through dbatools test-dbaowner|set owner
+page compression for older cold data partiotions (can only be done w partitioned tables)
+RAISERROR is run with a severity of 11 or higher in a TRY block, it transfers control to the associated CATCH block.
+job owner is not a 'person' 'individual' login (test-dbajobowner)
+check how frequently auto growth is occuring (find-dbadatabasegrowthevent)
+check for duplicate/ineff indexes(find-dbaduplicateindexes)
+
+model: "model"db for future databases. 
+master: all of the logins, linked servers, endpoints, and other system-wide configuration settings. 
+msdb is used by the SQL Server Agent, database mail, Service Broker, and other services.
+tempdb: temp activities, sorting, joins, temp tables, ****TEMPDB SPILL: after the data being manipulated is more than the buffer size allowed for sql server
+ SQL SERVER doesn't read/write to disk directly (does it through buffer). Log files are written to disk only after a COMMIT.
