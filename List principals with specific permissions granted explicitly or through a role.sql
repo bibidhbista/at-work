@@ -1,3 +1,15 @@
+-- HAS PERMS CHECK for the current account or a specific account
+
+--EXECUTE AS LOGIN = 'AccountNameHere';
+DECLARE @RESULT INT;
+SET @RESULT = HAS_PERMS_BY_NAME(NULL, NULL,'ALTER ANY EVENT SESSION');
+SELECT CASE WHEN @RESULT='1' THEN 'YES'
+ELSE 'NO'
+END
+AS [hasPermissions?];
+--REVERT;
+
+
 -- change the specific permissions names to find out principals with specific rights
 SELECT
         'Owner-is-Principal'  AS [Type-That-Owns-Permission],
