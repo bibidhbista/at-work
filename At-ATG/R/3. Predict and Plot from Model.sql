@@ -52,11 +52,11 @@ select abs(checksum(NEWID()))
 
 select * from HugeTableofCarSpeeds
 
-DECLARE @speedmodel varbinary(max) = (select model from [dbo].[stopping_distance_models] where model_name = 'latest model');
+DECLARE @speedmodel_sql varbinary(max) = (select model from [dbo].[stopping_distance_models] where model_name = 'latest model');
 EXEC sp_execute_external_script
     @language = N'R'
     , @script = N'
-            current_model <- unserialize(as.raw(speedmodel));
+            current_model <- unserialize(as.raw(speedmodel_rvar));
             new <- data.frame(NewCarData);
             predicted.distance <- rxPredict(current_model, new);
             OutputDataSet <- cbind(new, ceiling(predicted.distance));
@@ -64,6 +64,25 @@ EXEC sp_execute_external_script
     , @input_data_1 = N'SELECT [speed] FROM [dbo].[HugeTableofCarSpeeds]'
     , @input_data_1_name = N'NewCarData'
     , @parallel = 1
-    , @params = N'@speedmodel varbinary(max)'
-    , @speedmodel = @speedmodel
-WITH RESULT SETS (([new_speed] float, [predicted_distance] float))
+    , @params = N'@speedmodel_rvar varbinary(max)'
+    , @speedmodel_rvar = @speedmodel_sql
+WITH RESULT SETS (([new_speed] int, [predicted_distance] int))
+
+
+
+-- Create an R plot of the model
+SELECT * from CarSpeed
+EXECUTE sp_execute_external_script
+ @language = N'R'
+ , @script = N'
+     imageDir <- ''C:\\RPlot'';
+     image_filename = tempfile(pattern = "plot_", tmpdir = imageDir, fileext = ".jpg")
+     print(image_filename);
+     jpeg(filename=image_filename,  width=600, height = 800);
+     print(plot(distance~speed, data=InputDataSet, xlab="Speed", ylab="Stopping distance", main = "1920 Car Safety"));
+     abline(lm(distance~speed, data = InputDataSet));
+     dev.off();
+     OutputDataSet <- data.frame(data=readBin(file(image_filename, "rb"), what=raw(), n=1e6));
+     '
+  , @input_data_1 = N'SELECT speed, distance from [dbo].[CarSpeed]'
+  WITH RESULT SETS ((plot varbinary(max)));

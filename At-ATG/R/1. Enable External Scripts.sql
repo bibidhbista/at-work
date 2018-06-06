@@ -8,3 +8,6 @@ EXEC sp_execute_external_script
   @input_data_1 =N'SELECT 1 AS hello'
   WITH RESULT SETS (([hello] int not null));
 GO
+
+
+exec sp_helptext 'sp_execute_external_script'
