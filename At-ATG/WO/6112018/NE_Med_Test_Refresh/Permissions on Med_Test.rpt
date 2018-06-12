@@ -1,0 +1,103 @@
+﻿-- [-- DB CONTEXT --] --
+USE [NE_Medical_Test]
+ 
+-- [-- SQL LOGINS --] --
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('ATG\brentm')) BEGIN CREATE LOGIN [ATG\brentm] FROM WINDOWS END;
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('ATG\Dath')) BEGIN CREATE LOGIN [ATG\Dath] FROM WINDOWS END;
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('ATG\KateK')) BEGIN CREATE LOGIN [ATG\KateK] FROM WINDOWS END;
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('ATG\ldap')) BEGIN CREATE LOGIN [ATG\ldap] FROM WINDOWS END;
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('ATG\MikeL')) BEGIN CREATE LOGIN [ATG\MikeL] FROM WINDOWS END;
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('ATG\nemed')) BEGIN CREATE LOGIN [ATG\nemed] FROM WINDOWS END;
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('atg\PrashantK')) BEGIN CREATE LOGIN [atg\PrashantK] FROM WINDOWS END;
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('ATG\quangd')) BEGIN CREATE LOGIN [ATG\quangd] FROM WINDOWS END;
+IF NOT EXISTS (SELECT [NAME] FROM SYS.SYSLOGINS WHERE sid=SUSER_SID('atg\SeleneL')) BEGIN CREATE LOGIN [atg\SeleneL] FROM WINDOWS END;
+-- [-- DB USERS --] --
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'ATG\brentm') BEGIN CREATE USER [ATG\brentm] FOR LOGIN [ATG\brentm] WITH DEFAULT_SCHEMA = [ATG\brentm] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'ATG\Dath') BEGIN CREATE USER [ATG\Dath] FOR LOGIN [ATG\Dath] WITH DEFAULT_SCHEMA = [ATG\Dath] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'ATG\KateK') BEGIN CREATE USER [ATG\KateK] FOR LOGIN [ATG\KateK] WITH DEFAULT_SCHEMA = [ATG\KateK] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'ATG\ldap') BEGIN CREATE USER [ATG\ldap] FOR LOGIN [ATG\ldap] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'ATG\MikeL') BEGIN CREATE USER [ATG\MikeL] FOR LOGIN [ATG\MikeL] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'ATG\nemed') BEGIN CREATE USER [ATG\nemed] FOR LOGIN [ATG\nemed] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'atg\PrashantK') BEGIN CREATE USER [atg\PrashantK] FOR LOGIN [atg\PrashantK] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'ATG\quangd') BEGIN CREATE USER [ATG\quangd] FOR LOGIN [ATG\quangd] WITH DEFAULT_SCHEMA = [ATG\quangd] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'atg\SeleneL') BEGIN CREATE USER [atg\SeleneL] FOR LOGIN [atg\SeleneL] WITH DEFAULT_SCHEMA = [atg\SeleneL] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'dbo') BEGIN CREATE USER [dbo] FOR LOGIN [dbo] WITH DEFAULT_SCHEMA = [dbo] END; 
+-- [-- ORPHANED USERS --] --
+-- [-- DB ROLES --] --
+IF NOT EXISTS(SELECT USER_NAME(p.grantee_principal_id) FROM sys.database_permissions p WHERE USER_NAME(grantee_principal_id) = 'DevTeam') BEGIN; CREATE ROLE  [DevTeam]; END;
+ 
+EXEC sp_addrolemember @rolename = 'db_datareader', @membername = 'ATG\nemed'
+EXEC sp_addrolemember @rolename = 'db_owner', @membername = 'ATGDBO'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'ATG\brentm'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'ATG\Dath'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'ATG\KateK'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'ATG\ldap'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'ATG\MikeL'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'ATG\nemed'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'atg\PrashantK'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'ATG\quangd'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'atg\SeleneL'
+EXEC sp_addrolemember @rolename = 'DevTeam', @membername = 'NE_Medical_User'
+ 
+-- [-- OBJECT LEVEL PERMISSIONS --] --
+GRANT DELETE ON [dbo].[FNHistory] TO [DevTeam]
+GRANT DELETE ON [dbo].[SPHistory] TO [DevTeam]
+GRANT DELETE ON [dbo].[VWHistory] TO [DevTeam]
+GRANT DELETE ON [sys].[sysclones] TO [DevTeam]
+GRANT DELETE ON [sys].[sysrowsets] TO [DevTeam]
+GRANT EXECUTE ON [dbo].[Admin_GrantExecPermsCreatedToday] TO [NE_Medical_User]
+GRANT EXECUTE ON [dbo].[Admin_GrantViewPermsCreatedToday] TO [NE_Medical_User]
+GRANT EXECUTE ON [dbo].[Admin_PermsCreatedToday] TO [NE_Medical_User]
+GRANT EXECUTE ON [dbo].[Admin_RevokePermsToAdminSPs] TO [NE_Medical_User]
+GRANT EXECUTE ON [dbo].[Dev_DropExtendedProperty] TO [DevTeam]
+GRANT EXECUTE ON [dbo].[Dev_ListExtendedProperties] TO [DevTeam]
+GRANT EXECUTE ON [dbo].[Dev_SetExtendedProperty] TO [DevTeam]
+GRANT EXECUTE ON [dbo].[Documents_GetNextCounter_s] TO [DevTeam]
+GRANT EXECUTE ON [dbo].[Documents_GetNextCounter_s] TO [NE_Medical_User]
+GRANT EXECUTE ON [dbo].[Documents_i] TO [DevTeam]
+GRANT EXECUTE ON [dbo].[Documents_i] TO [NE_Medical_User]
+GRANT EXECUTE ON [dbo].[Documents_s] TO [DevTeam]
+GRANT EXECUTE ON [dbo].[Documents_s] TO [NE_Medical_User]
+GRANT INSERT ON [dbo].[FNHistory] TO [DevTeam]
+GRANT INSERT ON [dbo].[SPHistory] TO [DevTeam]
+GRANT INSERT ON [dbo].[VWHistory] TO [DevTeam]
+GRANT INSERT ON [sys].[sysclones] TO [DevTeam]
+GRANT INSERT ON [sys].[sysrowsets] TO [DevTeam]
+GRANT SELECT ON [dbo].[FNHistory] TO [DevTeam]
+GRANT SELECT ON [dbo].[SPHistory] TO [DevTeam]
+GRANT SELECT ON [dbo].[VWHistory] TO [DevTeam]
+GRANT SELECT ON [sys].[sysclones] TO [DevTeam]
+GRANT SELECT ON [sys].[sysrowsets] TO [DevTeam]
+GRANT UPDATE ON [dbo].[FNHistory] TO [DevTeam]
+GRANT UPDATE ON [dbo].[SPHistory] TO [DevTeam]
+GRANT UPDATE ON [dbo].[VWHistory] TO [DevTeam]
+GRANT UPDATE ON [sys].[sysclones] TO [DevTeam]
+GRANT UPDATE ON [sys].[sysrowsets] TO [DevTeam]
+GRANT VIEW DEFINITION ON [sys].[sysclones] TO [DevTeam]
+GRANT VIEW DEFINITION ON [sys].[sysrowsets] TO [DevTeam]
+-- [-- TYPE LEVEL PERMISSIONS --] --
+ 
+-- [--DB LEVEL PERMISSIONS --] --
+GRANT CONNECT TO [ATG\brentm]
+GRANT CONNECT TO [ATG\Dath]
+GRANT CONNECT TO [ATG\KateK]
+GRANT CONNECT TO [ATG\ldap]
+GRANT CONNECT TO [ATG\MikeL]
+GRANT CONNECT TO [ATG\nemed]
+GRANT CONNECT TO [atg\PrashantK]
+GRANT CONNECT TO [ATG\quangd]
+GRANT CONNECT TO [atg\SeleneL]
+GRANT CONNECT TO [ATGDBO]
+GRANT CONNECT TO [NE_Medical_User]
+ 
+-- [--DB LEVEL SCHEMA PERMISSIONS --] --
+GRANT DELETE ON SCHEMA::[Med] TO [DevTeam]
+GRANT DELETE ON SCHEMA::[Pharm] TO [DevTeam]
+GRANT INSERT ON SCHEMA::[Med] TO [DevTeam]
+GRANT INSERT ON SCHEMA::[Pharm] TO [DevTeam]
+GRANT SELECT ON SCHEMA::[Med] TO [DevTeam]
+GRANT SELECT ON SCHEMA::[Pharm] TO [DevTeam]
+GRANT UPDATE ON SCHEMA::[Med] TO [DevTeam]
+GRANT UPDATE ON SCHEMA::[Pharm] TO [DevTeam]
+GRANT VIEW DEFINITION ON SCHEMA::[Med] TO [DevTeam]
+GRANT VIEW DEFINITION ON SCHEMA::[Pharm] TO [DevTeam]
