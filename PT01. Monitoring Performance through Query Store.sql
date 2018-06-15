@@ -15,4 +15,10 @@ INNER JOIN sys.query_store_query_text AS Txt
 
 
 -- Go to query store folder in the database to monitor performance
+-- Select Regressed Queries to open the Regressed Queries pane in Management Studio. The Regressed Queries pane shows you the queries and plans in the query store.
+
+exec sp_spaceused
+ 
+
+select * from sys.databases
 

@@ -21,7 +21,7 @@ library("RevoScaleR")
 
 # define necessary connection string to talk to the SQL Server
 connStr <- "Driver=SQL Server;Server=.;Database=DeepDive;Trusted_Connection=Yes"
-sqlShareDir <- paste("C:\\AllShare\\",Sys.getenv("USERNAME"),sep="")
+sqlShareDir <- paste("C:\\AllShare\\", Sys.getenv("USERNAME"),sep="")
 sqlWait <- TRUE
 sqlConsoleOutput <- FALSE
 
@@ -33,7 +33,7 @@ sqlcc <- RxInSqlServer(connectionString = connStr, shareDir = sqlShareDir, wait 
 rxSetComputeContext(sqlcc)
 
 # Query for generating a data source
-bigQuery <- "SELECT tipped, fare_amount, passenger_count,trip_time_in_secs,trip_distance, pickup_datetime, dropoff_datetime,  pickup_latitude, pickup_longitude,  dropoff_latitude, dropoff_longitude FROM nyctaxi_sample";
+bigQuery <- "SELECT tipped, fare_amount, passenger_count,trip_time_in_secs,trip_distance, pickup_datetime, dropoff_datetime,  pickup_latitude, pickup_longitude,  dropoff_latitude, dropoff_longitude FROM NewFeatureTable";
 
 
 
@@ -74,7 +74,6 @@ rxSetComputeContext("local");
 start.time <- proc.time();
 
 
-
 # Transformation of the incoming data source using the above defined user function
 
 sql_feature_ds <- rxDataStep(inData = featureDataSource,
@@ -84,7 +83,8 @@ sql_feature_ds <- rxDataStep(inData = featureDataSource,
                                            #pickup_datetime = "pickup_datetime",  dropoff_datetime = "dropoff_datetime"),
                          transformEnvir = env,
                          rowsPerRead=500,
-                         reportProgress = 3);
+                         reportProgress = 3,
+                         maxRowsByCols = 3000000);
 #sql_feature_ds[sql_feature_ds$fare_amount < sql_feature_ds$fare_amount]
 str(sql_feature_ds)
 used.time <- proc.time() - start.time;
@@ -100,7 +100,8 @@ print(paste("It takes CPU Time=", round(used.time[1]+used.time[2],2)," seconds, 
 # Now using the same data source for building a model
 
 
-(logitObj <- rxLogit(tipped ~ passenger_count + trip_distance + trip_time_in_secs + direct_distance, data = sql_feature_ds));
+system.time(logitObj <- rxLogit(tipped ~ passenger_count + trip_distance + trip_time_in_secs + direct_distance, 
+                                data = sql_feature_ds));
 
 
 summary(logitObj);
