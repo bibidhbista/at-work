@@ -1,6 +1,13 @@
 ﻿[void] [System.Reflection.Assembly]::LoadWithPartialName("'System.Windows.Forms")
 [void] [System.Reflection.Assembly]::LoadWithPartialName("'Microsoft.VisualBasic")
 
+#create COM object named Outlook 
+$Outlook = New-Object -ComObject Outlook.Application 
+#create Outlook MailItem named Mail using CreateItem() method 
+$Mail = $Outlook.CreateItem(0) 
+#add properties as desired 
+$Mail.To = "bibidh.bista@selu.edu" 
+ 
 
 cls
 $caseNum = 'ysc1890187642'
@@ -23,27 +30,43 @@ while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
 
 $Doc = $ie.Document.body
 $result = $Doc.getElementsByClassName("rows text-center")[0].innerHTML
-
+$date = get-date -Format 'mm-dd-yyyy'
 If($result.Contains("<h1>Case Was Received</h1>"))
 {
-        $wshell = New-Object -ComObject Wscript.Shell
-
-        $wshell.Popup("It's been recieved!",0,":/",0x1)
+    if((get-date -Format 'dd')%7 -eq 0){
+        $Mail.Subject = "Case is still marked recieved on $date"
+        $Mail.Body = $result
+        #send message 
+        $Mail.Send() 
+        #quit and cleanup 
+        #$Outlook.Quit() 
+        
+        #$wshell = New-Object -ComObject Wscript.Shell
+        #
+        #$wshell.Popup("It's been recieved!",0,":/",0x1)
+        
 
         #Write-Host -ForegroundColor Yellow "It's been recieved!";
+        }
 }
 else
 {
-        $wshell = New-Object -ComObject Wscript.Shell
+        #$wshell = New-Object -ComObject Wscript.Shell
+        #
+        #$wshell.Popup("It's been APPROVED!",0,":D",0x1)
 
-        $wshell.Popup("It's been APPROVED!",0,":D",0x1)
+        $Mail.Subject = "!! Case Was APPROVED !!"
+        $Mail.Body = $result
+        #send message 
+        $Mail.Send() 
+        #quit and cleanup 
+        #$Outlook.Quit() 
+        
 
         #Write-Host -ForegroundColor Green "It's been APPROVEDD!!";
 }
 
-
-
-
+[System.Runtime.Interopservices.Marshal]::ReleaseComObject($Outlook) | Out-Null
 
 #choose shop
 #($ie.document.getElementsByName("shop") |select -first 1).value = $shopID;

@@ -13,13 +13,13 @@ Create table ##gTable ([count] int);
 
 
 -- keyword lookup
-Set @searchString ='dmoptions'
+Set @searchString ='LocationAddressRange'
 Set @searchStringXType ='U'     -- change this to P for stored proc, U for User Table, V for view, FN Function, IF
 
 
 -- only display non-empty results 
 SELECT @command =	'USE ?; DECLARE @count int; 
-					IF EXISTS (SELECT ''?ca'' as [Database Name],name as [Table Name] FROM sysobjects WHERE xtype = '''+@searchStringXType+''' and name like ''%'+@searchString+'%'')
+					IF EXISTS (SELECT ''?'' as [Database Name],name as [Table Name] FROM sysobjects WHERE xtype = '''+@searchStringXType+''' and name like ''%'+@searchString+'%'')
 					BEGIN
 						insert into ##gTable values (''1'')
 						SELECT ''?'' as [Database Name],name as [Table Name] FROM sysobjects WHERE xtype = '''+@searchStringXType+'''and name like ''%'+@searchString+'%''
