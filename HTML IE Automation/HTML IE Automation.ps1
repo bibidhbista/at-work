@@ -12,7 +12,7 @@ $Mail.To = "bibidh.bista@selu.edu"
 cls
 $caseNum = 'ysc1890187642'
 $url = "https://egov.uscis.gov/casestatus/landing.do";
-
+$emoji = ":D"
 #initialize browser
 $ie = New-Object -com internetexplorer.application;
 $ie.visible = $false;
@@ -33,40 +33,37 @@ $result = $Doc.getElementsByClassName("rows text-center")[0].innerHTML
 $date = get-date -Format 'mm-dd-yyyy'
 If($result.Contains("<h1>Case Was Received</h1>"))
 {
+    $emoji=':/'
     if((get-date -Format 'dd')%7 -eq 0){
         $Mail.Subject = "Case is still marked recieved on $date"
         $Mail.Body = $result
         #send message 
         $Mail.Send() 
-        #quit and cleanup 
-        #$Outlook.Quit() 
         
         #$wshell = New-Object -ComObject Wscript.Shell
-        #
         #$wshell.Popup("It's been recieved!",0,":/",0x1)
-        
-
         #Write-Host -ForegroundColor Yellow "It's been recieved!";
         }
 }
 else
 {
-        #$wshell = New-Object -ComObject Wscript.Shell
-        #
-        #$wshell.Popup("It's been APPROVED!",0,":D",0x1)
-
         $Mail.Subject = "!! Case Was APPROVED !!"
         $Mail.Body = $result
         #send message 
         $Mail.Send() 
-        #quit and cleanup 
-        #$Outlook.Quit() 
         
-
+        #$wshell = New-Object -ComObject Wscript.Shell
+        #$wshell.Popup("It's been APPROVED!",0,":D",0x1)
         #Write-Host -ForegroundColor Green "It's been APPROVEDD!!";
 }
 
 [System.Runtime.Interopservices.Marshal]::ReleaseComObject($Outlook) | Out-Null
+
+
+$wshell = New-Object -ComObject Wscript.Shell
+$wshell.Popup("$emoji",0,$emoji,0x1)
+
+
 
 #choose shop
 #($ie.document.getElementsByName("shop") |select -first 1).value = $shopID;

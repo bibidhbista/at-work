@@ -100,3 +100,9 @@ insert into admCounters values ('Greeshma_dmTrainingRegions',50000);
 insert into admCounters values ('Greeshma_dmTrainingRegions_H',50000);
 insert into admCounters values ('Greeshma_TraningCompanies',50000);
 insert into admCounters values ('Greeshma_TraningCompanies_H',50000);
+
+
+
+
+-- Grant Permissions to the newly created objects to the devteam
+EXEC Admin_GrantAllPermissions 'DevTeam'

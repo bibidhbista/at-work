@@ -22,7 +22,7 @@ USE [msdb]
 GO
 
 /****** Object:  Operator [ATG DBA Alert]    Script Date: 6/19/2018 10:56:11 AM ******/
-EXEC msdb.dbo.sp_add_operator @name=@OperatorName, 
+EXEC msdb.dbo.sp_add_operator @name= @OperatorName, 
 		@enabled=1, 
 		@weekday_pager_start_time=70000, 
 		@weekday_pager_end_time=180000, 
@@ -350,9 +350,9 @@ GO
 
 
 -- Use DB Mail Profile
-USE [msdb]
-GO
-EXEC msdb.dbo.sp_set_sqlagent_properties @email_save_in_sent_folder=1, 
-		@databasemail_profile=N'ATG DBA - ATGDSMSQ14'
-GO
+--USE [msdb]
+--GO
+--EXEC msdb.dbo.sp_set_sqlagent_properties @email_save_in_sent_folder=1, 
+--		@databasemail_profile=N'ATG DBA - ATGDSMSQ14'
+--GO
 
