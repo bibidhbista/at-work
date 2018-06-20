@@ -1,6 +1,6 @@
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+$date = get-date -Format "MMddyyyy"
 cd $PSScriptRoot
 git add *
-$commitMessage=Read-host
-git commit -m "$commitMessage"
+git commit -m "Weekly Commit_$date"
 git push
