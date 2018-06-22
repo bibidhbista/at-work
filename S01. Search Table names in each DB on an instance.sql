@@ -8,12 +8,11 @@ DECLARE @command varchar(1000)
 DECLARE @searchString varchar(100) 
 DECLARE @searchStringXType varchar(100) 
 
-
 Create table ##gTable ([count] int);
 
 
 -- keyword lookup
-Set @searchString ='LocationAddressRange'
+Set @searchString ='shut'
 Set @searchStringXType ='U'     -- change this to P for stored proc, U for User Table, V for view, FN Function, IF
 
 
