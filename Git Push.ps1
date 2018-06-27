@@ -1,6 +1,6 @@
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+#Set-ExecutionPolicy -ExecutionPolicy Unrestricted
 cd $PSScriptRoot
 git add *
-$commitMessage=Read-host
+$commitMessage=Read-host("Enter message for commit: ")
 git commit -m "$commitMessage"
 git push
