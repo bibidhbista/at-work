@@ -3,6 +3,7 @@
 # List of servers to run the fatal error check
 $Servers ='atgdsmsq14','.\'
 
+
 $Code = {
     param ($init)
     $start = Get-Date
@@ -45,7 +46,10 @@ $Code = {
                     $class.value = 'alert'
                     $html.table.tr[$i].childnodes[3].attributes.append($class) | out-null
               }
-            }}
+            }
+                 $count = $count -1
+                 $fragments+="<h5>Total record(s): $count</h5>"
+            }
             $fragments+= $html.InnerXml
             $fragments+= "<p class='footer'>Report Created on $(get-date)</p>"
 
@@ -53,7 +57,7 @@ $Code = {
             $head = @"
                  <Title>Error Log Report</Title>
                 <style>
-                body { background-color:#E5E4E2;
+                body { background-color:white;
                        font-family:Monospace;
                        font-size:10pt; }
                 td, th { border:0px solid black; 
@@ -109,7 +113,7 @@ $Code = {
     
     # For stats only
     $stop = Get-Date
-    Write-Output "Ran checks for $init in $($stop - $start)."
+    Write-Verbose "Ran checks for $init in $($stop - $start) from $start to $stop."
         }
 
 
@@ -118,5 +122,5 @@ $jobs = @()
 ($Servers) | % { $jobs += Start-Job -ArgumentList $_ -ScriptBlock $Code }
 
 Wait-Job -Job $jobs | Out-Null
-# Receive-Job $jobs
+#Receive-Job $jobs                             # Get output from background jobs
 Remove-Job $jobs
