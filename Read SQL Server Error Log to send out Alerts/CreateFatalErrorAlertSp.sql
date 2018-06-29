@@ -1,7 +1,7 @@
 USE [AMAdmin]
 GO
 
-/****** Object:  StoredProcedure [dbo].[Admin_SQL_FatalError_Alert]    Script Date: 6/27/2018 9:32:59 AM ******/
+/****** Object:  StoredProcedure [dbo].[Admin_SQL_FatalError_Alert]    Script Date: 6/28/2018 2:26:25 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,7 +9,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-Create PROCEDURE [dbo].[Admin_SQL_FatalError_Alert] @Hours [int] = NULL  
+
+CREATE PROCEDURE [dbo].[Admin_SQL_FatalError_Alert] @Hours [int] = NULL  
 AS
 	BEGIN
 		SET NOCOUNT ON;
@@ -17,7 +18,7 @@ AS
 		DECLARE @SNO INT
 		DECLARE @Hrs INT
 		DECLARE @SQLVERSION VARCHAR(4)
-		IF @Hours IS NULL  -- If the optional parameter is not passed, @Hrs value is set to 6
+		IF @Hours IS NULL  -- If the optional parameter is not passed, @Hrs value is set to 24
 			SET @Hrs = 24
 		ELSE
 			SET @Hrs = @Hours
@@ -62,6 +63,7 @@ AS
 
 			DROP TABLE #ErrorLog
 		END
+
 
 
 GO
