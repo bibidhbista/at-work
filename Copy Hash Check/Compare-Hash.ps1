@@ -10,19 +10,19 @@ $OutFilePath =  $dataset.OutFilePath
 
 # calculate current hashes
 Write-Host "Comparing $InFile_Path with $OutFilePath" -ForegroundColor Yellow
-$InFile_Hash = Get-FileHash -Path $InFilePath -Algorithm MD5
-$OutFile_Hash = Get-FileHash -Path $OutFilePath -Algorithm MD5
-
+$InFile_Hash = Get-FileHash -Path $InFilePath -Algorithm SHA256
+$OutFile_Hash = Get-FileHash -Path $OutFilePath -Algorithm SHA256
+$date =  get-date -Format "yyyy-MM-dd HH:mm:ss"
 
 # Compare them
 if ($InFile_Hash.hash -ne $OutFile_Hash.hash) {
        # Log to table as Result Failure
-       Invoke-Sqlcmd -ServerInstance $server -Database $database -Query "INSERT INTO jobfiles_hashcompare VALUES ('$InFilePath','$OutFilePath',NULL,'Mismatch')"
+       Invoke-Sqlcmd -ServerInstance $server -Database $database -Query "INSERT INTO jobfiles_hashcompare VALUES ('$InFilePath','$OutFilePath',NULL,'Mismatch','$date')"
        Write-Warning "$InFilePath and $OutFilePath hash mismatch" 
 }
 else {
         # Log to table as Result Success
-       Invoke-Sqlcmd -ServerInstance $server -Database $database -Query "INSERT INTO jobfiles_hashcompare VALUES ('$InFilePath','$OutFilePath',convert(binary,'$($InFile_Hash.hash)'),'Match')"
+       Invoke-Sqlcmd -ServerInstance $server -Database $database -Query "INSERT INTO jobfiles_hashcompare VALUES ('$InFilePath','$OutFilePath',convert(binary(64),'$($InFile_Hash.hash)'),'Match','$date')"
        Write-Host "$InFilePath and $OutFilePath hash ok" -ForegroundColor Green
 }
 

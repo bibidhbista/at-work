@@ -1,0 +1,7 @@
+W Internet:
+1. Install-Module SQLPS or Install-module SQLServer (depending on the version)
+
+
+W/o Internet:
+1. Save-module from a computer that has SQLPS
+2. Import-module after copying the saved module to the destination computer
