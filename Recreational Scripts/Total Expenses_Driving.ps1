@@ -22,11 +22,11 @@ $Expense = [Math]::Round((((($TotalMilesOneway*2))/$Mileage)*$FuelPricePerGallon
 $Time = [Math]::Round(($TotalMilesOneway/$AvgSpeed)+(($Stops/3)*(15/60)),2)
 
 # outs
-Write-Host "`nYou will be spending: " -NoNewline
+Write-Host "`nYou will be spending (for two-way): " -NoNewline
 write-host "`$$expense" -BackgroundColor darkred -NoNewline
 Write-Host " with min. of $stops stop(s) at the gas station.`nTotal Cha-chingsss per mile: " -NoNewline
 write-host "`$$PricePerMile." -BackgroundColor DarkRed -NoNewline
-Write-Host "`nYou will be spending: " -NoNewline
+Write-Host "`nWith stops  " -NoNewline
 write-host "$Time" -BackgroundColor darkred -NoNewline
 Write-Host "` hour(s) for One-Way Drive." -NoNewline
 

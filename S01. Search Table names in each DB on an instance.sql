@@ -12,7 +12,7 @@ Create table ##gTable ([count] int);
 
 
 -- keyword lookup
-Set @searchString ='shut'
+Set @searchString ='VulnDevices'
 Set @searchStringXType ='U'     -- change this to P for stored proc, U for User Table, V for view, FN Function, IF
 
 
@@ -30,7 +30,7 @@ exec sp_msforeachdb @command
 
 
 -- Returns the total number of matches for the table name in the given SQL SERVER Instance
-select count([count]) as [Total Table Name Search Matches]from ##gTable
+select count([count]) as [Total Table Name Search Matches]from ##gTable (nolock)
 
 -- Drop temp table
 drop table ##gTable
