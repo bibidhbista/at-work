@@ -10,7 +10,6 @@ $Mail.To = "bibidh.bista@selu.edu"
  
 
 cls
-$caseNum = 'ysc1890187642'
 $url = "https://www.americanmuscle.com/mustang-street-strip-mega-sweepstakes.html";
 $emoji = ":D"
 #initialize browser
@@ -30,11 +29,36 @@ while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
 ($ie.document.getElementsByName("State") |select -first 1).value = "IA";
 ($ie.document.getElementsByName("CountryCode") |select -first 1).value = "US";
 
-($ie.document.getElementsByClassName("wizard_option_btn")|? $_.textContent = '2015-2018').click();
-$ie.document.getElementsByName("AgeConfirmation").Checked = $true;
+
+$inputs=@($ie.document.getElementsByTagName("Input"))
+$AGE = $inputs|select -first 25|select -property classname, id,localname,value|ft -AutoSize
+$age|%{$_|select -first 1}
+
+$btns=@($ie.document.getElementsByTagName("button"))
+$btn = $btns|select -first 25|select -property classname, id,localname,value|ft -AutoSize
+$btn.classname
+
+#$ie.document.getElementsByClassName("main_btn").click()
+
+#$ie.document.getElementsByClassName("input") | % {
+  
+  #  if ($_.('data-id') -ne $null){
+  #      #if ($_.id.Contains($buttonIdFragment)) { $btn = $_ }
+  #      #if ($_.id.Contains($acceptTermsInputFragment)) { $at = $_ }
+  #      #if ($_.id.Contains($passwordIdFragment)) { $pwd = $_ }
+  #      #if ($_.id.Contains($userIdFragment)) { $user = $_ }
+  #      write-host $_.('data-id')
+  #  }
+#}
+#($ie.document.getElementsByClassName("wizard_option_btn")|? $_.textContent = '2015-2018').click();
+
+#$btn= $ie.document.getElementsById("confirm-age-checkbox")
+#$btn.disabled = $false
+#$btn.click()
  
  
 pause
+#{"vers":5,"VehicleID":1149639,"LastModifiedDate":"2018-07-20T09:22:28.51","VehicleType":{"uid":"1","label":"Mustang"},"Year":{"uid":"2015","label":"2015"},"Generation":{"iconUrl":"https://turn5.scene7.com/ir/render/Turn5Render/Gen_Mustang_2015_CR?&fmt=png-alpha&obj=car/no_color&obj=car/color&color=201,16,11&gloss=20","uid":"6","label":"2015-2018"},"Submodel":{"uid":"5","label":"EcoBoost"},"SubmodelGroup":{"uid":"3","label":"EcoBoost"},"Color":{"hex":"0D0E0D","gloss":36,"rgb":"13,14,13","exposure":"c.252.222.255...d..131.186...e...47...","uid":"558","label":"Black"},"Segment":[{"uid":"1000","label":"15-17 Ecoboost"},{"uid":"1003","label":"15-17 Mustang"}]}
 #($ie.document.getElementsByName("initCaseSearch") |select -first 1).click();
 #
 #while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
