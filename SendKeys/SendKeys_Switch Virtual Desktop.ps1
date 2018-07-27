@@ -50,7 +50,7 @@ $wshell = New-Object -ComObject wscript.shell;
 
 # Horizontal Position for Cursor
 $X = [System.Windows.Forms.Cursor]::Position.X
-#Write-Output "X: $X | Y: $Y"
+Write-Output "X: $X | Y: $Y"
 if(($X -ge 1200) -and ($x -le 1950)){
     $key="RIGHT"                                                    # hot corner on the right (move right)
 }elseif(($X -ge 0) -and ($X -le 1000)){
