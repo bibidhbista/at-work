@@ -1,58 +1,57 @@
-;with Columnsqry as 
-    (select name,ic.object_id,ic.index_id,is_included_column,ic.key_ordinal
-    from sys.index_columns IC,
-    sys.columns c
-    where ic.object_id=c.object_id and 
-    ic.column_id = c.column_id ), 
-    IndexQry as
-    (select I.object_id,I.index_id, 
-        (select stuff((select ',' + name as [text()] from Columnsqry q
-            where q.object_id=I.object_id
-            and q.index_id=i.index_id and q.is_included_column=0
-			order by q.key_ordinal
-            for xml path('')),1,1,'')) Keys,
-        (select stuff((select ',' + name as [text()] from Columnsqry q
-            where q.object_id=I.object_id
-            and q.index_id=i.index_id and q.is_included_column=1
-            for xml path('')),1,1,'')) Included 
-    from Columnsqry q, sys.indexes I, 
-            sys.objects o
-    where q.object_id=I.object_id
-            and q.index_id=i.index_id 
-            and o.object_id=I.object_id 
-            and O.type not in ('S','IT')
-    group by I.object_id,I.index_id)
+--;with Columnsqry as 
+--    (select name,ic.object_id,ic.index_id,is_included_column,ic.key_ordinal
+--    from sys.index_columns IC,
+--    sys.columns c
+--    where ic.object_id=c.object_id and 
+--    ic.column_id = c.column_id ), 
+--    IndexQry as
+--    (select I.object_id,I.index_id, 
+--        (select stuff((select ',' + name as [text()] from Columnsqry q
+--            where q.object_id=I.object_id
+--            and q.index_id=i.index_id and q.is_included_column=0
+--			order by q.key_ordinal
+--            for xml path('')),1,1,'')) Keys,
+--        (select stuff((select ',' + name as [text()] from Columnsqry q
+--            where q.object_id=I.object_id
+--            and q.index_id=i.index_id and q.is_included_column=1
+--            for xml path('')),1,1,'')) Included 
+--    from Columnsqry q, sys.indexes I, 
+--            sys.objects o
+--    where q.object_id=I.object_id
+--            and q.index_id=i.index_id 
+--            and o.object_id=I.object_id 
+--            and O.type not in ('S','IT')
+--    group by I.object_id,I.index_id)
 
-select 
-	'IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = ''IX_'+o.name+'_OffenderCd_LocationCd'') BEGIN Alter Table ['+o.name+'] Drop Constraint ['+I.name+
-	']; Alter Table ['+o.name+'] Add Constraint ['+I.name + '] PRIMARY KEY CLUSTERED ('+SUBSTRING( keys , LEN(keys) -  CHARINDEX(',',REVERSE(keys)) + 2  , LEN(Keys)  ) +
-	' ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100); Drop INDEX [IX_'+o.name+'_OffenderCd_LocationCd] on ['+o.name+'] '+
-	'Create NONCLUSTERED INDEX [IX_'+o.name+'_OffenderCd_LocationCd] on ['+o.name+'] (OffenderCd ASC, LocationCd ASC, '+
-	replace((substring(keys, 0,len(keys) -CHARINDEX(',', reverse(keys))+1)),',',' ASC,') +' ASC) END'--+']('
-	+replace(replace(keys,',',' ASC,'),(o.name+'ID'),'')+'ASC)',
-	o.name as [Table] ,
-       I.name as [Index],
-	   SUBSTRING( keys , LEN(keys) -  CHARINDEX(',',REVERSE(keys)) + 2  , LEN(Keys)  ) as KeyCol,
-	(LEN(keys) - LEN(REPLACE(keys, ',', ''))+1) as [NumOfColsinIndex],
-        keys,I.type_desc,is_unique,fill_factor,is_padded,--included,
-        has_filter,filter_definition
-from IndexQry IQ, Sys.objects o,sys.indexes I
+--select 
+--	'IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = ''IX_'+o.name+'_OffenderCd_LocationCd'') BEGIN Alter Table ['+o.name+'] Drop Constraint ['+I.name+
+--	']; Alter Table ['+o.name+'] Add Constraint ['+I.name + '] PRIMARY KEY CLUSTERED ('+SUBSTRING( keys , LEN(keys) -  CHARINDEX(',',REVERSE(keys)) + 2  , LEN(Keys)  ) +
+--	' ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100); Drop INDEX [IX_'+o.name+'_OffenderCd_LocationCd] on ['+o.name+'] '+
+--	'Create NONCLUSTERED INDEX [IX_'+o.name+'_OffenderCd_LocationCd] on ['+o.name+'] (OffenderCd ASC, LocationCd ASC, '+
+--	replace((substring(keys, 0,len(keys) -CHARINDEX(',', reverse(keys))+1)),',',' ASC,') +' ASC) END'--+']('
+--	--+replace(replace(keys,',',' ASC,'),(o.name+'ID'),'')+'ASC)'
+--	,o.name as [Table] ,
+--       I.name as [Index],
+--	   SUBSTRING( keys , LEN(keys) -  CHARINDEX(',',REVERSE(keys)) + 2  , LEN(Keys)  ) as KeyCol,
+--	(LEN(keys) - LEN(REPLACE(keys, ',', ''))+1) as [NumOfColsinIndex],
+--        keys,I.type_desc,is_unique,fill_factor,is_padded,--included,
+--        has_filter,filter_definition
+--from IndexQry IQ, Sys.objects o,sys.indexes I
 
-where IQ.object_id=o.object_id 
-    and IQ.object_id=I.object_id 
-    and IQ.Index_id=I.index_id
-	and Keys not like '%offendercd%'
-	--and (i.name not like '%locationcd%' and  i.name not like '%offendercd%')
-	--and fill_factor != 100
-	--and i.name  like 'pk%' 
-	--or  i.name like 'IX_%' )
-	and i.name like '%_locationcd' and i.name not like '%offendercd%'
-	--and o.name In (N'AddressPhones', N'AdministrativeSegregationReviews', N'aIaHeadInjuryLoseConsciousnessOrInComa', N'aIaRiskAssessmentCharges', N'aIaRiskReassessmentCharges', N'aLsi_rCharges', N'aLsi_rTrailerInstitution', N'aLsi_rTrailerPreRelease', N'aLsi_rTrailerProbationParole', N'aLsi_rWorkTable', N'aPsaBondReviewHearings', N'aPsaBrhPretrialDecisions', N'aPsaCharges', N'aPsaPdPretrialDecisions', N'aPsaPretrialDecisions', N'aPsychDiagnosticAxis1', N'aPsychDiagnosticAxis2', N'aSassiResultingRecommendations', N'BodyMarkingThreatGroupValidation', N'BondReviewHearingCharges', N'BondReviewHearings', N'BopBoardMemberConditions', N'BopBoardMemberDecisions', N'BopBoardMemberReasons_OLD', N'BopDecisionCaseManagerConditions', N'BopDecisionCaseManagerDecisions', N'BopDecisionConditions', N'BopDecisionReasons_OLD', N'BopEmployabilityCertificates', N'BOPReleaseSitePhones', N'BopRevocationHearingImposedConditions', N'BopRevocationHearingNotices', N'BopRevocationHearingViolatedConditions', N'BopRevocationHearingWitnessSubpoenas', N'BOPRPLDecisions', N'BOPRPLRecommendationReasons', N'CjisSoeDciToIconMessages', N'CjisSoeEmployers', N'CjisSoeIconToDciMessages', N'CjisSoeOffenderAddresses', N'CjisSoeOffenses', N'CjisSoeParentAddresses', N'CjisSoeSchools', N'CjisSoeVictims', N'ClOffenseBehaviorCodes', N'ContactPhones', N'DetainerNotificationRequests', N'DischargeReportCharges', N'ICONBopConditionMigration', N'ICONOffendersForBopConditionMigration', N'KioskOffenderLogInLog', N'NletsRequests', N'O_KioskFingerPrintTemplates', N'OffenderActivities', N'OffenderGroupLocks', N'OffenderInformationDeletes', N'OffenderUserLocks', N'RestorationOfRights', N'SentencePenalties_ProdFix', N'Sentences_ProdFix', N'TimeCompGroupAdjustments_ProdFix', N'TimeCompGroupEvents_ProdFix', N'TimeCompGroupPenalties_ProdFix', N'TimeCompGroups_ProdFix')
-	and o.name not like 'H_%'
-	and (LEN(keys) - LEN(REPLACE(keys, ',', ''))+1) >1 -- change to >1 to fix other indexes
+--where IQ.object_id=o.object_id 
+--    and IQ.object_id=I.object_id 
+--    and IQ.Index_id=I.index_id
+--	--and (i.name not like '%locationcd%' and  i.name not like '%offendercd%')
+	
+--	and i.name  like 'pk%' 
+--	--or  i.name like 'IX_%' )
+	
+--	--and o.name In (N'ICIS_COURT_ORDER_REQUESTS', N'ICIS_PSI_REQUEST', N'LocationScans', N'NonOffenderFiles')
+--	and o.name not like 'H_%'
+--	and (LEN(keys) - LEN(REPLACE(keys, ',', ''))+1) =2 -- change to >1 to fix other indexes
 	
 	
-Order by o.name asc,keys desc,type_desc asc
+--Order by o.name asc,keys desc,type_desc asc
 
 
 

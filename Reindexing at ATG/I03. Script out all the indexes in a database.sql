@@ -1,5 +1,4 @@
---ALTER TABLE ['+t.name+'] DROP CONSTRAINT [IX_'+t.name+'_OffenderCd]; 
-SELECT 'CREATE ' + 
+SELECT 'ALTER TABLE ['+t.name+'] DROP CONSTRAINT ['+i.name+']; CREATE ' + 
 			CASE WHEN I.is_unique = 1 THEN ' UNIQUE ' ELSE '' END  +  
 			I.type_desc COLLATE DATABASE_DEFAULT +' INDEX ' +   
 			I.name  + ' ON '  +  
@@ -61,17 +60,20 @@ FROM sys.indexes I
 					   --WHERE IC2.Object_id = object_id('Person.Address') --Comment for all tables   
 					   GROUP BY IC2.object_id ,IC2.index_id) tmp1   
 					   WHERE IncludedColumns IS NOT NULL 
-					   --and (IncludedColumns like '%locationcd%' and IncludedColumns like '%offendercd%')
+					   and (IncludedColumns like '%locationcd%' and IncludedColumns like '%offendercd%')
 
 					 ) tmp2    
 ON tmp2.object_id = I.object_id AND tmp2.index_id = I.index_id   
-WHERE I.is_primary_key = 0 and
+WHERE I.is_primary_key = 1 and
  t.name not like 'H_%'                                      -- change this for primary key values only if needed
- --and i.fill_factor !=100
- and i.name In (N'IX_aLsi_rTrailerInstitutional_OffenderCd', N'IX_aLsi_rTrailerPreRelease_OffenderCd', N'IX_aLsi_rTrailerProbationParole_OffenderCd', N'IX_BopBoardMemberConditions_OffenderCd', N'IX_BopBoardMemberDecisions_OffenderCd', N'IX_BopBoardMemberReasons_OffenderCd', N'IX_BopDecisionCaseManagerConditions_OffenderCd', N'IX_BopDecisionCaseManagerDecisions_OffenderCd', N'IX_BopDecisionConditions_OffenderCd', N'IX_BopDecisionReasons_OffenderCd', N'IX_BopRevocationHearingImposedConditions_OffenderCd', N'IX_BopRevocationHearingNotices_OffenderCd', N'IX_BopRevocationHearingViolatedConditions_OffenderCd', N'IX_BopRevocationHearingWitnessSubpoenas_OffenderCd', N'IX_CjisSoeDciToIconMessages_OffenderCd', N'IX_CjisSoeEmployers_OffenderCd', N'IX_CjisSoeIconToDciMessages_OffenderCd', N'IX_CjisSoeOffenderAddresses_OffenderCd',  N'IX_CjisSoeOffenses_OffenderCd', N'IX_CjisSoeParentAddresses_OffenderCd', N'IX_CjisSoeSchools_OffenderCd', N'IX_CjisSoeVictims_OffenderCd')
+and t.name In (N'_Templates', N'dmWorkflowTypes', N'dmZipCodes', N'IPI_PickTicket', N'IPI_PickTicketDetail', N'LoginHistory', N'OffenderPanBalance', N'PropertyMigration_ISP_Inventory_Books', N'PropertyMigration_ISP_Inventory_Clothing', N'PropertyMigration_ISP_Inventory_Electronics', N'TableDailyRecIds', N'TRUSTACCT_dmRegions')
 
---and t.name In (N'_Templates', N'dmWorkflowTypes', N'dmZipCodes', N'IPI_PickTicket', N'IPI_PickTicketDetail', N'LoginHistory', N'OffenderPanBalance', N'PropertyMigration_ISP_Inventory_Books', N'PropertyMigration_ISP_Inventory_Clothing', N'PropertyMigration_ISP_Inventory_Electronics', N'TableDailyRecIds', N'TRUSTACCT_dmRegions')
+
 order by t.name asc
+
+
+--AND I.Object_id = object_id('Person.Address') --Comment for all tables 
+--AND I.name = 'IX_Address_PostalCode' --comment for all indexes 
   
 
 /**
