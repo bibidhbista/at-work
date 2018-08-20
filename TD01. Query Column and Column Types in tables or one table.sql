@@ -16,3 +16,5 @@ LEFT OUTER JOIN
     sys.indexes i ON ic.object_id = i.object_id AND ic.index_id = i.index_id
 WHERE
     c.object_id = OBJECT_ID('YourTableName')
+
+
