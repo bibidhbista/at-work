@@ -4,6 +4,10 @@ JOIN  sys.database_role_members rm ON us.uid = rm.member_principal_id
 JOIN sys.database_principals dp ON rm.role_principal_id =  dp.principal_id
 
 
+
+
+
+-- Detailed/Filtered query for the same purpose
 use IADOC_CorrCare_Dev  --DOCSecurity_Test
 go
 
@@ -30,4 +34,3 @@ where rp.name = 'devteam'
 and mp.name in ('atg\TarunK','atg\TylerL','atg\NirojK','atg\AyyappaK','atg\GreeshmaK','atg\RobertF')
 
 order by rp.name
-

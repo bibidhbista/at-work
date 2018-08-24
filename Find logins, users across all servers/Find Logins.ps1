@@ -48,8 +48,8 @@ write-host $response
 Create Output File
 
 #>
-
-$OutFileName = "c:\Powershell\" + $UserName + "SQLUserSecurity.txt"
+md "C:\Powershell\"|Out-Null
+$OutFileName = "c:\Powershell\" + $env:USERDOMAIN + "SQLUserSecurity.txt"
 
 <#
 
@@ -67,7 +67,7 @@ Function GetDatabaseUser($Dbase)
           if ($u) 
           {
             $DBName = $Dbase.Name    
-            "$spc5 ===== Database: $DBName" | Out-file $OutFileName -Append              
+            "$spc5 ===== Database: $DBName" | Out-file $OutFileName             
             "$spc5 Login's Database Mappings: " | Out-file $OutFileName -Append 
              
             ### $u | select-object name, login, parent, createdate, datelastmodified, DefaultSchema, HasDBAccess

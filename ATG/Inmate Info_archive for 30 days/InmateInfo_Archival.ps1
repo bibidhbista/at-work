@@ -5,7 +5,7 @@ $FolderName = "Inmate_Info_Archive\"
 $ErrorActionPreference = "Stop"
 
 # Days to keep archived files
-$DaysToStore = 30
+$DaysToStore = 45
 $DaysToStoreLogs = 7
 $Date = Get-Date -Format "MMddyyyy"
 
