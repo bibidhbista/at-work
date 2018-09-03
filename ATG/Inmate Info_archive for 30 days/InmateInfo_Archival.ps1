@@ -1,12 +1,12 @@
 ﻿# Path to the Inmate Import folder and Inmate_Info csv file
-$Path="C:\CoreView\InmateImport\Archive\"
+$Path="C:\CoreView\InmateImport\archive\"
 $FileName = "INMATE_INFO.csv"
 $FolderName = "Inmate_Info_Archive\"
 $ErrorActionPreference = "Stop"
 
 # Days to keep archived files
-$DaysToStore = 45
-$DaysToStoreLogs = 7
+$DaysToStore = 90
+$DaysToStoreLogs = 45
 $Date = Get-Date -Format "MMddyyyy"
 
 
@@ -16,8 +16,6 @@ $FilePath = $Path+$FileName
 $LogPath = $FolderPath+"Logs"
 $FileNameWOExt = $FileName.Replace(".csv","")
 $NewFilePath = $FolderPath+"$FileNameWOExt`_"+$Date+".csv"
-$FolderName="Inmate_Info_Archive\"
-
 
 
 # MD if it doesn't exist
@@ -26,11 +24,11 @@ if(!$LogPathCheck){
    md $LogPath -Force|Out-Null     
 }
 
-Start-Transcript -Path "$LogPath\Log_$date.log"
+Start-Transcript -Path "$LogPath\Log_$date.log" -Append
 # Copy latest version of Inmate_Info
 $check = Test-path($FileName)
 if (!$check){
-    copy $FilePath -Destination $NewFilePath
+        copy $FilePath -Destination $NewFilePath
     }
 else{
     Write-Error "$FilePath doesn't exist!" -ErrorAction $ErrorActionPreference
