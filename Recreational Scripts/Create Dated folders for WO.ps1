@@ -1,4 +1,4 @@
-﻿cd "C:\Users\bibidhb\Desktop\WO\2018\0801-0831"
+﻿cd "C:\Users\bibidhb\Desktop\WO\2018\0901-0930"
 
 
 $date = Get-Date -Format MMddyyyy
