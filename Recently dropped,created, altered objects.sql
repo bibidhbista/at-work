@@ -3,22 +3,31 @@
 DECLARE @current VARCHAR(500);
 DECLARE @start VARCHAR(500);
 DECLARE @indx INT;
-SELECT @current = path
-FROM sys.traces
+
+SELECT @current = path FROM sys.traces
 WHERE is_default = 1;
 SET @current = REVERSE(@current)
 SELECT @indx = PATINDEX('%\%', @current)
 SET @current = REVERSE(@current)
 SET @start = LEFT(@current, LEN(@current) - @indx) + '\log.trc';
+
+SELECT @current AS [Current Log Path],@indx AS [Index of '\' from end of path],@start AS [Concatenated TRC File Path]
 -- CHNAGE FILER AS NEEDED
-SELECT CASE EventClass
-WHEN 46 THEN 'Object:Created'
-WHEN 47 THEN 'Object:Deleted'
-WHEN 164 THEN 'Object:Altered'
-END, DatabaseName, ObjectName, HostName, ApplicationName, LoginName, StartTime
+SELECT 
+	CASE EventClass
+	WHEN 46 THEN 'Object:Created'
+	WHEN 47 THEN 'Object:Deleted'
+	WHEN 164 THEN 'Object:Altered'
+	END,
+	DatabaseName, ObjectName, HostName, ApplicationName, LoginName, StartTime
 FROM::fn_trace_gettable(@start, DEFAULT) --WHERE databasename != 'tempdb' ORDER BY starttime	DESC
-WHERE EventClass IN (46,47,164) AND EventSubclass = 0 AND DatabaseID <> 2 AND databasename ='SalesLogix' AND objectname LIKE '%account%'
+WHERE EventClass IN (46,47,164) AND EventSubclass = 0 AND DatabaseID <> 2 AND databasename LIKE '%midoc%_DEV' AND hostname ='tmaulsby'AND objectname LIKE '%_Hsequence'--s_UserLocations_Display_ByLoginName'
 ORDER BY StartTime DESC
+
+
+-- ** end **   --
+-- ** start ** --
+
 
 
 

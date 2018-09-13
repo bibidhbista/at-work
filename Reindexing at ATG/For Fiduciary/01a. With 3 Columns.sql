@@ -1,3 +1,5 @@
+use midoc_
+	
 -- Both LocationCd and OffenderCd
 ;with Columnsqry as 
     (select name,ic.object_id,ic.index_id,is_included_column,ic.key_ordinal

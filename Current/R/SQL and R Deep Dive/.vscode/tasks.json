@@ -1,0 +1,11 @@
+{
+	"version": "0.1.0",
+	"command": "E:\\R-3.5.0\\bin\\R.exe",
+	"showOutput": "always",
+	"args": [
+		"--no-restore",
+		"--no-save",
+		"--quiet",
+		"--file=${file}"
+	]
+}
