@@ -1,0 +1,40 @@
+setup: Setup.exe /SQLSVCPASSWORD="************" /ISSVCPASSWORD="************" /ConfigurationFile=ConfigurationFile.INI
+-- after ssis install 
+Services.msc: Make sure it is setup w correct creds for svc account
+Component Services: Permissions for Remote/Local Launch/Activation/Access for Microsoft SQL Server IS's properties
+RegEdit: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\130\SSIS node, and change the DWORD value of the LogPackageExecutionToEventLog setting from 0 to 1.
+-- If moving from legacy systems wher packages are stored in msdb
+SSMS: Grant SSIS roles to the user/group on msdb access
+
+-- make this work for scripting
+-- Bulk copy of the SSIS packages
+dtutil /sourceserver sqltest2016 /fc SQL;\;AHP\;bbdh
+needs to be 
+dtutil /sourceserver sqltest2016 /fc SQL;AHP;bbdh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--install ssis 
+--component services permissions
+--ssms permissions
+   XX database perm
+   XX msdb perm
+--Registry change
+	XX for logging 
+	XXHKLM\S\M\MSS\130\SSIS\LogPackageExec
+--upgrade 
+		XXif it doesnt upgrade, just import to newer ssis server
+
+

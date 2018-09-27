@@ -1,0 +1,3 @@
+add local login for psvc_iderasql     : net localgroup administrators FHLBDM\psvc_iderasql /add
+start agent service   : start-service SQLcomplianceagent
+add folder permissions for fhlbdmsqlsrvc: icacls "D:\Program Files\Idera\SQLCompliance" /grant fhlbdm\fhlbdmsqlsrvc:F /T

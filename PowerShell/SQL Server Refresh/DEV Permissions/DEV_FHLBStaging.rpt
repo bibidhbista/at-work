@@ -1,0 +1,33 @@
+﻿--stmt
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- [-- DB CONTEXT --] --
+USE [fhlbStaging]
+
+-- [-- DB USERS --] --
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'dbo') BEGIN CREATE USER  [dbo] FOR LOGIN [FHLBDM\mlevere] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'dsvc_HUBFHLBROLink') BEGIN CREATE USER  [dsvc_HUBFHLBROLink] FOR LOGIN [dsvc_HUBFHLBROLink] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'FHLBDM\etluser') BEGIN CREATE USER  [FHLBDM\etluser] FOR LOGIN [FHLBDM\etluser] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'FHLBDM\G-FHLB-Developers') BEGIN CREATE USER  [FHLBDM\G-FHLB-Developers] FOR LOGIN [FHLBDM\G-FHLB-Developers] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'FHLBDM\G-SQL-HUB Developers') BEGIN CREATE USER  [FHLBDM\G-SQL-HUB Developers] FOR LOGIN [FHLBDM\G-SQL-HUB Developers] WITH DEFAULT_SCHEMA = [dbo] END; 
+IF NOT EXISTS (SELECT [name] FROM sys.database_principals WHERE [name] =  'FHLBDM\RJadhav') BEGIN CREATE USER  [FHLBDM\RJadhav] FOR LOGIN [FHLBDM\RJadhav] WITH DEFAULT_SCHEMA = [FHLBDM\RJadhav] END; 
+-- [-- ORPHANED USERS --] --
+-- [-- DB ROLES --] --
+EXEC sp_addrolemember @rolename = 'db_owner', @membername = 'FHLBDM\etluser'
+EXEC sp_addrolemember @rolename = 'db_owner', @membername = 'FHLBDM\G-FHLB-Developers'
+EXEC sp_addrolemember @rolename = 'db_owner', @membername = 'FHLBDM\G-SQL-HUB Developers'
+
+-- [-- OBJECT LEVEL PERMISSIONS --] --
+GRANT EXECUTE ON [dbo].[BusinessDaysSub] TO [etl]
+GRANT EXECUTE ON [dbo].[fn_VarchartoDecimal] TO [etl]
+GRANT SELECT ON [sys].[sysrowsets] TO [dsvc_HUBFHLBROLink]
+-- [-- TYPE LEVEL PERMISSIONS --] --
+
+-- [--DB LEVEL PERMISSIONS --] --
+GRANT CONNECT TO [dsvc_HUBFHLBROLink]
+GRANT CONNECT TO [FHLBDM\etluser]
+GRANT CONNECT TO [FHLBDM\G-FHLB-Developers]
+GRANT CONNECT TO [FHLBDM\G-SQL-HUB Developers]
+
+-- [--DB LEVEL SCHEMA PERMISSIONS --] --
+GRANT SELECT ON SCHEMA::[Xref] TO [dsvc_HUBFHLBROLink]
+

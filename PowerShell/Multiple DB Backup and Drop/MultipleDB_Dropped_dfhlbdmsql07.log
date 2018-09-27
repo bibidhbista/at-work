@@ -1,0 +1,371 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20180423092819
+Username: FHLBDM\techbb
+RunAs User: FHLBDM\techbb
+Machine: SQLTEST2016 (Microsoft Windows NT 6.2.9200.0)
+Host Application: C:\Windows\system32\WindowsPowerShell\v1.0\PowerShell_ISE.exe
+Process ID: 5432
+**********************
+Transcript started, output file is \\pfs02\sqlbackup\MultipleDB_Dropped_dfhlbdmsql07.log
+Transcript started, output file is \\pfs02\sqlbackup\MultipleDB_Dropped_dfhlbdmsql07.log
+CommunityInvestment_ODS is being backedup
+CommunityInvestment_ODS is being backedup
+CommunityInvestment_ODS_Demo1 is being backedup
+CommunityInvestment_ODS_Demo1 is being backedup
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+completion of the operation or the server is not responding.
+completion of the operation or the server is not responding.
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+   utionException
+   utionException
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+   tCommand
+   tCommand
+
+
+dCORE is being backedup
+dCORE is being backedup
+dCTLFW is being backedup
+dCTLFW is being backedup
+Dejan_InfoCheck is being backedup
+Dejan_InfoCheck is being backedup
+Dejan_InfoGov is being backedup
+Dejan_InfoGov is being backedup
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+completion of the operation or the server is not responding.
+completion of the operation or the server is not responding.
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+   utionException
+   utionException
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+   tCommand
+   tCommand
+
+
+dMerger_XML_Utility is being backedup
+dMerger_XML_Utility is being backedup
+dPSTG is being backedup
+dPSTG is being backedup
+DQS_MAIN is being backedup
+DQS_MAIN is being backedup
+DQS_PROJECTS is being backedup
+DQS_PROJECTS is being backedup
+DQS_STAGING_DATA is being backedup
+DQS_STAGING_DATA is being backedup
+dSeattleHub is being backedup
+dSeattleHub is being backedup
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+completion of the operation or the server is not responding.
+completion of the operation or the server is not responding.
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+   utionException
+   utionException
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+   tCommand
+   tCommand
+
+
+dSTG is being backedup
+dSTG is being backedup
+EDW_Demo is being backedup
+EDW_Demo is being backedup
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+completion of the operation or the server is not responding.
+completion of the operation or the server is not responding.
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+   utionException
+   utionException
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+   tCommand
+   tCommand
+
+
+EncryptTest is being backedup
+EncryptTest is being backedup
+HUB_DCDemo is being backedup
+HUB_DCDemo is being backedup
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+completion of the operation or the server is not responding.
+completion of the operation or the server is not responding.
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+   utionException
+   utionException
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+   tCommand
+   tCommand
+
+
+InfoGov_Test is being backedup
+InfoGov_Test is being backedup
+MasterDataServicesDB is being backedup
+MasterDataServicesDB is being backedup
+PerfDB is being backedup
+PerfDB is being backedup
+TestDB is being backedup
+TestDB is being backedup
+zHub is being backedup
+zHub is being backedup
+zHubCore is being backedup
+zHubCore is being backedup
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+completion of the operation or the server is not responding.
+completion of the operation or the server is not responding.
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+   utionException
+   utionException
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+   tCommand
+   tCommand
+
+
+zHubStaging is being backedup
+zHubStaging is being backedup
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to
+completion of the operation or the server is not responding.
+completion of the operation or the server is not responding.
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExec
+   utionException
+   utionException
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScrip
+   tCommand
+   tCommand
+
+
+zHUBTests is being backedup
+zHUBTests is being backedup
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+Invoke-Sqlcmd : Execution Timeout Expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
+At \\pfs02\sqlbackup\Multiple DB Backups.ps1:16 char:5
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++     Invoke-Sqlcmd -ServerInstance $ServerName -Database $_ -Query "use [master]; ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExecutionException
+    + CategoryInfo          : InvalidOperation: (:) [Invoke-Sqlcmd], SqlPowerShellSqlExecutionException
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScriptCommand
+    + FullyQualifiedErrorId : SqlError,Microsoft.SqlServer.Management.PowerShell.GetScriptCommand
+
+
+**********************
+Windows PowerShell transcript end
+End time: 20180423093459
+**********************
+Transcript stopped, output file is \\pfs02\sqlbackup\MultipleDB_Dropped_dfhlbdmsql07.log
+dsqlhub
+
+A:
+
+
+Free Space:
+    0 GB out of 0 GB
+
+
+C:
+
+
+Free Space:
+    11.62 GB out of 79.66 GB
+
+
+D:
+Data 0:1
+
+Free Space:
+    38.86 GB out of 50 GB
+
+
+E:
+Database 0:2
+
+Free Space:
+    571.28 GB out of 1300 GB
+
+
+F:
+LogFile 0:3
+
+Free Space:
+    43.72 GB out of 120 GB
+
+
+G:
+TempDB 0:4
+
+Free Space:
+    93.4 GB out of 130 GB
+
+
+O:
+
+
+Free Space:
+    0 GB out of 0 GB
+
+
+tsqlhub
+
+C:
+
+
+Free Space:
+    15.59 GB out of 69.66 GB
+
+
+D:
+SystemDB 0:1
+
+Free Space:
+    31.84 GB out of 49.87 GB
+
+
+E:
+UserDB 1:6
+
+Free Space:
+    44.38 GB out of 899.87 GB
+
+
+F:
+Logs 2:3
+
+Free Space:
+    109.72 GB out of 149.87 GB
+
+
+G:
+TembDB 3:4
+
+Free Space:
+    47.48 GB out of 99.97 GB
+
+
+O:
+
+
+Free Space:
+    0 GB out of 0 GB
+
+
+S:
+Pagefile 0:2
+
+Free Space:
+    18 GB out of 19.87 GB
+
+
+usqlhub
+
+C:
+
+
+Free Space:
+    8.87 GB out of 59.66 GB
+
+
+D:
+3:1 System DB
+
+Free Space:
+    36.47 GB out of 49.87 GB
+
+
+E:
+1:0 User DB
+
+Free Space:
+    567.98 GB out of 1299.87 GB
+
+
+F:
+0:1 Logs
+
+Free Space:
+    59.98 GB out of 99.87 GB
+
+
+G:
+1:1 TempDB
+
+Free Space:
+    67.28 GB out of 74.87 GB
+
+
+O:
+
+
+Free Space:
+    0 GB out of 0 GB
+
+
+S:
+2:0 Pagefile
+
+Free Space:
+    7.91 GB out of 9.97 GB
+
+

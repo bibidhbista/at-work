@@ -1,0 +1,181 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="IsLoadTablesAndColumns" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadViews" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadStoredProcedures" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadUserDefineFunct" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadTriggers" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadIndexes" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadConstraints" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadRelationShips" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadDBProperties" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadServerProperties" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsCompareDefaultConstraint" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsIgnoreColDefaultName" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsIgnoreCollation" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsIgnoreColumnsOrder" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsIgnorePermissions" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsSqlDataTypeUsed" type="xs:boolean" minOccurs="0" />
+                <xs:element name="TableFilter" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcedureFilter" type="xs:string" minOccurs="0" />
+                <xs:element name="ColumnFilter" type="xs:string" minOccurs="0" />
+                <xs:element name="IncludeSystemTable" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IncludeStatisticIndex" type="xs:boolean" minOccurs="0" />
+                <xs:element name="CaseSensitiveOptions" type="xs:int" minOccurs="0" />
+                <xs:element name="ServerNameSource" type="xs:string" minOccurs="0" />
+                <xs:element name="ServerNameTarget" type="xs:string" minOccurs="0" />
+                <xs:element name="DBNameSource" type="xs:string" minOccurs="0" />
+                <xs:element name="DBNameTarget" type="xs:string" minOccurs="0" />
+                <xs:element name="LoginNameSource" type="xs:string" minOccurs="0" />
+                <xs:element name="LoginNameTarget" type="xs:string" minOccurs="0" />
+                <xs:element name="PasswordSource" type="xs:string" minOccurs="0" />
+                <xs:element name="PasswordTarget" type="xs:string" minOccurs="0" />
+                <xs:element name="AuthWindowSource" type="xs:boolean" minOccurs="0" />
+                <xs:element name="AuthWindowTarget" type="xs:boolean" minOccurs="0" />
+                <xs:element name="UseLastConnectionsAsDefault" type="xs:boolean" minOccurs="0" />
+                <xs:element name="SavePassword" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsEqualBtnSelected" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsDiffBtnSelected" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsOnlySourceBtnSelected" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsOnlyTargetBtnSelected" type="xs:boolean" minOccurs="0" />
+                <xs:element name="TabControlAlign" type="xs:int" minOccurs="0" />
+                <xs:element name="DiffTools" type="xs:string" minOccurs="0" />
+                <xs:element name="IsIgnoreSpace" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsIgnoreSpaceBetweenLines" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsIgnoreComments" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsShowDiffDetailByObject" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddFirstLine1" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddDBname1" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddDateTime1" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddOptionUsed1" type="xs:boolean" minOccurs="0" />
+                <xs:element name="FirstLine1" type="xs:string" minOccurs="0" />
+                <xs:element name="IsAddFirstLine2" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddDBname2" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddDateTime2" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddOptionUsed2" type="xs:boolean" minOccurs="0" />
+                <xs:element name="FirstLine2" type="xs:string" minOccurs="0" />
+                <xs:element name="IsAddFirstLine3" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddDBname3" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsAddDateTime3" type="xs:boolean" minOccurs="0" />
+                <xs:element name="FirstLine3" type="xs:string" minOccurs="0" />
+                <xs:element name="Language" type="xs:int" minOccurs="0" />
+                <xs:element name="Key" type="xs:string" minOccurs="0" />
+                <xs:element name="RegUser" type="xs:string" minOccurs="0" />
+                <xs:element name="TotLicences" type="xs:int" minOccurs="0" />
+                <xs:element name="Reserved1" type="xs:int" minOccurs="0" />
+                <xs:element name="Reserved2" type="xs:int" minOccurs="0" />
+                <xs:element name="Reserved3" type="xs:int" minOccurs="0" />
+                <xs:element name="Reserved4" type="xs:int" minOccurs="0" />
+                <xs:element name="Reserved5" type="xs:int" minOccurs="0" />
+                <xs:element name="IsLoadUDDT" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadSynonyms" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadXMLSchema" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadUsersAndRoles" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IsLoadCLRObjects" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IncludeAnsiPadingStatement" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IncludeAnsiNullStatement" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IncludeQuotedIdentifier" type="xs:boolean" minOccurs="0" />
+                <xs:element name="GenerUseAlterCommandForExistingObjectsateUseDatabaseStatement" type="xs:boolean" minOccurs="0" />
+                <xs:element name="UseAlterCommandForExistingObjects" type="xs:boolean" minOccurs="0" />
+                <xs:element name="ConvertUserDefinedDataTypeToBaseType" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IncludeFileGroup" type="xs:boolean" minOccurs="0" />
+                <xs:element name="GenerateScriptWithUpperCase" type="xs:boolean" minOccurs="0" />
+                <xs:element name="IncludePrintStatement" type="xs:boolean" minOccurs="0" />
+                <xs:element name="BracketOption" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <IsLoadTablesAndColumns>true</IsLoadTablesAndColumns>
+    <IsLoadViews>true</IsLoadViews>
+    <IsLoadStoredProcedures>true</IsLoadStoredProcedures>
+    <IsLoadUserDefineFunct>true</IsLoadUserDefineFunct>
+    <IsLoadTriggers>true</IsLoadTriggers>
+    <IsLoadIndexes>true</IsLoadIndexes>
+    <IsLoadConstraints>true</IsLoadConstraints>
+    <IsLoadRelationShips>true</IsLoadRelationShips>
+    <IsLoadDBProperties>true</IsLoadDBProperties>
+    <IsLoadServerProperties>true</IsLoadServerProperties>
+    <IsCompareDefaultConstraint>true</IsCompareDefaultConstraint>
+    <IsIgnoreColDefaultName>true</IsIgnoreColDefaultName>
+    <IsIgnoreCollation>true</IsIgnoreCollation>
+    <IsIgnoreColumnsOrder>true</IsIgnoreColumnsOrder>
+    <IsIgnorePermissions>true</IsIgnorePermissions>
+    <IsSqlDataTypeUsed>true</IsSqlDataTypeUsed>
+    <TableFilter>dt_, obsolete</TableFilter>
+    <ProcedureFilter />
+    <ColumnFilter />
+    <IncludeSystemTable>false</IncludeSystemTable>
+    <IncludeStatisticIndex>false</IncludeStatisticIndex>
+    <CaseSensitiveOptions>0</CaseSensitiveOptions>
+    <ServerNameSource>.</ServerNameSource>
+    <ServerNameTarget>.</ServerNameTarget>
+    <DBNameSource>BBista_R_Test</DBNameSource>
+    <DBNameTarget>bbista_R_test_2</DBNameTarget>
+    <LoginNameSource />
+    <LoginNameTarget />
+    <PasswordSource>xeZi7yaxdkzykXGeEvZScQ==</PasswordSource>
+    <PasswordTarget>xeZi7yaxdkzykXGeEvZScQ==</PasswordTarget>
+    <AuthWindowSource>true</AuthWindowSource>
+    <AuthWindowTarget>true</AuthWindowTarget>
+    <UseLastConnectionsAsDefault>true</UseLastConnectionsAsDefault>
+    <SavePassword>true</SavePassword>
+    <IsEqualBtnSelected>true</IsEqualBtnSelected>
+    <IsDiffBtnSelected>true</IsDiffBtnSelected>
+    <IsOnlySourceBtnSelected>true</IsOnlySourceBtnSelected>
+    <IsOnlyTargetBtnSelected>true</IsOnlyTargetBtnSelected>
+    <TabControlAlign>1</TabControlAlign>
+    <DiffTools>ExamDiff.exe</DiffTools>
+    <IsIgnoreSpace>true</IsIgnoreSpace>
+    <IsIgnoreSpaceBetweenLines>true</IsIgnoreSpaceBetweenLines>
+    <IsIgnoreComments>false</IsIgnoreComments>
+    <IsShowDiffDetailByObject>true</IsShowDiffDetailByObject>
+    <IsAddFirstLine1>true</IsAddFirstLine1>
+    <IsAddDBname1>false</IsAddDBname1>
+    <IsAddDateTime1>false</IsAddDateTime1>
+    <IsAddOptionUsed1>false</IsAddOptionUsed1>
+    <FirstLine1>no difference</FirstLine1>
+    <IsAddFirstLine2>true</IsAddFirstLine2>
+    <IsAddDBname2>true</IsAddDBname2>
+    <IsAddDateTime2>true</IsAddDateTime2>
+    <IsAddOptionUsed2>true</IsAddOptionUsed2>
+    <FirstLine2>the two DB are different</FirstLine2>
+    <IsAddFirstLine3>true</IsAddFirstLine3>
+    <IsAddDBname3>true</IsAddDBname3>
+    <IsAddDateTime3>true</IsAddDateTime3>
+    <FirstLine3>Error</FirstLine3>
+    <Language>0</Language>
+    <Key />
+    <RegUser />
+    <TotLicences>1</TotLicences>
+    <Reserved1>1</Reserved1>
+    <Reserved2>0</Reserved2>
+    <Reserved3>0</Reserved3>
+    <IsLoadUDDT>true</IsLoadUDDT>
+    <IsLoadSynonyms>true</IsLoadSynonyms>
+    <IsLoadXMLSchema>true</IsLoadXMLSchema>
+    <IsLoadUsersAndRoles>true</IsLoadUsersAndRoles>
+    <IsLoadCLRObjects>true</IsLoadCLRObjects>
+    <IncludeAnsiPadingStatement>true</IncludeAnsiPadingStatement>
+    <IncludeAnsiNullStatement>true</IncludeAnsiNullStatement>
+    <IncludeQuotedIdentifier>true</IncludeQuotedIdentifier>
+    <GenerUseAlterCommandForExistingObjectsateUseDatabaseStatement>true</GenerUseAlterCommandForExistingObjectsateUseDatabaseStatement>
+    <UseAlterCommandForExistingObjects>true</UseAlterCommandForExistingObjects>
+    <ConvertUserDefinedDataTypeToBaseType>true</ConvertUserDefinedDataTypeToBaseType>
+    <IncludeFileGroup>true</IncludeFileGroup>
+    <GenerateScriptWithUpperCase>true</GenerateScriptWithUpperCase>
+    <IncludePrintStatement>true</IncludePrintStatement>
+    <BracketOption>0</BracketOption>
+  </Table1>
+</NewDataSet>

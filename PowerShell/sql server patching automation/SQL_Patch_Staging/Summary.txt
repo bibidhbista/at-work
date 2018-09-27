@@ -1,0 +1,85 @@
+Overall summary:
+  Final result:                  Passed but reboot required, see logs for details
+  Exit code (Decimal):           3010
+  Start time:                    2016-07-14 23:29:50
+  End time:                      2016-07-14 23:37:57
+  Requested action:              Patch
+
+Instance MSSQLSERVER overall summary:
+  Final result:                  Passed but reboot required, see logs for details
+  Exit code (Decimal):           3010
+  Start time:                    2016-07-14 23:31:59
+  End time:                      2016-07-14 23:37:53
+  Requested action:              Patch
+
+Machine Properties:
+  Machine name:                  DFHLBDMSQL08
+  Machine processor count:       1
+  OS version:                    Windows Server 2012
+  OS service pack:               
+  OS region:                     United States
+  OS language:                   English (United States)
+  OS architecture:               x64
+  Process architecture:          64 Bit
+  OS clustered:                  No
+
+Product features discovered:
+  Product              Instance             Instance ID                    Feature                                  Language             Edition              Version         Clustered  Configured
+  SQL Server 2014      MSSQLSERVER          MSSQL12.MSSQLSERVER            Database Engine Services                 1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014      MSSQLSERVER          MSSQL12.MSSQLSERVER            Full-Text and Semantic Extractions for Search 1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014      MSSQLSERVER          MSSQL12.MSSQLSERVER            Data Quality Services                    1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014      MSSQLSERVER          MSRS12.MSSQLSERVER             Reporting Services - Native              1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014                                                          Management Tools - Basic                 1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014                                                          Management Tools - Complete              1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014                                                          Client Tools Connectivity                1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014                                                          Client Tools Backwards Compatibility     1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014                                                          Client Tools SDK                         1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014                                                          Data Quality Client                      1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014                                                          Integration Services                     1033                 Enterprise Edition   12.1.4459.0     No         Yes       
+  SQL Server 2014                                                          LocalDB                                  1033                 Express Edition      12.1.4459.0     No         Yes       
+
+Package properties:
+  Description:                   Microsoft SQL Server 2014 
+  ProductName:                   SQL Server 2014
+  Type:                          RTM
+  Version:                       12
+  SPLevel:                       2
+  KBArticle:                     KB3171021
+  KBArticleHyperlink:            http://support.microsoft.com/?kbid=3171021
+  PatchType:                     SP
+  AssociatedHotfixBuild:         0
+  Platform:                      x64
+  PatchLevel:                    12.2.5000.0
+  ProductVersion:                12.0.2000.8
+  GDRReservedRange:              12.0.2200.0:12.0.2290.0;12.0.4200.0:12.0.4299.0;12.0.4830.0:12.0.4880.0
+  Installation location:         e:\db70188db34125e1e4e43f1f\x64\setup\
+
+Updated product edition:
+  Instance             Edition             
+  MSSQLSERVER          Enterprise          
+
+User Input Settings:
+  ACTION:                        Patch
+  ALLINSTANCES:                  true
+  CLUSTERPASSIVE:                false
+  CONFIGURATIONFILE:             
+  ENU:                           true
+  ERRORREPORTING:                false
+  HELP:                          false
+  IACCEPTSQLSERVERLICENSETERMS:  true
+  INDICATEPROGRESS:              false
+  INSTANCEID:                    <empty>
+  INSTANCENAME:                  <empty>
+  QUIET:                         true
+  QUIETSIMPLE:                   false
+  SQMREPORTING:                  false
+  UIMODE:                        Normal
+  X86:                           false
+
+Rules with failures:
+
+Global rules:
+
+There are no scenario-specific rules.
+
+Rules report file:               C:\Program Files\Microsoft SQL Server\120\Setup Bootstrap\Log\20160714_232949\SystemConfigurationCheck_Report.htm
