@@ -1,4 +1,4 @@
--- Query 
+-- Query
 -- read all available traces.
 DECLARE @current VARCHAR(500);
 DECLARE @start VARCHAR(500);
@@ -13,21 +13,21 @@ SET @start = LEFT(@current, LEN(@current) - @indx) + '\log.trc';
 
 SELECT @current AS [Current Log Path],@indx AS [Index of '\' from end of path],@start AS [Concatenated TRC File Path]
 -- CHNAGE FILER AS NEEDED
-SELECT 
-	CASE EventClass
-	WHEN 46 THEN 'Object:Created'
-	WHEN 47 THEN 'Object:Deleted'
-	WHEN 164 THEN 'Object:Altered'
-	END,
-	DatabaseName, ObjectName, HostName, ApplicationName, LoginName, StartTime,ad.*
-FROM::fn_trace_gettable(@start, DEFAULT) ad --WHERE databasename != 'tempdb' ORDER BY starttime	DESC
-WHERE EventClass IN (46,47,164) AND EventSubclass = 0 AND DatabaseID <> 2 AND databasename LIKE '%midoc%_DEV' 
-AND objectname LIKE 'ta_user'
+SELECT
+CASE EventClass
+WHEN 46 THEN 'Object:Created'
+WHEN 47 THEN 'Object:Deleted'
+WHEN 164 THEN 'Object:Altered'
+END,
+DatabaseName, ObjectName, HostName, ApplicationName, LoginName, StartTime,ad.*
+FROM::fn_trace_gettable(@start, DEFAULT) ad --WHERE databasename != 'tempdb' ORDER BY starttime DESC
+WHERE EventClass IN (46,47,164) AND EventSubclass = 0 AND DatabaseID <> 2 AND databasename LIKE '%iddoc%_DEV'
+--AND objectname LIKE 'ta_user'
 --AND hostname ='tmaulsby'
 ORDER BY ad.StartTime DESC
 
 
--- ** end **   --
+-- ** end ** --
 -- ** start ** --
 
 

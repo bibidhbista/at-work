@@ -1,3 +1,34 @@
+-- For Specific Tables
+--Exec sp_table_privileges @table_name ='%%'
+
+-- Vars
+DECLARE @PermType NVARCHAR(25)
+DECLARE @RoleName NVARCHAR(25)
+DECLARE @UserName NVARCHAR(25)
+DECLARE @DomainUserName NVARCHAR(25)
+
+
+SET @PermType = 'Insert'                                  ------- Change This ---------
+SET @RoleName = 'devteam'								  ------- Change This ---------
+SET @UserName = '%Niroj%'								  ------- Change This ---------
+
+
+
+-- Verify if the login exists for the DB user
+IF EXISTS(SELECT COUNT(1) FROM SYS.SYSLOGINS WHERE SUSER_SNAME(SID) LIKE @USERNAME)
+BEGIN
+SET @DomainUserName = (SELECT SUSER_SNAME(SID) FROM SYS.SYSLOGINS WHERE SUSER_SNAME(SID) LIKE @USERNAME);
+SELECT 'Login exists for '+QUOTENAME(@DomainUserName) as [Server Login Status];
+END 
+ELSE  SELECT 'Login Doesn''t Exist.' AS [Server Login Status] 
+
+-- Verify if the user is part of the role
+IF EXISTS(SELECT COUNT(1) FROM SYS.DATABASE_ROLE_MEMBERS WHERE USER_NAME(MEMBER_PRINCIPAL_ID) LIKE @USERNAME)
+Select QUOTENAME(USER_NAME(MEMBER_PRINCIPAL_ID))+' is a part of the role '+QUOTENAME(USER_NAME(ROLE_PRINCIPAL_ID)) as [Role Membership Result] From SYS.DATABASE_ROLE_MEMBERS WHERE USER_NAME(MEMBER_PRINCIPAL_ID) LIKE @UserName
+ELSE SELECT QUOTENAME(USER_NAME(MEMBER_PRINCIPAL_ID))+' is not a part of the role '+QUOTENAME(USER_NAME(ROLE_PRINCIPAL_ID)) as [Role Membership Result] From SYS.DATABASE_ROLE_MEMBERS WHERE USER_NAME(MEMBER_PRINCIPAL_ID) LIKE @UserName
+
+
+-- Pull in DB level permissions for all users
 SELECT CASE WHEN P.state_desc = 'GRANT_WITH_GRANT_OPTION' THEN 'GRANT' ELSE P.state_desc END AS cmd_state,
        P.permission_name,
        'ON '+ CASE P.class_desc
@@ -77,4 +108,17 @@ SELECT CASE WHEN P.state_desc = 'GRANT_WITH_GRANT_OPTION' THEN 'GRANT' ELSE P.st
     ON P.grantee_principal_id = DP.principal_id
   JOIN sys.database_principals AS G
     ON P.grantor_principal_id = G.principal_id
- --WHERE P.grantee_principal_id IN (USER_ID('TestUser1'), USER_ID('TestUser2'));
+	WHERE (dp.name = @RoleName OR P.grantee_principal_id = USER_ID(@DomainUserName))
+	AND p.permission_name = @PermType
+	--P.grantee_principal_id IN (USER_ID('TestUser1'), USER_ID('TestUser2'));
+
+
+-- ATG - ADMIN : SCRIPT TO GRANT ACCESS TO ALL OBJECT --
+SELECT 'GRANT SELECT, INSERT, UPDATE, DELETE ON [' + NAME + '] TO [' + @RoleName + ']' AS Permission FROM SYSOBJECTS
+ WHERE SYSOBJECTS.TYPE = 'U' AND SYSOBJECTS.UID = 1
+ --UNION
+ --SELECT 'GRANT EXECUTE ON ['+ NAME + '] TO [' + @RoleName + ']' AS Permission FROM SYSOBJECTS
+ --WHERE SYSOBJECTS.TYPE = 'p' AND SYSOBJECTS.UID = 1 AND NAME NOT LIKE 'Admin[_]%'
+ --UNION
+ --SELECT 'GRANT SELECT ON ['+ NAME + '] TO [' + @RoleName + ']' AS Permission FROM SYSOBJECTS
+ --WHERE SYSOBJECTS.TYPE = 'v' AND SYSOBJECTS.CATEGORY = 0 AND SYSOBJECTS.UID = 1
