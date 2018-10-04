@@ -9,13 +9,13 @@ Goes through a share drive or folder path and gives size details of each of the 
 
 
 # Setup
-$Dir = "\\fhlbdm.com\sqlbackup\sqlbackup"                                                                                         ########### Change This
-$OutputDir = "C:\Users\$env:USERNAME\deskotop\DirectoryDetails\"                                                                  ########### Change This
+$Dir = "\\atgdsmsq14\c$"                                                                                         ########### Change This
+$OutputDir = "C:\Users\$env:USERNAME\desktop\DirectoryDetails\"                                                                  ########### Change This
 $textFile ="$OutputDir\disk_space_results.txt"
 md $OutputDir -Force|Out-Null
 
 # For Total size
-$d=dir $Dir -recurse -force|select Mode,LastWriteTime, @{Name="Mbytes";Expression={[math]::Round($_.Length / 1Mb,2)}},Name|sort LastWriteTime -Descending|sort Mbytes -Descending|out-file $textFile -Force
+$d=dir $Dir -recurse -force -ErrorAction SilentlyContinue|select Mode,LastWriteTime, @{Name="Mbytes";Expression={[math]::Round($_.Length / 1Mb,2)}},Name|sort LastWriteTime -Descending|sort Mbytes -Descending|out-file $textFile -Force
 
 # in GB # This is the preset value for the share drive. Don't have access to query size dynamically. :(
 $totalSpace = 1500 # in GB                                                                                                         ########### Change This
