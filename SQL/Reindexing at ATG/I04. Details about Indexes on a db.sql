@@ -14,7 +14,7 @@ inner join sys.tables d on
        and d.is_ms_shipped <> 1
 where a.indid>1 
 and a.name like 'Ix_%'
---and (a.name like '%locationcd%' and a.name like '%offendercd%')
+and (a.name like '%locationcd%' and c.name not like '%offendercd%')
 and a.name in
 (
 	select a.name 

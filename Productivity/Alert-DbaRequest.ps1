@@ -28,7 +28,6 @@ $NotDoneYet = $dbaReqInbox.Items()|select -last 50|sort ReceivedTime -Descending
 $NotDoneYetCount = ($NotDoneYet|Measure).Count
 
 $Header = @"
-<style>
 html,
 body {
 	height: 100%;
@@ -98,10 +97,6 @@ tbody {
 		}
 	}
 }
-
-
-
-</style>
 "@
 # Infinite Loop to continuosly check for new emails
 # Checks every minute

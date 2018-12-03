@@ -1,5 +1,5 @@
 -- For Specific Tables
---Exec sp_table_privileges @table_name ='%%'
+--Exec sp_table_privileges @table_name ='%'
 
 -- Vars
 DECLARE @PermType NVARCHAR(25)
