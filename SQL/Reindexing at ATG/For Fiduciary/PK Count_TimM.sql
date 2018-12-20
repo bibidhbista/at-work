@@ -16,4 +16,3 @@ where a.indid=1
 --or d.name  like 'H_%'
 group by d.name, a.name
 having count(*) >1
-

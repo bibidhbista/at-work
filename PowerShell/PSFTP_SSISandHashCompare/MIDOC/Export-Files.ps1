@@ -1,4 +1,9 @@
-﻿[CmdletBinding()]
+﻿###################################################################################
+############################  Export-Files ########################################
+###################################################################################
+
+
+[CmdletBinding()]
 Param( 
    [Parameter(Mandatory=$True, HelpMessage='ENTER A VALID JOB ID: ')]
    [ValidateNotNullorEmpty()]  
@@ -7,66 +12,99 @@ Param(
    [ValidateNotNullorEmpty()]  
    [int] $PackageId
    )
-$Date          = Get-Date -Format MMddyyyy
-md $Date -Force|Out-Null
-$daysToStoreLogs = 15
-Start-Transcript -Path "F:\DBA\MIDOC\Interfaces\SSIS\Logs\$Date\ExportLog_$Date`_$(Get-Date -Format HHmm).log"
-
-$JobCommands   = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "EXEC Admin_JobCommands $JobId, $PackageId"
-$Jobs          = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "Select JobNm, SSISPackage from $JobsTable where JobId = $JobId and PackageId =$PackageId"
-$JobFiles      = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "Select FileConnValue, FTSfile from $JobFilesTable where JobId = $JobId and PackageId =$PackageId and InputType=2"
-
-# HASH - continue if same 
-$InputJobFiles  = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "Select FileId, FileConnValue from $JobFilesTable where JobId = $JobId and PackageId =$PackageId and InputType=1 Order by FileID"
-$OutputJobFiles = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "Select FileId, FileConnValue from $JobFilesTable where JobId = $JobId and PackageId =$PackageId and InputType=2 Order by FileID"
 
 
-foreach($InputJobFileDetail in $InputJobFiles){
-   $InputJobFile = $InputJobFileDetail.FileConnValue
-    foreach($OutputJobFileDetail in $OutputJobFiles){
-       if($InputJobFileDetail.FileId -eq $OutputJobFileDetail.FileId){
-           $OutputJobFile = $OutputJobFileDetail.FileConnValue
-           $InputHash  = (Get-FileHash -Path $InputJobFile  -Algorithm SHA256).Hash
-           $OutputHash = (Get-FileHash -Path $OutputJobFile -Algorithm SHA256).Hash
-           # Compare them
-           if ($InputHash -ne $OutputHash) {
-                    # Log to table as Result Failure
-                    #Invoke-Sqlcmd -ServerInstance $server -Database $database -Query "Update jobfiles_hashcompare set [Hash]=NULL,result='Mismatch',date='$date' where InputJobFile='$InputJobFile' and OutputJobFile='$OutputJobFile' and (result is Null or result='null')"
-                    Write-Warning "$InputJobFile and $OutputJobFile hash mismatch!" 
-           }else{
-                    # Log to table as Result Success
-                    #Invoke-Sqlcmd -ServerInstance $server -Database $database -Query "Update jobfiles_hashcompare set [Hash]=(convert(binary(64),'$($InputHash)')),result='Match',date='$date' where InputJobFile='$InputJobFile' and OutputJobFile='$OutputJobFile' and (result is Null or result='null')"
-                    Write-Host "$InputJobFile and $OutputJobFile hash match!"}}
-            }
-}
+import-module C:\util\sqlmaint\sqlserverpowershellcmdlet\sqlserver
+
+# Connection settings
+$ServerName     = 'MIDOCSQL'
+#$ServerName      = 'ATGDSMSQ17'
+$psftpPath      = "C:\Data\Interfaces\Util"
+#$psftpPath       = $PSScriptRoot
+
+$daysToStoreLogs = 90
+$DBName          = 'MIDOC_INTERFACE'
+$JobsTable       = 'INTF_Jobs'
+$JobFilesTable   = 'INTF_JobFiles'
+$JobCommands     = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "EXEC Admin_JobCommands $JobId, $PackageId"
+$Jobs            = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "Select JobNm, SSISPackage from $JobsTable where JobId = $JobId and PackageId =$PackageId"
+$JobFiles        = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "Select FileConnValue, FTSfile, ZippedFlag from $JobFilesTable where JobId = $JobId and PackageId =$PackageId and InputType=2"
+$ZippedJobFiles  = INVOKE-SQLCMD -ServerInstance $ServerName -Database $DBName -Query "Select FileConnValue, FTSfile, ZippedFlag from $JobFilesTable where JobId = $JobId and PackageId =$PackageId and InputType=2 order by ZippedFlag"
 
 # Zip if neccessary
-$OutputFileNameCheck = $JobFiles.FTSFile|Select -First 1
-$Zipped              = $OutputFileNameCheck.Substring($OutputFileNameCheck.length -3 ,3)
+$Zipped              = $ZippedJobFiles.ZippedFlag|Select -First 1
+$ParentJobFolder     = ($JobFiles.fileconnvalue|select -First 1)
+$pos                 = $ParentJobFolder.indexof("\Output\")
+$ParentJobFolder     = $ParentJobFolder.Substring(0,$pos)
+$OutputFolder        = "$ParentJobFolder\Output"
+$OutputJobFiles      = $JobFiles.FtsFile
+$OutputFiles         = gci $OutputFolder|where { ! $_.PSIsContainer }
+$PSFTPError          = "PSFTP PUT files failed."                                                                    #### Trap this error in Visual Cron ####
 
-if($Zipped -eq 'zip'){
-    $OutputFolder   = ($JobFiles.fileconnvalue|select -First 1)
-    $pos            = $OutputFolder.indexof("\Output\")
-    $OutputFolder   = $InputFolder.Substring(0,$pos)
-    $OutputFiles    = gci "$OutputFolder\Output"
-    foreach($OutputFile in $OutputFiles){
-        if($OutputFile.extension -ne '.zip'){
-            $OutputFilePath = "$OutputFolder\Output\$OutputFile"
-            $OutputFileName = ($OutputFile.Basename)
-            Compress-Archive $OutputFilePath -DestinationPath "$OutputFolder\Output\$OutputFileName.zip" -Force }
-    
+if($OutputFiles){
+    if($Zipped -eq 1){
+        foreach($ZippedJobFile in $ZippedJobFiles){
+            $OutputFilePath = $ZippedJobFile.FileConnValue
+            $OutputFileName = $ZippedJobFile.FTSFile
+            $ZipCheck       = $OutputFileName.Substring($OutputFileName.length -3 ,3)
+            
+            if ($ZipCheck -ne 'zip'){
+               Compress-Archive $OutputFilePath -DestinationPath "$OutputFolder\$OutputFileName.zip" -Force
+               ren "$OutputFolder\$OutputFileName.zip" "$OutputFolder\$OutputFileName"
+            }elseif($ZipCheck -eq 'zip'){
+               Compress-Archive $OutputFilePath -DestinationPath "$OutputFolder\$OutputFileName" -Force
+            }
         }
+    }
+    
+}else{
+     Write-Host "Couldn't find output files on $OutputFolder."
+     Write-Error $PSFTPError -ErrorAction Stop
+     
 }
 
 ## FTS Put ## 
 $ConnectionString = $JobCommands.FTSConn
-$PutCmdFile       = "$PSScriptRoot\PutCmd.txt"                                                                                          
-
+$PutCmdFile       = "$ParentJobFolder\PutCmd.txt"       
 $JobCommands.FTSPutlist|Out-File "$PutCmdFile" -Encoding ascii              
-$Connect          = "psftp $ConnectionString -b `"$PutCmdFile`" -bc "
-cmd $Connect
+$Connect          = "$psftpPath\psftp.exe $ConnectionString -b `"$PutCmdFile`""
+$PSFTPOut = iex $Connect 2>&1 
 
-# Remove Logs Older than 15 Days
-Get-ChildItem "F:\DBA\MIDOC\Interfaces\SSIS\Logs\*.log" -Recurse|? { $_.lastwritetime -le (Get-Date).AddDays(-$daysToStoreLogs)} |% {Remove-Item $_ -force }  
-"*** Deleted logs older than $daysToStoreLogs days ***"
-Stop-Transcript
+
+if($LASTEXITCODE -eq 0){
+        $SuccessMessage =  "PSFTP PUT to remote succeeded for JobID $JobId and PackageID $PackageId. DETAILS: $PSFTPOut".Replace("'","''")
+        Invoke-Sqlcmd -ServerInstance $ServerName -Database $DBName -Query "INSERT INTO INTF_JobLog VALUES ($JobId, $PackageID, '$SuccessMessage','Export-Files','Success', getdate())"
+        Write-Host "PSFTP PUT to remote succeeded for JobID $JobId and PackageID $PackageId."
+}else{
+
+         $PutError = "PSFTP PUT to remote failed for JobID $JobId and PackageID $PackageId. DETAILS: $PSFTPOut".Replace("'","''")
+         Invoke-Sqlcmd -ServerInstance $ServerName -Database $DBName -Query "INSERT INTO INTF_JobLog VALUES ($JobId, $PackageID, '$PutError','Export-Files','Failure', getdate())"
+         Write-Error $PSFTPError -ErrorAction Stop
+}
+
+# Remove Logs Older than x Days
+$DateToDelete = (Get-Date).AddDays(-$daysToStoreLogs)
+
+try{
+      $res = Invoke-Sqlcmd -ServerInstance $ServerName -Database $DBName -Query "DELETE FROM INTF_JOBLOG WHERE EXECDT < '$DateToDelete'"
+      # if there are old logs, delete them
+      if($res){
+            Invoke-Sqlcmd -ServerInstance $ServerName -Database $DBName -Query "INSERT INTO INTF_JobLog VALUES ($JobId, $PackageID, 'Deleted logs older than $daysToStoreLogs days.','Export-Files','Success', getdate())"
+            Write-Host "*** Deleted logs older than $daysToStoreLogs days ***"
+            }
+    }catch{
+    Write-Error "Failed to delete logs from $ServerName.$DBName.INTF_JobLog."
+}
+
+# Output Folder Archival
+$Date = $(Get-date).ToString("yyyyMMdd")
+$ArchiveOutputFolder = "$OutputFolder\Archive\$Date"
+md $ArchiveOutputFolder -Force|Out-Null
+$OutputFolderItems   = gci $OutputFolder| where { ! $_.PSIsContainer }
+if($OutputFolderItems){
+    move $OutputFolderItems.FullName -Destination $ArchiveOutputFolder -Force
+}
+
+
+
+# EOF
