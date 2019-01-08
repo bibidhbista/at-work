@@ -58,9 +58,9 @@ if ($DynamicFiles){
             $JobCommands.FTSgetlist|Out-File "$GetCmdFile" -Encoding ascii -Force              
             $Connect  = "$psftpPath\psftp.exe $ConnectionString -b `"$GetCmdFile`""
             $PSFTPOut = iex $Connect 2>&1
-
+            $FileNotFound = $PSFTPOut -match "$FileNotFoundMessage"
             # If file exists
-            if($LASTEXITCODE -eq 0){
+            if($FileNotFound -and $LASTEXITCODE -eq 0 -and $($PSFTPOut).length -ne 0){
                     # Log to table as Result Success
                     $SuccessMessage = "PSFTP GET from remote succeeded for JobID $JobId and PackageID $PackageId. DETAILS: $PSFTPOut".replace("'","''")
                     Invoke-Sqlcmd -ServerInstance $ServerName -Database $DBName -Query "INSERT INTO INTF_JobLog VALUES ($JobId, $PackageID, '$SuccessMessage','Import-Files','Success', getdate())"
@@ -77,11 +77,9 @@ if ($DynamicFiles){
         $JobCommands.FTSgetlist|Out-File "$GetCmdFile" -Encoding ascii -Force              
         $Connect       = "`"$psftpPath\psftp.exe`" $ConnectionString -b `"$GetCmdFile`""
         $PSFTPOut = cmd /C "$Connect" 2>&1        
-        $FileNotFound = ($PSFTPOut -match "$FileNotFoundMessage").length 
-
-
+        $FileNotFound = $PSFTPOut -match "$FileNotFoundMessage"
         # File exists and no error has occured
-        if($FileNotFound -eq 0 -and $LASTEXITCODE -eq 0 -and $($PSFTPOut).length -ne 0){ 
+        if($FileNotFound -and $LASTEXITCODE -eq 0 -and $($PSFTPOut).length -ne 0){ 
                # Log to table as Result Success
                $SuccessMessage = "PSFTP GET from remote succeeded for JobID $JobId and PackageID $PackageId. DETAILS: $PSFTPOut".replace("'","''")
                Invoke-Sqlcmd -ServerInstance $ServerName -Database $DBName -Query "INSERT INTO INTF_JobLog VALUES ($JobId, $PackageID, '$SuccessMessage','Import-Files','Success', getdate())"
