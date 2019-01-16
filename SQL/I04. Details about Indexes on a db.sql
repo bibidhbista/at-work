@@ -72,7 +72,7 @@ inner join sys.tables d on
        and d.is_ms_shipped <> 1
 where a.indid>1 
 and a.name like 'Ix_%'
---and (a.name like '%locationcd%' and a.name like '%offendercd%')
+and (a.name like '%locationcd%' and a.name not like '%offendercd%')
 and a.name in
 (
 select a.name 
@@ -90,8 +90,7 @@ where a.indid>1 -- and d.name = 'aLsi_rCharges'
 group by a.name
 having count(*) >=1 
 ) 
-and d.name In (N'_Templates', N'ClemencyBoardMemberRecommendations', N'dmActivities', N'dmBeds', N'dmBopLocationFacilities', N'dmBopReleasePlanReviewReasonRecommendations', N'dmBopRevocationCountyGroupCounties', N'dmCrimeCodeOffenseSubTypes', N'dmEducationSchoolCourseInstructors', N'dmEducationSchoolCourses', N'dmEmployerPhones', N'dmEthnicOrigins', N'dmFacilities', N'dmFlMaintenanceIssueItemProblems', N'dmFlMaintenanceIssueItems', N'dmGrievanceProcessTypeReasons', N'dmHousingIncentiveFacilities', N'dmHousingStatusIncentives', N'dmHousingUnits', N'dmInstitutionDestinations', N'dmInstitutionTransportationTypes', N'dmInterventionClasses', N'dmInterventionClassFacilitators', N'dmInterventionContactPhones', N'dmInterventionContacts', N'dmInterventionMethods', N'dmInterventionModalities', N'dmInterventionProgramLocationInterventions', N'dmInterventionProgramLocations', N'dmInterventionProviderPhones', N'dmInterventionProvidersAssn', N'dmInterventionSessionTopics', N'dmKioskLocations', N'dmKioskMailboxStaff', N'dmKioskWorkstations', N'dmLegalPeoplePhones', N'dmNeedOffenseBehaviorCodes', N'dmOverrideReasons', N'dmParoleViolationReviewRequestRecommendations', N'dmPenaltyTypePenaltyModifiers', N'dmPhysicianPhone', N'dmProcessTaskAssignedNotificationGroups', N'dmProcessTaskClosingSecurityEntities', N'dmProcessTaskGroupDependencies', N'dmProcessTaskGroups', N'dmProcessTasks', N'dmProcessTaskStaffGroupStaff', N'dmPropertyGroupTypeReasons', N'dmPropertyItemFacilityLimits', N'dmPropertyItemFlStorageLocations', N'dmPropertySetSubItems', N'dmPropertySubItems', N'dmPropertySubItemsIpi', N'dmPropertySubItemsIpiAssociatedItems', N'dmRooms', N'dmRuleFilterRules', N'dmRuleFilterSupervisionStatuses', N'dmRuleFilterWorkUnits', N'dmRulePackageRules', N'dmRulePackageSupervisionStatuses', N'dmRulePackageWorkUnits', N'dmRuleSupervisionStatuses', N'dmRuleWorkUnits', N'dmSearchTypeSubstances', N'dmSecurityStandardAssociatedSubstances_OLD', N'dmSecurityStandardNonToxinSubtypes', N'dmSecurityStandardSubstancePanelSubstances', N'dmSentencePenaltyTypePenaltyModifiers', N'dmStaffIdentifiers', N'dmStaffPhones', N'dmStaffSignatures', N'dmSupervisionStatusSpecialties', N'dmThreatGroupSubFactions', N'dmVehicleModels', N'dmWorkAssignmentsFl', N'dmWorkAssignmentShifts', N'dmWorkflowTypes', N'dmWorkUnits', N'dmZipCodes', N'EducationalDetailRecordRequests', N'EducationClassAssignments', N'EducationClassOffenderAssignments', N'EducationGedAccommodations', N'EmploymentPhones', N'EndKeepSeparates', N'EnemyEndingInformation', N'FieldRuleViolationBehaviorCodes', N'FieldRuleViolations', N'GrievanceAppeals', N'GrievanceNoUnknownStaffNamed', N'GrievanceReceipts', N'GrievanceResponses', N'GrievanceRestrictionReviews', N'GrievanceStaffNamed', N'IPI_PickTicket', N'IPI_PickTicketDetail', N'LoginHistory', N'Nga_Ca_Charges', N'Nga_Ca_Defendants', N'OffenderPanBalance', N'PropertyMigration_ISP_Inventory_Books', N'PropertyMigration_ISP_Inventory_Clothing', N'PropertyMigration_ISP_Inventory_Electronics', N'TableDailyRecIds', N'TRUSTACCT_dmRegions')
-
+--and d.name In (N'_Templates', N'ClemencyBoardMemberRecommendations', N'dmActivities')
 --group by d.name, a.name
 order by d.name--, a.name, b.keyno
 
