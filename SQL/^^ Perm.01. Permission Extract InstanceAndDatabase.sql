@@ -140,7 +140,7 @@ UNION
 
 
 
-SELECT      'IF NOT EXISTS(SELECT USER_NAME(p.grantee_principal_id) FROM sys.database_permissions p WHERE USER_NAME(grantee_principal_id) = '
+SELECT      'IF NOT EXISTS(SELECT USER_NAME(role_principal_id) FROM sys.database_role_members where USER_NAME(role_principal_id) = '
 			+ QUOTENAME(USER_NAME(p.grantee_principal_id), '''')+') BEGIN; CREATE ROLE '
 			+ SPACE(1) + QUOTENAME(USER_NAME(p.grantee_principal_id), '[]') + '; END;' AS [-- SQL STATEMENTS --],
             5.1 AS [-- RESULT ORDER HOLDER --]

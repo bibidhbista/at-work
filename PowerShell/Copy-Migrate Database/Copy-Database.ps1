@@ -20,20 +20,20 @@ DATABASENAME             : NAME OF THE DATABASE TO BE MOVED FROM SOURCE SERVER T
 param( 
    [Parameter(Mandatory=$True, HelpMessage='ENTER A VALID SQL SERVER ENVIRONMENT FOR CONNECTION - NO ALIASES')]
    [ValidateNotNullorEmpty()]  
-   [ValidateSet('DFHLBDMSQL12','TFHLBDMSQL12','UFHLBDMSQL12','PFHLBDMSQL12','DFHLBDMSQL09','TFHLBDMSQL09','PFHLBDMSQL09','TSHAREPSQL02','PSHAREPSQL02','DFHLBDMSQL10','TFHLBDMSQL05', 
-'TFHLBDMSQL10','TQRMSQL11','TVIEWSQL01','HVMSQL04','PADMINSQL01','PADMINSQL02','PADMINSQL03','PDSXAPP02','PFHLBDMSQL05','PFHLBDMSQL10','PFOGSQL01','PQRMSQL11','PVMSQL04',
-'PFHLBDMSSIS01','DFHLBDMSQL14','PFHLBDMSQL14','PFHLBDMSQL13','DFHLBDMSSIS01','UFHLBDMSQL07','DFHLBDMSQL08','UFHLBDMSQL10','PFHLBDMSSRS04','DFHLBDMSQL13','DFHLBDMSQL07','PFHLBDMSQL15','UFHLBDMSQL15','TFHLBDMSQL13',
-'SQLTEST2016','PFHLBDMSQL07','TFHLBDMSSIS01','TFHLBDMSQL07','TFHLBDMSSRS04','DFHLBDMSSRS04','UFHLBDMSQL14','TFHLBDMSQL14','UFHLBDMSSRS04','UFHLBDMSSIS01','PFHLBDMSQL08','DFHLBDMSSIS02', 'DFHLBDMSQL15','TFHLBDMSQL15',
-'TFHLBDMSSIS02','UFHLBDMSSIS02','PFHLBDMSSIS02','QFHLBDMSQL14','SQLTEST2016','SQLTEST2016-1','SQLTEST2016-2','SQLTEST2016-3','SQLTEST2016-4')]
+#   [ValidateSet('DFHLBDMSQL12','TFHLBDMSQL12','UFHLBDMSQL12','PFHLBDMSQL12','DFHLBDMSQL09','TFHLBDMSQL09','PFHLBDMSQL09','TSHAREPSQL02','PSHAREPSQL02','DFHLBDMSQL10','TFHLBDMSQL05', 
+#'TFHLBDMSQL10','TQRMSQL11','TVIEWSQL01','HVMSQL04','PADMINSQL01','PADMINSQL02','PADMINSQL03','PDSXAPP02','PFHLBDMSQL05','PFHLBDMSQL10','PFOGSQL01','PQRMSQL11','PVMSQL04',
+#'PFHLBDMSSIS01','DFHLBDMSQL14','PFHLBDMSQL14','PFHLBDMSQL13','DFHLBDMSSIS01','UFHLBDMSQL07','DFHLBDMSQL08','UFHLBDMSQL10','PFHLBDMSSRS04','DFHLBDMSQL13','DFHLBDMSQL07','PFHLBDMSQL15','UFHLBDMSQL15','TFHLBDMSQL13',
+#'SQLTEST2016','PFHLBDMSQL07','TFHLBDMSSIS01','TFHLBDMSQL07','TFHLBDMSSRS04','DFHLBDMSSRS04','UFHLBDMSQL14','TFHLBDMSQL14','UFHLBDMSSRS04','UFHLBDMSSIS01','PFHLBDMSQL08','DFHLBDMSSIS02', 'DFHLBDMSQL15','TFHLBDMSQL15',
+#'TFHLBDMSSIS02','UFHLBDMSSIS02','PFHLBDMSSIS02','QFHLBDMSQL14','SQLTEST2016','SQLTEST2016-1','SQLTEST2016-2','SQLTEST2016-3','SQLTEST2016-4')]
    [string] $SourceServer,
    
    [Parameter(Mandatory=$True, HelpMessage='ENTER A VALID SQL SERVER ENVIRONMENT FOR CONNECTION - NO ALIASES')]
    [ValidateNotNullorEmpty()]  
-   [ValidateSet('DFHLBDMSQL12','TFHLBDMSQL12','UFHLBDMSQL12','PFHLBDMSQL12','DFHLBDMSQL09','TFHLBDMSQL09','PFHLBDMSQL09','TSHAREPSQL02','PSHAREPSQL02','DFHLBDMSQL10','TFHLBDMSQL05', 
-'TFHLBDMSQL10','TQRMSQL11','TVIEWSQL01','HVMSQL04','PADMINSQL01','PADMINSQL02','PADMINSQL03','PDSXAPP02','PFHLBDMSQL05','PFHLBDMSQL10','PFOGSQL01','PQRMSQL11','PVMSQL04','DFHLBDMSQL07\DEV1','TFHLBDMSQL07\TEST1','UFHLBDMSQL07\UAT1',
-'PFHLBDMSSIS01','DFHLBDMSQL14','PFHLBDMSQL14','PFHLBDMSQL13','DFHLBDMSSIS01','UFHLBDMSQL07','DFHLBDMSQL08','UFHLBDMSQL10','PFHLBDMSSRS04','DFHLBDMSQL13','DFHLBDMSQL07','PFHLBDMSQL15','TFHLBDMSQL13',
-'SQLTEST2016','PFHLBDMSQL07','TFHLBDMSSIS01','TFHLBDMSQL07','TFHLBDMSSRS04','DFHLBDMSSRS04','UFHLBDMSQL14','TFHLBDMSQL14','UFHLBDMSSRS04','UFHLBDMSSIS01','PFHLBDMSQL08','DFHLBDMSSIS02', 'DFHLBDMSQL15','TFHLBDMSQL15','UFHLBDMSQL15',
-'TFHLBDMSSIS02','UFHLBDMSSIS02','PFHLBDMSSIS02','QFHLBDMSQL14','SQLTEST2016','SQLTEST2016-1','SQLTEST2016-2','SQLTEST2016-3','SQLTEST2016-4')]
+#   [ValidateSet('DFHLBDMSQL12','TFHLBDMSQL12','UFHLBDMSQL12','PFHLBDMSQL12','DFHLBDMSQL09','TFHLBDMSQL09','PFHLBDMSQL09','TSHAREPSQL02','PSHAREPSQL02','DFHLBDMSQL10','TFHLBDMSQL05', 
+#'TFHLBDMSQL10','TQRMSQL11','TVIEWSQL01','HVMSQL04','PADMINSQL01','PADMINSQL02','PADMINSQL03','PDSXAPP02','PFHLBDMSQL05','PFHLBDMSQL10','PFOGSQL01','PQRMSQL11','PVMSQL04','DFHLBDMSQL07\DEV1','TFHLBDMSQL07\TEST1','UFHLBDMSQL07\UAT1',
+#'PFHLBDMSSIS01','DFHLBDMSQL14','PFHLBDMSQL14','PFHLBDMSQL13','DFHLBDMSSIS01','UFHLBDMSQL07','DFHLBDMSQL08','UFHLBDMSQL10','PFHLBDMSSRS04','DFHLBDMSQL13','DFHLBDMSQL07','PFHLBDMSQL15','TFHLBDMSQL13',
+#'SQLTEST2016','PFHLBDMSQL07','TFHLBDMSSIS01','TFHLBDMSQL07','TFHLBDMSSRS04','DFHLBDMSSRS04','UFHLBDMSQL14','TFHLBDMSQL14','UFHLBDMSSRS04','UFHLBDMSSIS01','PFHLBDMSQL08','DFHLBDMSSIS02', 'DFHLBDMSQL15','TFHLBDMSQL15','UFHLBDMSQL15',
+#'TFHLBDMSSIS02','UFHLBDMSSIS02','PFHLBDMSSIS02','QFHLBDMSQL14','SQLTEST2016','SQLTEST2016-1','SQLTEST2016-2','SQLTEST2016-3','SQLTEST2016-4')]
    [string] $DestinationServer,
 
 
@@ -44,14 +44,16 @@ param(
 )
 
 #### Check
-$SourceEnv = $SourceServer.tolower().Substring(0,1)
-$DestEnv = $DestinationServer.tolower().Substring(0,1)
+#$SourceEnv = $SourceServer.tolower().Substring(0,1)
+#$DestEnv = $DestinationServer.tolower().Substring(0,1)
 
-if (($DestEnv -eq "p") -and ($SourceEnv -ne "p")){
-    Write-Error "Environment Mismatch! Can only migrate to lower environment" -ErrorAction Stop
-}
+#if (($DestEnv -eq "p") -and ($SourceEnv -ne "p")){
+#    Write-Error "Environment Mismatch! Can only migrate to lower environment" -ErrorAction Stop
+#}
 
-$backupDirectory = "\\pfs02\sqlbackup\dbatools_staging\For_Migration\$SourceServer`_to_$DestinationServer\$DatabaseName"
+#$backupDirectory = "\\pfs02\sqlbackup\dbatools_staging\For_Migration\$SourceServer`_to_$DestinationServer\$DatabaseName"
+$backupDirectory = "F:\DBA\Bibidh\Backup_Restore\For_Migration\$SourceServer`_to_$DestinationServer\$DatabaseName"
+
 md $backupDirectory -Force|Out-Null
 $daysToStoreBackups= 7
 
@@ -82,11 +84,21 @@ try{
     #$DatabaseName = (Get-DbaDatabase -SqlInstance $SourceServer|Out-GridView -PassThru)
     #$DatabaseName = $DatabaseName.name
     #Copy-dbadatabase -Source $SourceServer -Destination $DestinationServer -Database $DatabaseName -BackupRestore -NetworkShare "\\pfs02\sqlbackup\dbaTools_Staging" -force
-    
+    $SourceDefaultLocation = Invoke-sqlcmd -ServerInstance $SourceServer -Database $DatabaseName -Query "EXECUTE [master].dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\MSSQLServer', N'BackupDirectory'"
+    $SourceDefPath = $SourceDefaultLocation.data
+    $SourceBackupFileName = "$SourceDefPath\$DatabaseName`_$timestamp`_$SourceServer.bak"
     #Copy dbadatbase acting weird and fails to restore
-    Backup-DbaDatabase -SqlInstance $SourceServer -Database $DatabaseName -BackupDirectory $backupDirectory -CopyOnly -BackupFileName "$DatabaseName`_$timestamp`_$SourceServer.bak"|Restore-DbaDatabase -SqlInstance $DestinationServer
-    Write-Host "Migration of $SourceServer : $DatabaseName to $DestinationServer : $DatabaseName completed successfully" -BackgroundColor Green
+    Backup-DbaDatabase -SqlInstance $SourceServer -Database $DatabaseName -CopyOnly -BackupFileName $SourceBackupFileName
+    $SourceBackupFileName = $SourceBackupFileName.Replace("C:\","C$\")
 
+    $DestDefaultLocation = Invoke-sqlcmd -ServerInstance $DestinationServer -Database 'master' -Query "EXECUTE [master].dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE', N'SOFTWARE\Microsoft\MSSQLServer\MSSQLServer', N'BackupDirectory'"
+    $DestDefPath = $DestDefaultLocation.data
+    $DestBackupFileName = "$DestDefPath\$DatabaseName`_$timestamp`_$SourceServer.bak"
+    $DestBackupFileName = $DestBackupFileName.Replace("C:\","C$\")
+    Move-Item -Path "\\$SourceServer\$SourceBackupFileName" -Destination "\\$DestinationServer\$DestBackupFileName"
+    Restore-DbaDatabase -SqlInstance $DestinationServer -useDestinationDefaultDirectories -Path "\\$DestinationServer\$DestBackupFileName" -DestinationDataDirectory "C:\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA" -DestinationLogDirectory "C:\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\LOG"
+    Write-Host "Migration of $SourceServer : $DatabaseName to $DestinationServer : $DatabaseName completed successfully" -BackgroundColor Green
+    Move-Item -Path "\\$DestinationServer\$DestBackupFileName" -Destination "$backupDirectory\$DatabaseName`_$timestamp`_$SourceServer.bak"
 }catch{
     Write-Error "Error: Migration of $DatabaseName from $SourceServer to $DestinationServer failed. Make sure you have installed dbatools before trying again. Check if you have sufficient permissions to run the permissions extract script on $PSScriptRoot!" -ErrorAction Stop    
 }
