@@ -1,4 +1,4 @@
-﻿$SourceServer ='atgdsmsq17'
+$SourceServer ='atgdsmsq17'
 $DestServer ='atgdsmsq17'
 $DestDB ='MIDOC_FIDUCIARY_TEST'
 $SourceDB ='MIDOC_FIDUCIARY_DEFAULTS'

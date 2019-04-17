@@ -1,4 +1,4 @@
-﻿$file =  "C:\Users\bibidhb\Desktop\WO\*"
+$file =  "C:\Users\bibidhb\Desktop\WO\*"
 $dest = "E:\BackupDemo"
  
 dir $file -Recurse| foreach {

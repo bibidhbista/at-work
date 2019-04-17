@@ -1,4 +1,4 @@
-﻿# Path to the Inmate Import folder and Inmate_Info csv file
+# Path to the Inmate Import folder and Inmate_Info csv file
 $Path="C:\CoreView\InmateImport\archive\"
 $FileName = "INMATE_INFO.csv"
 $FolderName = "Inmate_Info_Archive\"

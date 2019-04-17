@@ -1,4 +1,4 @@
-﻿cls
+cls
 $outlook = new-object -comobject outlook.application
 
 #Define folders

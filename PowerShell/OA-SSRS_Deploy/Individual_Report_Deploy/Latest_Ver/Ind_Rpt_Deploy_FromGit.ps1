@@ -1,4 +1,4 @@
-﻿
+
 <#
 
 AUTHOR: BIBIDH BISTA
@@ -12,7 +12,7 @@ THE FOLDER MUST CONTAIN A COMMONSCRIPT.RSS FILE! CURL MUST BE INSTALLED
 
 
 POWERSHELL COMMAND:
-./Ind_rpt_deploy.ps1 -gitLabPath "https://pgitapp01.fhlbdm.com/SSRS/Accounting/raw/master/Accounting_SSRS/LOC_Fees_Projection.rdl" -reportname "LOC_Fees_Projection.rdl" -servername "sqltest2016" -reportfolder "Test"
+./Ind_rpt_deploy.ps1 -gitLabPath "https://pgitapp01.dm.com/SSRS/Accounting/raw/master/Accounting_SSRS/LOC_Fees_Projection.rdl" -reportname "LOC_Fees_Projection.rdl" -servername "sqltest2016" -reportfolder "Test"
 
 PARAMS:
 
@@ -92,20 +92,20 @@ DATASOURCEPATH		                                :DEFAULT:	"/DATA SOURCES"
  $daysForLogRetention = 45
  $reportName =$reportName.Replace('%20',' ')
 
- # Clear old logs on PFHLBDMSQL08.Logs.SSRS_DEPLOY_LOG
+ # Clear old logs on PDMSQL08.Logs.SSRS_DEPLOY_LOG
  $cmd = 'select datediff(d,min(run_date),getdate()) from SSRS_Deploy_Log'
  try{
-        $value = Invoke-Sqlcmd $cmd -ServerInstance PFHLBDMSQL08 -Database Logs
+        $value = Invoke-Sqlcmd $cmd -ServerInstance PDMSQL08 -Database Logs
 }catch{
-         WRITE-Error 'You don''t have sufficient permissions to log the details to PFHLBDMSQL08' -ErrorAction Stop
+         WRITE-Error 'You don''t have sufficient permissions to log the details to PDMSQL08' -ErrorAction Stop
 }
  if(($value -ne $null) -and ($value>$daysForLogRetention)){
             $cmd = "DELETE FROM SSRS_DEPLOY_LOG WHERE RUN_DATE IN (SELECT RUN_DATE FROM SSRS_DEPLOY_LOG GROUP BY RUN_DATE HAVING DATEDIFF(D,MIN(RUN_DATE),GETDATE())=$daysForLogRetention)"
             try{
-                Invoke-Sqlcmd $cmd -ServerInstance PFHLBDMSQL08 -Database Logs
+                Invoke-Sqlcmd $cmd -ServerInstance PDMSQL08 -Database Logs
                 Write-Host '***** Cleared log history older than 45 days *****'
             }catch{
-                WRITE-Error 'You don''t have sufficient permissions to delete the log from PFHLBDMSQL08' -ErrorAction Stop
+                WRITE-Error 'You don''t have sufficient permissions to delete the log from PDMSQL08' -ErrorAction Stop
             }
             
     } else{ 
@@ -113,14 +113,14 @@ DATASOURCEPATH		                                :DEFAULT:	"/DATA SOURCES"
  }
 
 
- # Log the details to PFHLBDMSQL08.LOGS.SSRS_DEPLOY_LOG
+ # Log the details to PDMSQL08.LOGS.SSRS_DEPLOY_LOG
 function Log-SQL ($targetServerName, $logText){
     TRY{
         $query = "INSERT INTO SSRS_DEPLOY_LOG VALUES ('$targetServerName', getdate(), '$logText', '$env:username')"
-        Invoke-Sqlcmd $query -ServerInstance 'PFHLBDMSQL08' -Database 'LOGS' 
+        Invoke-Sqlcmd $query -ServerInstance 'PDMSQL08' -Database 'LOGS' 
         }
     CATCH{
-        WRITE-Error 'You don''t have sufficient permissions to log the details to PFHLBDMSQL08' -ErrorAction Stop
+        WRITE-Error 'You don''t have sufficient permissions to log the details to PDMSQL08' -ErrorAction Stop
     }
 }
 

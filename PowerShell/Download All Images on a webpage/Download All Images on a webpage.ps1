@@ -1,4 +1,4 @@
-﻿Param(
+Param(
   [Parameter(Mandatory=$True, HelpMessage='ENTER A VALID TO DOWNLOAD ALL THE IMAGES IN THE WEBPAGE')]
    [ValidateNotNullorEmpty()]
    $url

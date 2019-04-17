@@ -1,4 +1,4 @@
-﻿# Path to the Inmate Import folder and Inmate_Info csv file
+# Path to the Inmate Import folder and Inmate_Info csv file
 $ParentArchiveDirPath="C:\CoreView\InmateImport\Archive\"
 $ArchiveDirName = "InmateImport_Archive\"
 $ErrorActionPreference = "Stop"

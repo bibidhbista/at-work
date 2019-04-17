@@ -1,19 +1,19 @@
-﻿#########################################################
+#########################################################
 #
 # Disk space monitoring and reporting script
 #
 #########################################################
  
-$users = "BBISTA@FHLBDM.COM" #"it-databaseadministrator@fhlbdm.com" # List of users to email your report to (separate by comma)
-$fromemail = "$env:username@fhlbdm.com" # uses current context as sender
-$mailServer = "mail.fhlbdm.com" #enter your own SMTP mailServer DNS name / IP address here
+$users = "BBISTA@DM.COM" #"it-databaseadministrator@dm.com" # List of users to email your report to (separate by comma)
+$fromemail = "$env:username@dm.com" # uses current context as sender
+$mailServer = "mail.dm.com" #enter your own SMTP mailServer DNS name / IP address here
 $totalSpaceinBakDrive=2000 # enter the total space allocated for the backup drive in GB
 
 # Set free disk space threshold below in percent (default at 10%) # BACKUPDRIVE IS 1024GB :: 15% FREE SPACE = ALERTS WHEN THERE'S < 150 GB LEFT
 [decimal]$thresholdspace = 15
  
 # Get space details.
-$Dir = "\\fhlbdm.com\sqlbackup\sqlbackup" 
+$Dir = "\\dm.com\sqlbackup\sqlbackup" 
 $spaceOcc= [System.Math]::Round(([decimal]((Get-ChildItem $Dir -recurse | Measure-Object -property length -sum).Sum)/1GB),2)
 $freespace = $totalSpaceinBakDrive - $spaceOcc
 $percentFree= [System.Math]::Round(($freespace/$totalSpaceinBakDrive)*100,2)

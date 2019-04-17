@@ -1,4 +1,4 @@
-﻿<# SYNOPSIS 
+<# SYNOPSIS 
       Generates create scripts for all tables. 
    DESCRIPTION 
       PowerShell script using SMO to script out all tables and optional all related objects like indexes etc.  

@@ -7,10 +7,10 @@ GO
  *                       Create the requisite linked servers                                          *
  ******************************************************************************************************/
 
-IF NOT EXISTS(SELECT 1 FROM sys.servers where name = 'TFHLBDMSQL15')
+IF NOT EXISTS(SELECT 1 FROM sys.servers where name = 'TDMSQL15')
 BEGIN
-	EXEC master.dbo.sp_addlinkedserver @server = N'TFHLBDMSQL15', @srvproduct=N'SQL Server'
-	EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname=N'TFHLBDMSQL15',@useself=N'True',@locallogin=NULL,@rmtuser=NULL,@rmtpassword=NULL
+	EXEC master.dbo.sp_addlinkedserver @server = N'TDMSQL15', @srvproduct=N'SQL Server'
+	EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname=N'TDMSQL15',@useself=N'True',@locallogin=NULL,@rmtuser=NULL,@rmtpassword=NULL
 END
 
 IF NOT EXISTS(SELECT 1 FROM sys.servers where name = 'dwh3')
@@ -25,7 +25,7 @@ EXEC master.dbo.sp_addlinkedserver @server = N'dwhtest', @srvproduct=N'SQL Serve
 EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname=N'dwhtest',@useself=N'True',@locallogin=NULL,@rmtuser=NULL,@rmtpassword=NULL
 END
 
-EXEC master.dbo.sp_addlinkedserver @server = N'PBANKM01', @srvproduct=N'IBM', @provider=N'IBMDA400', @datasrc=N'PBANKM01', @catalog=N'FHLB8'
+EXEC master.dbo.sp_addlinkedserver @server = N'PBANKM01', @srvproduct=N'IBM', @provider=N'IBMDA400', @datasrc=N'PBANKM01', @catalog=N'8'
 EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname=N'PBANKM01',@useself=N'False',@locallogin=NULL,@rmtuser=N'etluser',@rmtpassword='s@f34sql'
 
 IF NOT EXISTS(SELECT 1 FROM sys.servers where name = 'PBANKM01')
@@ -48,14 +48,14 @@ GO
  *                     Create the synonyms for SQL12 and SQL15                                        *
  ******************************************************************************************************/
 
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Process_Business_Dates') CREATE SYNONYM [dbo].[ETL_Maintenance_Process_Business_Dates] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[Process_Business_Dates]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[Processes]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes_Log') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes_Log] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[Processes_Log]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_vw_Errors') CREATE SYNONYM [dbo].[ETL_Maintenance_vw_Errors] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[vw_Errors]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_CustomerSummaryView') CREATE SYNONYM [dbo].[SalesLogix_CustomerSummaryView] FOR [TFHLBDMSQL12].[SalesLogix].[dbo].[CustomerSummaryView]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_sysdba_CONTACT') CREATE SYNONYM [dbo].[SalesLogix_sysdba_CONTACT] FOR [TFHLBDMSQL12].[SalesLogix].[sysdba].[CONTACT]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_sysdba_FHLB_ACCOUNTEXT') CREATE SYNONYM [dbo].[SalesLogix_sysdba_FHLB_ACCOUNTEXT] FOR [TFHLBDMSQL12].[SalesLogix].[sysdba].[FHLB_ACCOUNTEXT]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_sysdba_FHLB_CONTACTROLE') CREATE SYNONYM [dbo].[SalesLogix_sysdba_FHLB_CONTACTROLE] FOR [TFHLBDMSQL12].[SalesLogix].[sysdba].[FHLB_CONTACTROLE]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Process_Business_Dates') CREATE SYNONYM [dbo].[ETL_Maintenance_Process_Business_Dates] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[Process_Business_Dates]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[Processes]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes_Log') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes_Log] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[Processes_Log]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_vw_Errors') CREATE SYNONYM [dbo].[ETL_Maintenance_vw_Errors] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[vw_Errors]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_CustomerSummaryView') CREATE SYNONYM [dbo].[SalesLogix_CustomerSummaryView] FOR [TDMSQL12].[SalesLogix].[dbo].[CustomerSummaryView]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_sysdba_CONTACT') CREATE SYNONYM [dbo].[SalesLogix_sysdba_CONTACT] FOR [TDMSQL12].[SalesLogix].[sysdba].[CONTACT]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_sysdba__ACCOUNTEXT') CREATE SYNONYM [dbo].[SalesLogix_sysdba__ACCOUNTEXT] FOR [TDMSQL12].[SalesLogix].[sysdba].[_ACCOUNTEXT]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_sysdba__CONTACTROLE') CREATE SYNONYM [dbo].[SalesLogix_sysdba__CONTACTROLE] FOR [TDMSQL12].[SalesLogix].[sysdba].[_CONTACTROLE]
 
 /******************************************************************************************************
  *       Update existing procedures with synonyms to replace old references                           *
@@ -75,25 +75,25 @@ DECLARE UpdateCursor CURSOR FOR
 				,'ETL_Maintenance.dbo.udf_Convert_Numeric_Date_to_Date', 'Collateral_Staging.dbo.udf_Convert_Numeric_Date_to_Date')
 				,'ETL_Maintenance.dbo.udf_Convert_Date_Types_to_Numeric_Date', 'Collateral_Staging.dbo.udf_Convert_Date_Types_to_Numeric_Date')
 				,'SalesLogix.dbo.CustomerSummaryView', 'SalesLogix_CustomerSummaryView')
-				,'SalesLogix.sysdba.FHLB_ACCOUNTEXT', 'SalesLogix_sysdba_FHLB_ACCOUNTEXT')
+				,'SalesLogix.sysdba._ACCOUNTEXT', 'SalesLogix_sysdba__ACCOUNTEXT')
 				,'SalesLogix.sysdba.CONTACT', 'SalesLogix_sysdba_CONTACT')
-				,'SalesLogix.sysdba.FHLB_CONTACTROLE', 'SalesLogix_sysdba_FHLB_CONTACTROLE')
+				,'SalesLogix.sysdba._CONTACTROLE', 'SalesLogix_sysdba__CONTACTROLE')
 				,'CustomerSummaryView.', 'SalesLogix_CustomerSummaryView.')
-				,'FHLB_ACCOUNTEXT.', 'SalesLogix_sysdba_FHLB_ACCOUNTEXT.')
+				,'_ACCOUNTEXT.', 'SalesLogix_sysdba__ACCOUNTEXT.')
 				,'CONTACT.', 'SalesLogix_sysdba_CONTACT.')
-				,'FHLB_CONTACTROLE.', 'SalesLogix_sysdba_FHLB_CONTACTROLE.')
+				,'_CONTACTROLE.', 'SalesLogix_sysdba__CONTACTROLE.')
 				,'Processes_Log.', 'ETL_Maintenance_Processes_Log.')
 				,'Processes.', 'ETL_Maintenance_Processes.')
 				,'vw_Errors.', 'ETL_Maintenance_vw_Errors.')
 				,'CREATE VIEW', 'ALTER VIEW')
 				,'CREATE FUNCTION', 'ALTER FUNCTION')
 				,'CREATE PROCEDURE', 'ALTER PROCEDURE')
-	FROM	tfhlbdmsql12.collateral_reporting_old.sys.objects o
-			INNER JOIN tfhlbdmsql12.collateral_reporting_old.sys.schemas s
+	FROM	tdmsql12.collateral_reporting_old.sys.objects o
+			INNER JOIN tdmsql12.collateral_reporting_old.sys.schemas s
 			ON o.schema_id = s.schema_id
-			INNER JOIN tfhlbdmsql12.collateral_reporting_old.sys.sql_modules sm
+			INNER JOIN tdmsql12.collateral_reporting_old.sys.sql_modules sm
 			ON sm.object_id = o.object_id
-			INNER JOIN tFHLBDMSQL12.master.sys.databases db 
+			INNER JOIN tDMSQL12.master.sys.databases db 
 			ON	sm.definition LIKE '%' + db.name+ '.%'
 	WHERE	db.name in ('SalesLogix','ETL_Maintenance')
 
@@ -128,16 +128,16 @@ GO
  *                     Create the synonyms for SQL12 and SQL15                                        *
  ******************************************************************************************************/
 
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Error_Log') CREATE SYNONYM [dbo].[ETL_Maintenance_Error_Log] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[Error_Log]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[Processes]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes_Log') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes_Log] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[Processes_Log]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes_Reconciliation_Detail') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes_Reconciliation_Detail] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[Processes_Reconciliation_Detail]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Get_Processes_Log_ID') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Get_Processes_Log_ID] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[usp_Get_Processes_Log_ID]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Insert_Into_Error_Log') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Insert_Into_Error_Log] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[usp_Insert_Into_Error_Log]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Insert_Processes_Reconciliation_Detail') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Insert_Processes_Reconciliation_Detail] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[usp_Insert_Processes_Reconciliation_Detail]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Send_Mail') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Send_Mail] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[usp_Send_Mail]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Update_Process_Log_End_Process') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Update_Process_Log_End_Process] FOR [TFHLBDMSQL12].[ETL_Maintenance].[dbo].[usp_Update_Process_Log_End_Process]
-IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_CustomerSummaryView') CREATE SYNONYM [dbo].[SalesLogix_CustomerSummaryView] FOR [TFHLBDMSQL12].[SalesLogix].[dbo].[CustomerSummaryView]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Error_Log') CREATE SYNONYM [dbo].[ETL_Maintenance_Error_Log] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[Error_Log]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[Processes]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes_Log') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes_Log] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[Processes_Log]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_Processes_Reconciliation_Detail') CREATE SYNONYM [dbo].[ETL_Maintenance_Processes_Reconciliation_Detail] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[Processes_Reconciliation_Detail]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Get_Processes_Log_ID') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Get_Processes_Log_ID] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[usp_Get_Processes_Log_ID]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Insert_Into_Error_Log') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Insert_Into_Error_Log] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[usp_Insert_Into_Error_Log]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Insert_Processes_Reconciliation_Detail') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Insert_Processes_Reconciliation_Detail] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[usp_Insert_Processes_Reconciliation_Detail]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Send_Mail') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Send_Mail] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[usp_Send_Mail]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'ETL_Maintenance_usp_Update_Process_Log_End_Process') CREATE SYNONYM [dbo].[ETL_Maintenance_usp_Update_Process_Log_End_Process] FOR [TDMSQL12].[ETL_Maintenance].[dbo].[usp_Update_Process_Log_End_Process]
+IF NOT EXISTS (SELECT 1 FROM sys.synonyms WHERE name = 'SalesLogix_CustomerSummaryView') CREATE SYNONYM [dbo].[SalesLogix_CustomerSummaryView] FOR [TDMSQL12].[SalesLogix].[dbo].[CustomerSummaryView]
 
 /******************************************************************************************************
  *       Update existing procedures with synonyms to replace old references                           *
@@ -164,9 +164,9 @@ DECLARE UpdateCursor CURSOR FOR
 			,'ETL_Maintenance.dbo.usp_Update_Process_Log_End_Process', 'ETL_Maintenance_usp_Update_Process_Log_End_Process')
 			,'SalesLogix.dbo.CustomerSummaryView', 'SalesLogix_CustomerSummaryView')
 			,'CustomerSummaryView.', 'SalesLogix_CustomerSummaryView.')
-			,'FHLB_ACCOUNTEXT.', 'SalesLogix_sysdba_FHLB_ACCOUNTEXT.')
+			,'_ACCOUNTEXT.', 'SalesLogix_sysdba__ACCOUNTEXT.')
 			,'CONTACT.', 'SalesLogix_sysdba_CONTACT.')
-			,'FHLB_CONTACTROLE.', 'SalesLogix_sysdba_FHLB_CONTACTROLE.')
+			,'_CONTACTROLE.', 'SalesLogix_sysdba__CONTACTROLE.')
 			,'Processes_Log.', 'ETL_Maintenance_Processes_Log.')
 			,'Processes.', 'ETL_Maintenance_Processes.')
 			,'vw_Errors.', 'ETL_Maintenance_vw_Errors.')
@@ -174,12 +174,12 @@ DECLARE UpdateCursor CURSOR FOR
 			,'CREATE FUNCTION', 'ALTER FUNCTION')
 			,'CREATE PROCEDURE', 'ALTER PROCEDURE')
 			, 'CREATE VIEW', 'ALTER VIEW')
-	FROM	TFHLBDMsql12.collateral_staging_old.sys.objects o
-			INNER JOIN TFHLBDMsql12.collateral_staging_old.sys.schemas s
+	FROM	TDMsql12.collateral_staging_old.sys.objects o
+			INNER JOIN TDMsql12.collateral_staging_old.sys.schemas s
 			ON o.schema_id = s.schema_id
-			INNER JOIN TFHLBDMsql12.collateral_staging_old.sys.sql_modules sm
+			INNER JOIN TDMsql12.collateral_staging_old.sys.sql_modules sm
 			ON sm.object_id = o.object_id
-			INNER JOIN TFHLBDMSQL12.master.sys.databases db 
+			INNER JOIN TDMSQL12.master.sys.databases db 
 			ON	sm.definition LIKE '%' + db.name+ '.%'
 	WHERE	db.name in ('SalesLogix','ETL_Maintenance')
 

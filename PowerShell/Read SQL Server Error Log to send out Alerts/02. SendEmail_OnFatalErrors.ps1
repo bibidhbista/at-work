@@ -1,4 +1,4 @@
-﻿# Vars value that need to be changed based on the environment ($servers, $from, $to)
+# Vars value that need to be changed based on the environment ($servers, $from, $to)
 
 # List of servers to run the fatal error check
 $Servers ='TFMDBDSM','TFSQLDC','TFSQLPHX','TFSQLBMA'

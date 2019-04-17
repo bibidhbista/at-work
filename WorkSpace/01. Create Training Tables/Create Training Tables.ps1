@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param(
     [Parameter(Mandatory="True", HelpMessage ="Enter the username for creating the training tables: ")]
     [ValidateNotNullOrEmpty()]

@@ -1,4 +1,4 @@
-Ôªø
+
 [CmdletBinding()]
     Param
     (
@@ -17,12 +17,12 @@
         $RunDate 
         
     )
-    Import-Module ‚Äúsqlps‚Äù -DisableNameChecking   
+    Import-Module ìsqlpsî -DisableNameChecking   
    
    
     #For SQL Connection String
     $SqlConnection = New-Object System.Data.SqlClient.SqlConnection
-    $TargetServer='TFHLBDMSQL12'
+    $TargetServer='TDMSQL12'
     $SqlConnection.ConnectionString = "Server=$TargetServer;Database=ETL_Maintenance;Integrated Security=True" 
     $SQLCmd = New-Object System.Data.SqlClient.SqlCommand
     $sqlCmd.CommandType = [System.Data.CommandType]::StoredProcedure

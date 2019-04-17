@@ -1,4 +1,4 @@
-﻿$date = get-date
+$date = get-date
 $x=0
 
 

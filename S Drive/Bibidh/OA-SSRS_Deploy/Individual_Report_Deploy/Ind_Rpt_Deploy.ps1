@@ -1,4 +1,4 @@
-ï»¿
+
 <#
 
 THE FOLDER MUST CONTAIN A COMMONSCRIPT.RSS FILE!
@@ -35,7 +35,7 @@ DATASOURCEPATH		:DEFAULT:	"/DATA SOURCES"
                     # Name of report to be deployed
                     [Parameter(Mandatory=$True)]
                     [ValidateNotNull()]
-                    [ValidatePattern(â€œ.rdl$â€)]
+                    [ValidatePattern(“.rdl$”)]
                         [string] $reportName,
                     # Name of the server for the report to be deployed to
                     [Parameter(Mandatory=$True)]

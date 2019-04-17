@@ -1,4 +1,4 @@
-﻿# Vars value to change ($servers, $from, $to)
+# Vars value to change ($servers, $from, $to)
 
 # List of servers to run the fatal error check
 $Servers ='atgdsmsq14','.\'

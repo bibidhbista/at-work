@@ -1,4 +1,4 @@
-Ôªø#Requires -version 3.0
+#Requires -version 3.0
 add-type -AssemblyName "Microsoft.SqlServer.SqlWmiManagement, version=11.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91";
 add-type -AssemblyName "Microsoft.AnalysisServices, version=11.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91";
 
@@ -80,7 +80,7 @@ foreach ($machine_name in $server_list)
                                 if ($ver -eq 'V9') 
                                 {
                                 #for sql 2005 SSRS, there is no direct version number from WMI interface, so I have to use SSRS executable file version info as SSRS version
-                                    gwmi -class MSReportServer_Instance ‚ÄìNamespace ‚Äúroot\microsoft\sqlserver\reportserver\V9‚Äù -ComputerName $machine_name | 
+                                    gwmi -class MSReportServer_Instance ñNamespace ìroot\microsoft\sqlserver\reportserver\V9î -ComputerName $machine_name | 
                                     Where-Object {$_.__Path -like "*InstanceName=`"$($instance_name)`"" } | 
                                     % {   $row = $data_table.NewRow();
                                           $row.Edition = $_.EditionName; 
@@ -96,7 +96,7 @@ foreach ($machine_name in $server_list)
                                 }
                                 else
                                 {  
-                                   gwmi -class MSReportServer_Instance ‚ÄìNamespace ‚Äúroot\microsoft\sqlserver\reportserver\$rs_name\$ver‚Äù -ComputerName $machine_name | 
+                                   gwmi -class MSReportServer_Instance ñNamespace ìroot\microsoft\sqlserver\reportserver\$rs_name\$verî -ComputerName $machine_name | 
                                    Where-Object {$_.__Path -like "*InstanceName=`"$($instance_name)`"" } | 
                                    %  {   $row = $data_table.NewRow();
                                           $row.Edition = $_.EditionName; 

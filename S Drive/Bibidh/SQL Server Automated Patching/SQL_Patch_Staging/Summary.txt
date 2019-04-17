@@ -13,7 +13,7 @@ Instance MSSQLSERVER overall summary:
   Requested action:              Patch
 
 Machine Properties:
-  Machine name:                  DFHLBDMSQL08
+  Machine name:                  DSQL08
   Machine processor count:       1
   OS version:                    Windows Server 2012
   OS service pack:               

@@ -1,11 +1,11 @@
-﻿
+
 
 # Change these to whatever you want it to point to
 #$driveName='E:'
 
 
 
-$ServerName = 'atgdsmsq14'#'dsqlhub','tsqlhub','usqlhub'#,'psqlhub'#,'pfhlbdmsql12'
+$ServerName = 'atgdsmsq14'#'dsqlhub','tsqlhub','usqlhub'#,'psqlhub'#,'pdmsql12'
 $sp10 ="                  "
 $gb = " GB"
 #Command

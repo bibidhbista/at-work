@@ -1,4 +1,4 @@
-﻿###################### VARS TO SET ######################
+###################### VARS TO SET ######################
 $path = "\\pfs02\sqlbackup\*"
 $fileExt = ".*"
 $olderThaninDays = '7'

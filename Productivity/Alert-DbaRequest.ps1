@@ -1,4 +1,4 @@
-﻿#param (
+#param (
 #    [Parameter(Mandatory=$false)]
 #    [ValidateNotNullOrEmpty()]
 #    [string[]]$CssUri ="P:\at-work\TableResult.css"

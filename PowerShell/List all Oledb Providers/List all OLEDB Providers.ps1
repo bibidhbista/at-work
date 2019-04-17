@@ -1,4 +1,4 @@
-﻿icm -cn pfhlbdmsql15 {
+icm -cn pdmsql15 {
 
         $list = New-Object ([System.Collections.Generic.List[PSObject]])
 

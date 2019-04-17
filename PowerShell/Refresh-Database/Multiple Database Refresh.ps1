@@ -1,5 +1,5 @@
-﻿$SourceServer = 'pfhlbdmsql12'
-$DestinationServer = 'dfhlbdmsql12'
+$SourceServer = 'pdmsql12'
+$DestinationServer = 'ddmsql12'
 
 
 #$databasesList = 'Hub','HubPersistent', 'HubStaging','InfoGov'

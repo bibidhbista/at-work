@@ -1,4 +1,4 @@
-﻿# Scheduled Task Stored Procedure
+# Scheduled Task Stored Procedure
 # Parmaters for Tidal
 
 [CmdletBinding()]
@@ -27,8 +27,8 @@ $serverType = $dbName.substring(0,1)
 
 switch ($serverType) 
     { 
-        'p' {$server = "PFHLBDMSQL13"} 
-        't' {$server = "TFHLBDMSQL13"} 
+        'p' {$server = "PDMSQL13"} 
+        't' {$server = "TDMSQL13"} 
     }
 Write-Host "`nConnecting to $server..."
 
@@ -87,9 +87,9 @@ if ([string]::IsNullOrEmpty($check)){
 # Function to log the details/errors to table
 function log-Sql ($logtext,$ServerName){
     
-    # Connection Settings for logging on PFHLBDMSQL08 SCHEDULEDTASK DB CIMCON_LOG TABLE    
+    # Connection Settings for logging on PDMSQL08 SCHEDULEDTASK DB CIMCON_LOG TABLE    
     $SqlConnection = New-Object System.Data.SqlClient.SqlConnection
-    $TargetServer='PFHLBDMSQL08'
+    $TargetServer='PDMSQL08'
     $SqlConnection.ConnectionString = "Server=$TargetServer;Database=ScheduledTask;Integrated Security=True" 
     $SQLCmd = New-Object System.Data.SqlClient.SqlCommand
     $sqlCmd.CommandType = [System.Data.CommandType]::StoredProcedure
@@ -109,7 +109,7 @@ function log-Sql ($logtext,$ServerName){
     $SQLCmd.Parameters['@StartDate'].value = $StartDate
 
     #Passing the LogText to the sp in the mentioned server and db
-    $ServerName='PFHLBDMSQL13'
+    $ServerName='PDMSQL13'
     $SQLCmd.Parameters.Add("@ServerName",[system.data.SqlDbType]::nvarchar) | out-Null
     $SQLCmd.Parameters['@ServerName'].Direction = [system.data.ParameterDirection]::Input
     $SQLCmd.Parameters['@ServerName'].value = $ServerName

@@ -1,4 +1,4 @@
-﻿#$credential = Get-Credential
+#$credential = Get-Credential
 #$credential.Password | ConvertFrom-SecureString | Set-Content c:\encrypted_password.txt
 
 $encrypted = Get-Content c:\encrypted_password.txt | ConvertTo-SecureString

@@ -1,38 +1,51 @@
-﻿[CMDLETBINDING()]
+[CMDLETBINDING()]
 param(
     [switch]$check
 )
 
 
+$ftpCmd ="ftp ftp.redtouchmedia.com`r`n"
+$ftpCmd += "atgftp`r`n"
+$ftpCmd += "P@ssw0rd`r`n"
+$ftpCmd += "cd `"cdcr databases`"`r`n"
+$ftpCmd += "dir`r`n"
 
-$root         = "\\10.47.239.20\f$"
+#cmd /c $ftpCmd
+
+
+$ftpCmdPath = "E:\at-work\SQL\ATG\KMusicRefresh\ftpCmd.cmd"
+$ftpCmd|Out-File -FilePath $ftpCmdPath
+
+psftp 208.97.57.110 -b $ftpCmdPath 
+
+#$root         = "\\10.47.239.20\f$"
 
 # Creds and config
-$runDate      = (Get-date).ToString("yyyy_MM_")
+#$runDate      = (Get-date).ToString("yyyy_MM_")
 #$runDate      += "KioskTempDb.bak"
-$runDate      = "KDb.bak"
-$runftp       = 0
-$User         = "KGNVPWISQL1\atgsqlsvc"
-$File         = "E:\at-work\SQL\ATG\KMusicRefresh\KMusicRefresh.txt"
-$Drive        = Get-PSDrive|? name -eq "K"
-
-if(!$drive){
-    New-PSDrive -Name "K" -PSProvider FileSystem -Root $root -Credential $Creds
-}
-cd K:
-$file         = gci -Filter "$runDate"|select -First 1
-$File
-if($file){
-   Write-Host "`r`nFile $($file.basename) Exists at $root and is ready to be moved using ftp."
-   $runftp = 1
-}else{
-   $runftp = 0
-   Write-Host "Backup file doesn't exist for $runDate as of $(Get-date)." 
-}
-
-# Gen Enc Pass
-$PasswordFile = "E:\at-work\SQL\ATG\KMusicRefresh\ftpEncPass"
-$KeyFile = "E:\at-work\SQL\ATG\KMusicRefresh\AES.key"
+##$runDate      = "KDb.bak"
+#$runftp       = 0
+#$User         = "KGNVPWISQL1\atgsqlsvc"
+#$File         = "E:\at-work\SQL\ATG\KMusicRefresh\KMusicRefresh.txt"
+#$Drive        = Get-PSDrive|? name -eq "K"
+#
+#if(!$drive){
+#    New-PSDrive -Name "K" -PSProvider FileSystem -Root $root -Credential $Creds
+#}
+#cd K:
+#$file         = gci -Filter "$runDate"|select -First 1
+#$File
+#if($file){
+#   Write-Host "`r`nFile $($file.basename) Exists at $root and is ready to be moved using ftp."
+#   $runftp = 1
+#}else{
+#   $runftp = 0
+#   Write-Host "Backup file doesn't exist for $runDate as of $(Get-date)." 
+#}
+#
+## Gen Enc Pass
+#$PasswordFile = "E:\at-work\SQL\ATG\KMusicRefresh\ftpEncPass"
+#$KeyFile = "E:\at-work\SQL\ATG\KMusicRefresh\AES.key"
 #$Key = New-Object Byte[] 32                                                           # You can use 16, 24, or 32 for AES
 #[Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)
 #$Key | out-file $KeyFile
@@ -40,17 +53,18 @@ $KeyFile = "E:\at-work\SQL\ATG\KMusicRefresh\AES.key"
 
 
 # Get Enc Credential
-$User = "atgftp"
-$key = Get-Content $KeyFile
-$Creds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, (Get-Content $PasswordFile | ConvertTo-SecureString -Key $key)
+#$User = "atgftp"
+#$key = Get-Content $KeyFile
+#$Creds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, (Get-Content $PasswordFile | ConvertTo-SecureString -Key $key)
 
 # Ftp Put to remote site
-if($runftp -eq 1){
-    $LocalFile = $file.PSParentPath
-    $PutCmd    = "lcd $LocalFile`r`ndir"
-    cmd /c $PutCmd
-
-}
+#if($runftp -eq 1){
+#    $LocalFile = $file.PSParentPath
+#    $PutCmd    = "lcd $LocalFile`r`ndir"
+#    cmd /c $PutCmd
+#
+#}
 
 
 #Remove-PSDrive -Name K -Force|Out-Null
+

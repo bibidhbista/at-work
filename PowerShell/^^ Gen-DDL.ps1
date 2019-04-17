@@ -1,4 +1,4 @@
-﻿Add-Type -AssemblyName "Microsoft.SqlServer.Smo"
+Add-Type -AssemblyName "Microsoft.SqlServer.Smo"
 
 $server = "ATGDSMSQ14"
 $DBNAMES = "ICON_DEV"

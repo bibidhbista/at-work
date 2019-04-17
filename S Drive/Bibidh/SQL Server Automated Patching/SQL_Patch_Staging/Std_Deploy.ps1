@@ -1,4 +1,4 @@
-﻿# For remote install of the standard deploy (no need to kill sessions, etc. this would be for Dev/Test/UAT environments) 
+# For remote install of the standard deploy (no need to kill sessions, etc. this would be for Dev/Test/UAT environments) 
 
 [CmdletBinding()]
     Param

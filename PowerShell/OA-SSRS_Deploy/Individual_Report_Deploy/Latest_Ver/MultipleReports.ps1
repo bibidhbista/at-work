@@ -1,4 +1,4 @@
-﻿# For feeding multiple git lab links to deploy multiple rdl files to the same folder on the same server:
+# For feeding multiple git lab links to deploy multiple rdl files to the same folder on the same server:
 
 
 [CmdletBinding()]

@@ -1,4 +1,4 @@
-﻿# Lists all the indexes with >1000 pages and 20% avg fragmenatation for all databases in all servers in the list
+# Lists all the indexes with >1000 pages and 20% avg fragmenatation for all databases in all servers in the list
 
  $AllServers = gc "$psscriptroot\specific.txt" 
  Remove-Item "$psscriptroot\IndexCheck.csv" -force

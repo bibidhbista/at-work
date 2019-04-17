@@ -1,4 +1,4 @@
-﻿# CWA/Tidal job parameters:
+# CWA/Tidal job parameters:
 param(
         # Job name as listed on Veeam Backup & Replication app
         [string]$jobName
@@ -10,7 +10,7 @@ asnp VeeamPSSnapIn
 
 # Use service account login to start a job using a key and secured string for credentials
 [Byte[]] $key = (1..16)
-$User = "FHLBDM\psvc_veeam"
+$User = "DM\psvc_veeam"
 $Pw = Get-Content "\\pveeamapp02\scripts\Creds.txt" | ConvertTo-SecureString -Key $key
 $Cred = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $Pw
 $server= "pveeamapp02"

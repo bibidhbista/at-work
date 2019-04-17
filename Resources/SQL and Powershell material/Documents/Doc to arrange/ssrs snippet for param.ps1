@@ -1,4 +1,4 @@
-﻿[Parameter(Mandatory=$false,
+[Parameter(Mandatory=$false,
                    ValueFromPipelineByPropertyName=$true,
                    Position=0)]
         [ValidateNotNull()]

@@ -1,4 +1,4 @@
-﻿# For remote install of the exception deploys(stop application services on appropriate app server,kill sessions for each db, execute script, reboot server remotely)
+# For remote install of the exception deploys(stop application services on appropriate app server,kill sessions for each db, execute script, reboot server remotely)
 
 
 [CmdletBinding()]

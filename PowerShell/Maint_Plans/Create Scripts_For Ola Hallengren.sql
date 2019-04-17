@@ -2557,7 +2557,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'IndexOptimize - USER_DATABAS
 		@delete_level=0, 
 		@description=N'Source: https://ola.hallengren.com', 
 		@category_name=N'Database Maintenance', 
-		@owner_login_name=N'FHLBDM\svc_dbmaint', @job_id = @jobId OUTPUT
+		@owner_login_name=N'DM\svc_dbmaint', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 /****** Object:  Step [IndexOptimize - USER_DATABASES]    Script Date: 4/16/2018 10:09:19 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'IndexOptimize - USER_DATABASES', 
@@ -2643,7 +2643,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'Weekly_UserDBs_Maintenance.S
 		@delete_level=0, 
 		@description=N'No description available.', 
 		@category_name=N'Database Maintenance', 
-		@owner_login_name=N'FHLBDM\techbb', @job_id = @jobId OUTPUT
+		@owner_login_name=N'DM\techbb', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 /****** Object:  Step [Subplan_1]    Script Date: 4/16/2018 9:58:02 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Subplan_1', 

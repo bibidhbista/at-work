@@ -11,7 +11,7 @@ LAST UPDATE DATE: 09/07/2017
 
 
 POWERSHELL COMMAND:
-./Ind_rpt_deploy.ps1 -gitLabPath "https://pgitapp01.fhlbdm.com/SSRS/Accounting/raw/master/Accounting_SSRS/LOC_Fees_Projection.rdl" -reportname "LOC_Fees_Projection.rdl" -servername "sqltest2016" -reportfolder "Test"
+./Ind_rpt_deploy.ps1 -gitLabPath "https://pgitapp01..com/SSRS/Accounting/raw/master/Accounting_SSRS/LOC_Fees_Projection.rdl" -reportname "LOC_Fees_Projection.rdl" -servername "sqltest2016" -reportfolder "Test"
 
 
 

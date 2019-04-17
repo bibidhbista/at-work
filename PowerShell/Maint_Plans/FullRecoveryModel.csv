@@ -1,177 +1,354 @@
+working on ServerName,DBName,recovery_model_desc
 ServerName,DBName,recovery_model_desc
-DFHLBDMSQL07,dMerger_XML_Utility,FULL
-DFHLBDMSQL07,dPSTG,FULL
-DFHLBDMSQL07,dSTG,FULL
-DFHLBDMSQL07,MasterDataServicesDB,FULL
-DFHLBDMSQL07,zHubCore,FULL
-DFHLBDMSQL08,model,FULL
-DFHLBDMSQL08,ReportServer,FULL
-DFHLBDMSQL08,REPOSITORY,FULL
-DFHLBDMSQL08,DNSALIAS,FULL
-DFHLBDMSQL08,Environment,FULL
-DFHLBDMSQL12,deAdvantage,FULL
-DFHLBDMSQL12,SystemDependencyMappings,FULL
-DFHLBDMSQL12,BusinessProcessingPlatform,FULL
-DFHLBDMSQL12,JournalVoucherApplication_Janderso,FULL
-DFHLBDMSQL12,udahelper_Janderson,FULL
-DFHLBDMSQL12,JournalVoucherApplication_SVege,FULL
-DFHLBDMSQL12,JournalVoucherApplication_Dlauer,FULL
-DFHLBDMSQL12,JournalVoucherApplication_rkomurav,FULL
-DFHLBDMSQL13,dUlysses_Interface,FULL
-DFHLBDMSQL14,AHP_Working,FULL
-DFHLBDMSQL14,AHP_final,FULL
-DFHLBDMSQL14,AHP_rescore,FULL
-DFHLBDMSQL14,AHP_Working_SEA,FULL
-DFHLBDMSQL14,LAS_CR,FULL
-DFHLBDMSQL14,LASDB2,FULL
-DFHLBDMSSIS01,SSISDB,FULL
-DFHLBDMSSIS01,dSSIS_Utility,FULL
-DFHLBDMSSIS02,model,FULL
-DFHLBDMSSRS04,dReportServer,FULL
+working on DDMSQL07,dMerger_XML_Utility,FULL
+DDMSQL07,dMerger_XML_Utility,FULL
+working on DDMSQL07,dPSTG,FULL
+DDMSQL07,dPSTG,FULL
+working on DDMSQL07,dSTG,FULL
+DDMSQL07,dSTG,FULL
+working on DDMSQL07,MasterDataServicesDB,FULL
+DDMSQL07,MasterDataServicesDB,FULL
+working on DDMSQL07,zHubCore,FULL
+DDMSQL07,zHubCore,FULL
+working on DDMSQL08,model,FULL
+DDMSQL08,model,FULL
+working on DDMSQL08,ReportServer,FULL
+DDMSQL08,ReportServer,FULL
+working on DDMSQL08,REPOSITORY,FULL
+DDMSQL08,REPOSITORY,FULL
+working on DDMSQL08,DNSALIAS,FULL
+DDMSQL08,DNSALIAS,FULL
+working on DDMSQL08,Environment,FULL
+DDMSQL08,Environment,FULL
+working on DDMSQL12,deAdvantage,FULL
+DDMSQL12,deAdvantage,FULL
+working on DDMSQL12,SystemDependencyMappings,FULL
+DDMSQL12,SystemDependencyMappings,FULL
+working on DDMSQL12,BusinessProcessingPlatform,FULL
+DDMSQL12,BusinessProcessingPlatform,FULL
+working on DDMSQL12,JournalVoucherApplication_Janderso,FULL
+DDMSQL12,JournalVoucherApplication_Janderso,FULL
+working on DDMSQL12,udahelper_Janderson,FULL
+DDMSQL12,udahelper_Janderson,FULL
+working on DDMSQL12,JournalVoucherApplication_SVege,FULL
+DDMSQL12,JournalVoucherApplication_SVege,FULL
+working on DDMSQL12,JournalVoucherApplication_Dlauer,FULL
+DDMSQL12,JournalVoucherApplication_Dlauer,FULL
+working on DDMSQL12,JournalVoucherApplication_rkomurav,FULL
+DDMSQL12,JournalVoucherApplication_rkomurav,FULL
+working on DDMSQL13,dUlysses_Interface,FULL
+DDMSQL13,dUlysses_Interface,FULL
+working on DDMSQL14,AHP_Working,FULL
+DDMSQL14,AHP_Working,FULL
+working on DDMSQL14,AHP_final,FULL
+DDMSQL14,AHP_final,FULL
+working on DDMSQL14,AHP_rescore,FULL
+DDMSQL14,AHP_rescore,FULL
+working on DDMSQL14,AHP_Working_SEA,FULL
+DDMSQL14,AHP_Working_SEA,FULL
+working on DDMSQL14,LAS_CR,FULL
+DDMSQL14,LAS_CR,FULL
+working on DDMSQL14,LASDB2,FULL
+DDMSQL14,LASDB2,FULL
+working on DDMSSIS01,SSISDB,FULL
+DDMSSIS01,SSISDB,FULL
+working on DDMSSIS01,dSSIS_Utility,FULL
+DDMSSIS01,dSSIS_Utility,FULL
+working on DDMSSIS02,model,FULL
+DDMSSIS02,model,FULL
+working on DDMSSRS04,dReportServer,FULL
+DDMSSRS04,dReportServer,FULL
+working on SQLTEST2016,model,FULL
 SQLTEST2016,model,FULL
+working on SQLTEST2016,ReportServer,FULL
 SQLTEST2016,ReportServer,FULL
+working on SQLTEST2016,SnehaTest,FULL
 SQLTEST2016,SnehaTest,FULL
+working on SQLTEST2016,tXLRISK,FULL
 SQLTEST2016,tXLRISK,FULL
+working on SQLTEST2016,tSOXXL,FULL
 SQLTEST2016,tSOXXL,FULL
+working on SQLTEST2016,dStatementSEA,FULL
 SQLTEST2016,dStatementSEA,FULL
+working on SQLTEST2016,QRM_Source,FULL
 SQLTEST2016,QRM_Source,FULL
+working on PADMINSQL01,ReportServer,FULL
 PADMINSQL01,ReportServer,FULL
+working on PADMINSQL02,ActiveAdministrator,FULL
 PADMINSQL02,ActiveAdministrator,FULL
-PFHLBDMSQL05,admiral,FULL
-PFHLBDMSQL05,pTrackIT,FULL
-PFHLBDMSQL12,SalesLogix,FULL
-PFHLBDMSQL12,peAdvantage,FULL
-PFHLBDMSQL14,AHP_Final,FULL
-PFHLBDMSQL14,AHP_Rescore,FULL
-PFHLBDMSQL14,AHP_Working,FULL
-PFHLBDMSQL14,AHP_Working_SEA,FULL
-PFHLBDMSQL14,AHP_Final_SEA,FULL
-PFHLBDMSSRS04,pReportServer,FULL
+working on PDMSQL05,admiral,FULL
+PDMSQL05,admiral,FULL
+working on PDMSQL05,pTrackIT,FULL
+PDMSQL05,pTrackIT,FULL
+working on PDMSQL12,SalesLogix,FULL
+PDMSQL12,SalesLogix,FULL
+working on PDMSQL12,peAdvantage,FULL
+PDMSQL12,peAdvantage,FULL
+working on PDMSQL14,AHP_Final,FULL
+PDMSQL14,AHP_Final,FULL
+working on PDMSQL14,AHP_Rescore,FULL
+PDMSQL14,AHP_Rescore,FULL
+working on PDMSQL14,AHP_Working,FULL
+PDMSQL14,AHP_Working,FULL
+working on PDMSQL14,AHP_Working_SEA,FULL
+PDMSQL14,AHP_Working_SEA,FULL
+working on PDMSQL14,AHP_Final_SEA,FULL
+PDMSQL14,AHP_Final_SEA,FULL
+working on PDMSSRS04,pReportServer,FULL
+PDMSSRS04,pReportServer,FULL
+working on PQRMSQL11,ReportServer,FULL
 PQRMSQL11,ReportServer,FULL
+working on PQRMSQL11,PCAv16DB,FULL
 PQRMSQL11,PCAv16DB,FULL
+working on PQRMSQL11,PDAv16DB,FULL
 PQRMSQL11,PDAv16DB,FULL
+working on PQRMSQL11,PCA2016,FULL
 PQRMSQL11,PCA2016,FULL
-TFHLBDMSQL05,pTidalRepository,FULL
-TFHLBDMSQL05,pTrackIT,FULL
-TFHLBDMSQL05,Schedule,FULL
-TFHLBDMSQL05,tFHLBIT,FULL
-TFHLBDMSQL05,TRACKIT_DATA,FULL
-TFHLBDMSQL05,tUARFDB,FULL
-TFHLBDMSQL09,GPWEBCLIENTSESSIONCENTRAL,FULL
-TFHLBDMSQL09,GPWEBMANAGEMENT,FULL
-TFHLBDMSQL12,SalesLogix_HUB,FULL
-TFHLBDMSQL12,teAdvantage,FULL
-TFHLBDMSQL12,SalesLogix,FULL
-TFHLBDMSQL12,hub,FULL
-TFHLBDMSQL13,qUlysses_Interface,FULL
-TFHLBDMSQL13,Ulysses_Interface,FULL
-TFHLBDMSQL13,tXLRISK,FULL
-TFHLBDMSQL13,tSOXXL,FULL
-TFHLBDMSQL14,AHP_Final,FULL
-TFHLBDMSQL14,AHP_Rescore,FULL
-TFHLBDMSQL14,AHP_Working,FULL
-TFHLBDMSQL14,AHP_Working_SEA,FULL
-TFHLBDMSQL14,AHP_Final_SEA,FULL
-TFHLBDMSQL14,LAS_CR,FULL
-TFHLBDMSQL14,LASDB2,FULL
-TFHLBDMSSIS02,model,FULL
-TFHLBDMSSRS04,tReportServer,FULL
+working on TDMSQL05,pTidalRepository,FULL
+TDMSQL05,pTidalRepository,FULL
+working on TDMSQL05,pTrackIT,FULL
+TDMSQL05,pTrackIT,FULL
+working on TDMSQL05,Schedule,FULL
+TDMSQL05,Schedule,FULL
+working on TDMSQL05,tIT,FULL
+TDMSQL05,tIT,FULL
+working on TDMSQL05,TRACKIT_DATA,FULL
+TDMSQL05,TRACKIT_DATA,FULL
+working on TDMSQL05,tUARFDB,FULL
+TDMSQL05,tUARFDB,FULL
+working on TDMSQL09,GPWEBCLIENTSESSIONCENTRAL,FULL
+TDMSQL09,GPWEBCLIENTSESSIONCENTRAL,FULL
+working on TDMSQL09,GPWEBMANAGEMENT,FULL
+TDMSQL09,GPWEBMANAGEMENT,FULL
+working on TDMSQL12,SalesLogix_HUB,FULL
+TDMSQL12,SalesLogix_HUB,FULL
+working on TDMSQL12,teAdvantage,FULL
+TDMSQL12,teAdvantage,FULL
+working on TDMSQL12,SalesLogix,FULL
+TDMSQL12,SalesLogix,FULL
+working on TDMSQL12,hub,FULL
+TDMSQL12,hub,FULL
+working on TDMSQL13,qUlysses_Interface,FULL
+TDMSQL13,qUlysses_Interface,FULL
+working on TDMSQL13,Ulysses_Interface,FULL
+TDMSQL13,Ulysses_Interface,FULL
+working on TDMSQL13,tXLRISK,FULL
+TDMSQL13,tXLRISK,FULL
+working on TDMSQL13,tSOXXL,FULL
+TDMSQL13,tSOXXL,FULL
+working on TDMSQL14,AHP_Final,FULL
+TDMSQL14,AHP_Final,FULL
+working on TDMSQL14,AHP_Rescore,FULL
+TDMSQL14,AHP_Rescore,FULL
+working on TDMSQL14,AHP_Working,FULL
+TDMSQL14,AHP_Working,FULL
+working on TDMSQL14,AHP_Working_SEA,FULL
+TDMSQL14,AHP_Working_SEA,FULL
+working on TDMSQL14,AHP_Final_SEA,FULL
+TDMSQL14,AHP_Final_SEA,FULL
+working on TDMSQL14,LAS_CR,FULL
+TDMSQL14,LAS_CR,FULL
+working on TDMSQL14,LASDB2,FULL
+TDMSQL14,LASDB2,FULL
+working on TDMSSIS02,model,FULL
+TDMSSIS02,model,FULL
+working on TDMSSRS04,tReportServer,FULL
+TDMSSRS04,tReportServer,FULL
+working on TVIEWSQL01,model,FULL
 TVIEWSQL01,model,FULL
+working on TVIEWSQL01,EntViewvCenter,FULL
 TVIEWSQL01,EntViewvCenter,FULL
+working on TVIEWSQL01,EntViewVum,FULL
 TVIEWSQL01,EntViewVum,FULL
+working on TVIEWSQL01,EntViewdb,FULL
 TVIEWSQL01,EntViewdb,FULL
+working on TVIEWSQL01,appvolumes,FULL
 TVIEWSQL01,appvolumes,FULL
+working on TQRMSQL11,model,FULL
 TQRMSQL11,model,FULL
+working on TQRMSQL11,ReportServer,FULL
 TQRMSQL11,ReportServer,FULL
+working on TSHAREPSQL02,model,FULL
 TSHAREPSQL02,model,FULL
+working on TSHAREPSQL02,IderaSPbackupRepository,FULL
 TSHAREPSQL02,IderaSPbackupRepository,FULL
+working on TSHAREPSQL02,QSP_Repository,FULL
 TSHAREPSQL02,QSP_Repository,FULL
+working on TSHAREPSQL02,ReportServer,FULL
 TSHAREPSQL02,ReportServer,FULL
+working on TSHAREPSQL02,SharePoint_AdminContent_fc36da32-640c-42e5-88f7-59b40bc0ac48,FULL
 TSHAREPSQL02,SharePoint_AdminContent_fc36da32-640c-42e5-88f7-59b40bc0ac48,FULL
+working on TSHAREPSQL02,StateService_e86313279823409790487c0816283070,FULL
 TSHAREPSQL02,StateService_e86313279823409790487c0816283070,FULL
+working on TSHAREPSQL02,WSS_Content,FULL
 TSHAREPSQL02,WSS_Content,FULL
+working on TSHAREPSQL02,WSS_Content_DELETE,FULL
 TSHAREPSQL02,WSS_Content_DELETE,FULL
+working on TSHAREPSQL02,WSS_Content_TestHome,FULL
 TSHAREPSQL02,WSS_Content_TestHome,FULL
+working on TSHAREPSQL02,WSS_seattle_content,FULL
 TSHAREPSQL02,WSS_seattle_content,FULL
+working on TSHAREPSQL02,WSS_Seattle_Content_post_merger,FULL
 TSHAREPSQL02,WSS_Seattle_Content_post_merger,FULL
+working on TSHAREPSQL02,BDC_Service_DB,FULL
 TSHAREPSQL02,BDC_Service_DB,FULL
+working on TSHAREPSQL02,Managed_Metadata_DB,FULL
 TSHAREPSQL02,Managed_Metadata_DB,FULL
+working on TSHAREPSQL02,WSS_Content_MySite,FULL
 TSHAREPSQL02,WSS_Content_MySite,FULL
-UFHLBDMSQL14,AHP_Working,FULL
-UFHLBDMSQL14,AHP_Working_SEA,FULL
-UFHLBDMSSRS04,uReportServer,FULL
-DFHLBDMSQL15,model,FULL
-DFHLBDMSQL15,SalesLogix,FULL
-DFHLBDMSQL15,deAdvantage,FULL
-DFHLBDMSQL15,MortgageLoanApplication_Janderso,FULL
-DFHLBDMSQL15,MortgageLoanApplication_SVege,FULL
-TFHLBDMSQL15,model,FULL
-TFHLBDMSQL15,teAdvantage,FULL
-UFHLBDMSQL15,model,FULL
-UFHLBDMSQL15,ueAdvantage,FULL
-PFHLBDMSQL15,model,FULL
-PFHLBDMSQL15,MarketRisk,FULL
-PFHLBDMSQL16,model,FULL
-TFHLBDMSQL16,model,FULL
-DFHLBDMSQL16,model,FULL
-UFHLBDMSQL16,model,FULL
+working on UDMSQL14,AHP_Working,FULL
+UDMSQL14,AHP_Working,FULL
+working on UDMSQL14,AHP_Working_SEA,FULL
+UDMSQL14,AHP_Working_SEA,FULL
+working on UDMSSRS04,uReportServer,FULL
+UDMSSRS04,uReportServer,FULL
+working on DDMSQL15,model,FULL
+DDMSQL15,model,FULL
+working on DDMSQL15,SalesLogix,FULL
+DDMSQL15,SalesLogix,FULL
+working on DDMSQL15,deAdvantage,FULL
+DDMSQL15,deAdvantage,FULL
+working on DDMSQL15,MortgageLoanApplication_Janderso,FULL
+DDMSQL15,MortgageLoanApplication_Janderso,FULL
+working on DDMSQL15,MortgageLoanApplication_SVege,FULL
+DDMSQL15,MortgageLoanApplication_SVege,FULL
+working on TDMSQL15,model,FULL
+TDMSQL15,model,FULL
+working on TDMSQL15,teAdvantage,FULL
+TDMSQL15,teAdvantage,FULL
+working on UDMSQL15,model,FULL
+UDMSQL15,model,FULL
+working on UDMSQL15,ueAdvantage,FULL
+UDMSQL15,ueAdvantage,FULL
+working on PDMSQL15,model,FULL
+PDMSQL15,model,FULL
+working on PDMSQL15,MarketRisk,FULL
+PDMSQL15,MarketRisk,FULL
+working on PDMSQL16,model,FULL
+PDMSQL16,model,FULL
+working on TDMSQL16,model,FULL
+TDMSQL16,model,FULL
+working on DDMSQL16,model,FULL
+DDMSQL16,model,FULL
+working on UDMSQL16,model,FULL
+UDMSQL16,model,FULL
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,
+working on ,,
 ,,

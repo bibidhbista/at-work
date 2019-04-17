@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 Param( 
    [Parameter(Mandatory=$False, HelpMessage='ENTER A VALID JOB ID: ')]
    [ValidateNotNullorEmpty()]  

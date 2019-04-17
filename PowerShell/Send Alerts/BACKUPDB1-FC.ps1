@@ -1,4 +1,4 @@
-ï»¿#########################################################################################
+#########################################################################################
 #########################################################################################
 ## Powershell Script that will backup SPECIFIC SERVER AND DATABASE FOR DEPLOYS
 ## REQUIRES MANDATORY SERVERNAME AND DATABASENAME FOR BACKUP TO \\pfs02\sqlbackup
@@ -83,13 +83,13 @@ try
 	  
 
     "Backed up $DatabaseName ($serverName) to $targetPath"
-	Write-Output $((Get-Date â€“f o) + ' Backup of database for ' + $DatabaseName + ' completed successfully.')
+	Write-Output $((Get-Date –f o) + ' Backup of database for ' + $DatabaseName + ' completed successfully.')
 	
 }
 catch
 {
 	$ErrorMessage = $_.Exception.Message
-	Write-Output $((Get-Date â€“f o) + ' Error during executing backup of database ' + $DatabaseName + ' on database source server ' + $ServerName +':  ' + $ErrorMessage ) 
+	Write-Output $((Get-Date –f o) + ' Error during executing backup of database ' + $DatabaseName + ' on database source server ' + $ServerName +':  ' + $ErrorMessage ) 
 	} 
 
 Get-ChildItem "$defpath\*.bak" |? { $_.lastwritetime -le (Get-Date).AddDays(-$daysToStoreBackups)} |% {Remove-Item $_ -force }  

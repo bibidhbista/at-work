@@ -1,4 +1,4 @@
-﻿# List of servers to run the fatal error check
+# List of servers to run the fatal error check
 $Servers ='.\','atgdsmsq14'#,'atgdsmsq17'
 $dbname='amadmin'
 

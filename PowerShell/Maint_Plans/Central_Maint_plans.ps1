@@ -1,4 +1,4 @@
-﻿$AllServers = gc "$PSScriptRoot\AllSQLServers.txt" 
+$AllServers = gc "$PSScriptRoot\AllSQLServers.txt" 
 Remove-Item "$PSScriptRoot\Results_CMPlans.csv" -force
 $AllServers| %{
     # Execute a command

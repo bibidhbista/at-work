@@ -1,7 +1,7 @@
-﻿$serverlist =#'dfhlbdmsql10',
-             #'tfhlbdmsql10'#,
-             'dfhlbdmsql12',
-             'tfhlbdmsql12'
+$serverlist =#'ddmsql10',
+             #'tdmsql10'#,
+             'ddmsql12',
+             'tdmsql12'
 
 
 #$databaselist='Collateral_Interface',

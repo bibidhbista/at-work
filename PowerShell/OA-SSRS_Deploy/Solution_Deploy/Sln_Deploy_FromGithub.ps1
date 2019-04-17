@@ -1,4 +1,4 @@
-﻿<#
+<#
 
 POWERSHELL COMMAND:
 ./Sln_Deploy.ps1 -environment "Prod" -gitLabPath "FILE:///C:/USERS/BBISTA/DESKTOP/SVN/" -solutionname "ADV/ADVENTUREWORKS SAMPLE REPORTS SQL2012.SLN"
@@ -71,7 +71,7 @@ SOLUTIONNAME            : PATH TO THE SOLUTION OR SOLUTION NAME
 
   
     # All of the settings and target server url must be set in solution file
-    # If not, dev must change the target server according to the environment. For ex: Target Server URL: pfhlbdmssrs03/reportserver/project/ for "Prod" 
+    # If not, dev must change the target server according to the environment. For ex: Target Server URL: pdmssrs03/reportserver/project/ for "Prod" 
     
     if ($Environment -eq 'PROD') {
         $TargetSqlServer = 'Production' 

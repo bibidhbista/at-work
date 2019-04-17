@@ -1,4 +1,4 @@
-﻿ [CmdletBinding()]
+ [CmdletBinding()]
     Param
     (
         # The SQL SERVER version that is going to be patched.
@@ -34,7 +34,7 @@
        
        
        #$query = ("USE [test_patching] TRUNCATE TABLE SERVICE_ACCOUNTS")
-       #$ServiceAcc= Invoke-SQLCmd $query -ServerInstance "pfhlbdmsql08" -Database 'logs'
+       #$ServiceAcc= Invoke-SQLCmd $query -ServerInstance "pdmsql08" -Database 'logs'
 
        # put the service account wmiobject in a database for alerting/logging
        foreach($sAcc in $serviceAccounts){
@@ -48,8 +48,8 @@
                $query = ("USE [Logs] "+
                  "INSERT INTO service_accounts(computer_name,startmode,status,service_name,service_account,dateandtime) "+
                  "VALUES('$computer_name','$startmode','$status','$service_name','$service_account','$datetime');")
-                $ServiceAcc= Invoke-SQLCmd $query -ServerInstance "pfhlbdmsql08" -Database 'Logs'
+                $ServiceAcc= Invoke-SQLCmd $query -ServerInstance "pdmsql08" -Database 'Logs'
         }
         
-        Echo "Succesfully logged the status of service accounts on $computerName to the service accounts table in Logs db (pfhlbdmsql08)."
+        Echo "Succesfully logged the status of service accounts on $computerName to the service accounts table in Logs db (pdmsql08)."
         

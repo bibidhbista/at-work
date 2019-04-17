@@ -1,4 +1,4 @@
-﻿write-host ""
+write-host ""
 $target_server = Read-Host "Enter SQL Server name: "
 write-host ""
 write-host "You entered: $target_server"

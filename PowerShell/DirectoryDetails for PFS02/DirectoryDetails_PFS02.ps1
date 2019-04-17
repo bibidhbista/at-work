@@ -1,4 +1,4 @@
-﻿<#
+<#
 AUTHOR: BIBIDH BISTA
 
 
@@ -30,7 +30,7 @@ Write-host ("{0:N2}" -f ($colItems.sum / 1GB) + " GB "+" = "`
 
             ) -BackgroundColor Green
 
-Set-Content $textFile –value ("The current size of the backup drive is: "+"{0:N2}" -f ($colItems.sum / 1GB) + " GB = "+"{0:N2}" -f ($colItems.sum / 1TB) + " TB "+"Usage: "+"{0:N2}" -f (($colItems.sum / 1GB)/$forPercentage)+"%"),(Get-Content $textFile)
+Set-Content $textFile �value ("The current size of the backup drive is: "+"{0:N2}" -f ($colItems.sum / 1GB) + " GB = "+"{0:N2}" -f ($colItems.sum / 1TB) + " TB "+"Usage: "+"{0:N2}" -f (($colItems.sum / 1GB)/$forPercentage)+"%"),(Get-Content $textFile)
 
 # Open the text file with all details
 Invoke-Item $OutputDir\disk_space_results.txt;

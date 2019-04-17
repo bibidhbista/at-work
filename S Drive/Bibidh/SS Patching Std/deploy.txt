@@ -1,2 +1,2 @@
-pfhlbdmsql08
+psql08
 pfogsql01

@@ -1696,7 +1696,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'IndexOptimize - USER_DATABAS
 		@delete_level=0, 
 		@description=N'Source: https://ola.hallengren.com', 
 		@category_name=N'Database Maintenance', 
-		@owner_login_name=N'FHLBDM\svc_dbmaint', @job_id = @jobId OUTPUT
+		@owner_login_name=N'\svc_dbmaint', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 /****** Object:  Step [IndexOptimize - USER_DATABASES]    Script Date: 10/23/2017 9:40:26 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'IndexOptimize - USER_DATABASES', 

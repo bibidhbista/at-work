@@ -1,4 +1,4 @@
-﻿# change the miles to travel value (one way)
+# change the miles to travel value (one way)
 
 [double]$TotalMilesOneway = Read-host 'Enter the number of miles to drive (One-Way)'
 

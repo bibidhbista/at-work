@@ -1,8 +1,8 @@
-dfhlbdmsql14
-tfhlbdmsql07
-tfhlbdmsql14
-tfhlbdmsql15
+dsql14
+tsql07
+tsql14
+tsql15
 tviewsql01
-tfhlbdmsql10
-tfhlbdmssis01
-ufhlbdmsql07
+tsql10
+tssis01
+usql07

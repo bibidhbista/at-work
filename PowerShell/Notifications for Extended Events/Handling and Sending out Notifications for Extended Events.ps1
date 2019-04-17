@@ -1,4 +1,4 @@
-ï»¿#Specify these three parameters.
+#Specify these three parameters.
 $SharedPath = "C:\Program Files\Microsoft SQL Server\140\Shared";
 $SqlInstanceName = ".\";
 $xeSessionName = "system_health";
@@ -9,8 +9,8 @@ $xeLinq = [System.IO.Path]::Combine($SharedPath,
 Add-Type -Path $xeLinq;
 
 # Notes on "Microsoft.SqlServer.XE.Core.dll":
-#  â€¢ For SQL 2014, it is a dependency of "Microsoft.SqlServer.XEvent.Linq.dll".
-#  â€¢ For SQL 2012, the file does not exist.
+#  • For SQL 2014, it is a dependency of "Microsoft.SqlServer.XEvent.Linq.dll".
+#  • For SQL 2012, the file does not exist.
 if( [System.IO.File]::Exists($xeCore) )
 {
     Add-Type -Path $xeCore;

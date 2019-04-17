@@ -38,7 +38,7 @@ Collect AD User Name
 #>
 
 $UserName = Read-Host "Enter AD User Name: "
-##$domain = "fhlbdm\"
+##$domain = "dm\"
 ##$response = $domain + $UserName
 $response = $UserName
 write-host $response

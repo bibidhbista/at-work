@@ -1,4 +1,4 @@
-﻿
+
 
  $AllServers = gc "N:\Projects\Maint_Plans\AllSQLServers.txt" 
  Remove-Item "N:\Projects\Maint_Plans\FullRecoveryModel.csv" -force

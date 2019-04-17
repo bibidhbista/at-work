@@ -1,4 +1,4 @@
-﻿$cols = 'CombinedLosId','IaRiskRevisedLosId','ResultLosId','RevisedLosId','LosOverrideReasonId','LosOverrideApprovalDt','FinalLosId','LosId'
+$cols = 'CombinedLosId','IaRiskRevisedLosId','ResultLosId','RevisedLosId','LosOverrideReasonId','LosOverrideApprovalDt','FinalLosId','LosId'
 $tables = 'aSotips','H_aSotips'
 $action = 'Drop'
 

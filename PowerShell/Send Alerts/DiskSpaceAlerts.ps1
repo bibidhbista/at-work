@@ -1,4 +1,4 @@
-﻿
+
 <#
 AUTHOR: BIBIDH BISTA
 
@@ -27,13 +27,13 @@ Change the variable values to sender's email, list of users to send the alerts t
  
 
 # List of users to email your report to (separate by comma) 
-$users = "bbista@fhlbdm.com"                                                                             ##################### Change this
+$users = "bbista@dm.com"                                                                             ##################### Change this
 
 # uses current context as sender
-$fromemail = "$env:username@fhlbdm.com"                                                                  ##################### Change this
+$fromemail = "$env:username@dm.com"                                                                  ##################### Change this
 
 #enter your own SMTP mailServer DNS name / IP address here
-$mailServer = "mail.fhlbdm.com"                                                                          ##################### Change this
+$mailServer = "mail.dm.com"                                                                          ##################### Change this
  
 # enter the total space allocated for the backup drive *********** IN GB **********
 $totalSpaceinBakDrive=1500                                                                               ##################### Change this
@@ -42,7 +42,7 @@ $totalSpaceinBakDrive=1500                                                      
 [decimal]$thresholdspace = 20                                                                            ##################### Change this
  
 # Get space details.
-$Dir = "\\fhlbdm.com\sqlbackup\sqlbackup"                                                                ##################### Change this
+$Dir = "\\dm.com\sqlbackup\sqlbackup"                                                                ##################### Change this
 $freeSpace= [System.Math]::Round(([decimal]((Get-ChildItem $Dir -recurse | Measure-Object -property length -sum).Sum)/1GB),2)
 $percentFree= [System.Math]::Round(($freespace/$totalSpaceinBakDrive)*100,2)
 write-host "There's $freeSpace GB ($percentFree %) free on $dir"

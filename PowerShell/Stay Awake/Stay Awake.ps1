@@ -1,4 +1,4 @@
-﻿param($minutes = 60)
+param($minutes = 60)
 
 $myshell = New-Object -com "Wscript.Shell"
 

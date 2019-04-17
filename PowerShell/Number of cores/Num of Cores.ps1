@@ -1,4 +1,4 @@
-﻿
+
 
  $AllServers = gc "N:\Projects\Number of cores\AllSQLServers.txt" 
  Remove-Item "N:\Projects\Number of cores\Results_CMNumCores.csv" -force

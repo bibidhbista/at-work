@@ -1,4 +1,4 @@
-﻿# Connection Settings
+# Connection Settings
 $Date = Get-date -Format MMddyyyy_HHmm
 $StartDate = Get-Date
 $HomeDir= $PSScriptRoot

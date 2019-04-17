@@ -1,4 +1,4 @@
-﻿$dbNames= 'DOCUMENTSTORE_IOWA'	#'DOCSecurity_Test','ICON_Dev'
+$dbNames= 'DOCUMENTSTORE_IOWA'	#'DOCSecurity_Test','ICON_Dev'
 
 
 $userNames='TarunK','TylerL','NirojK','AyyappaK','GreeshmaK','RobertF','LouisM' #'TarunK','TylerL','NirojK','AyyappaK','GreeshmaK','RobertF'

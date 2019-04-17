@@ -1,4 +1,4 @@
-﻿# Data from EventLog :: https://www.petri.com/adding-style-powershell-html-reports
+# Data from EventLog :: https://www.petri.com/adding-style-powershell-html-reports
 
 $data = Get-Eventlog -List | 
 Select @{Name="Max(K)";Expression = {"{0:n0}" -f $_.MaximumKilobytes }},

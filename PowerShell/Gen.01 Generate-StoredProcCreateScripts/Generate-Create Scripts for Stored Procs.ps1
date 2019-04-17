@@ -1,4 +1,4 @@
-﻿#ii "C:\Users\bibidhb\Desktop\WO\2018\0901-0930\09072018\Drop SPs Justin H midoc base\listsp.txt"
+#ii "C:\Users\bibidhb\Desktop\WO\2018\0901-0930\09072018\Drop SPs Justin H midoc base\listsp.txt"
 #ii "$PSScriptRoot\ListSp.txt"
 ############################ run the above command to change the list of SP supplied ########################
 

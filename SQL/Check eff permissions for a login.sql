@@ -1,5 +1,5 @@
 -- For table/sp/view permissions
-EXECUTE AS LOGIN = 'fhlbdm\cmagee'
+EXECUTE AS LOGIN = 'dm\cmagee'
 
 SELECT SCHEMA_NAME(schema_id) + '.' + name TableName
 , type_desc
@@ -20,14 +20,14 @@ ORDER BY type_desc, tablename
 REVERT;
 
 -- DB Level
-EXECUTE as user = 'fhlbdm\Cmagee' -- Set this to the user name you wish to check
+EXECUTE as user = 'dm\Cmagee' -- Set this to the user name you wish to check
 SELECT USER_NAME()
 select * from fn_my_permissions(null, 'DATABASE') 
 order by subentity_name, permission_name
 REVERT
 
 -- specific SP 
-EXECUTE AS user = 'fhlbdm\Cmagee'
+EXECUTE AS user = 'dm\Cmagee'
 SELECT SUSER_NAME(), USER_NAME();
 select name, 
     has_perms_by_name(name, 'OBJECT', 'EXECUTE') as has_execute

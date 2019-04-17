@@ -1,4 +1,4 @@
-﻿#requires -version 4.0
+#requires -version 4.0
  
 #compare hashing performance
  

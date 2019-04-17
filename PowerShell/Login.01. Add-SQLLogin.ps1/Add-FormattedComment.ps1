@@ -1,4 +1,4 @@
-﻿$AddString=@"
+$AddString=@"
 <#################################################################################
 ## Purpose: Add SQL Login to a list of servers with a pre-defined server role   ##
 ##                                                                              ##

@@ -1,4 +1,4 @@
-﻿#icm -cn dfhlbdmssis01,dfhlbdmssis01, tfhlbdmssis01,tfhlbdmssis02, ufhlbdmssis01,ufhlbdmssis02,pfhlbdmssis01,pfhlbdmssis02 {Get-Service|? name -eq "sqlserveragent"}
+#icm -cn ddmssis01,ddmssis01, tdmssis01,tdmssis02, udmssis01,udmssis02,pdmssis01,pdmssis02 {Get-Service|? name -eq "sqlserveragent"}
 
 
 
@@ -22,7 +22,7 @@
 ##server list from text file 
 #$serverlist = Get-Content C:\serverlist.txt
 
-$serverlist = 'dfhlbdmssis01','dfhlbdmssis01', 'tfhlbdmssis01','tfhlbdmssis02', 'ufhlbdmssis01','ufhlbdmssis02','pfhlbdmssis01','pfhlbdmssis02'
+$serverlist = 'ddmssis01','ddmssis01', 'tdmssis01','tdmssis02', 'udmssis01','udmssis02','pdmssis01','pdmssis02'
 
 
 foreach($server in $serverlist)
@@ -68,7 +68,7 @@ $agent = get-wmiObject win32_service -computername $server | ?{$_.name -eq 'SQLS
 # change sql service account and password.  if acccount is local must put .\ in front of the account name
 #$changestatus = $service.change($null,$null,$null,$null,$null,$null,"<account name>","<password>",$null, $null, $null)
 
-$changeagent = $agent.change($null,$null,$null,$null,$null,$null,"FHLBDM\FHLBDMSQLSrvc","s@f34sql",$null, $null, $null)
+$changeagent = $agent.change($null,$null,$null,$null,$null,$null,"DM\DMSQLSrvc","s@f34sql",$null, $null, $null)
 
 ## start-sleep added due to failures during testing.  this seemed to resolve the failures
 start-sleep -s 2
@@ -167,7 +167,7 @@ write-host ---------------------------------------------------------
 ## create server list from comma seperated list
 ##$vserverlist =  "<name of server>", "<name of server>", "<name of server>"
 
-#$vserverlist = 'dfhlbdmssis01','dfhlbdmssis01', 'tfhlbdmssis01','tfhlbdmssis02', 'ufhlbdmssis01','ufhlbdmssis02','pfhlbdmssis01','pfhlbdmssis02'
+#$vserverlist = 'ddmssis01','ddmssis01', 'tdmssis01','tdmssis02', 'udmssis01','udmssis02','pdmssis01','pdmssis02'
 $vserverlist = 'atgdsmsq14','atgdsmsq17'
 foreach($vserver in $vserverlist)
     {

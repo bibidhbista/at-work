@@ -1,4 +1,4 @@
-﻿$dblist = get-dbadatabase -sqlinstance atgdsmsq14|where name -like '*NE_*'
+$dblist = get-dbadatabase -sqlinstance atgdsmsq14|where name -like '*NE_*'
 
 (foreach $db in $dblist)
 {

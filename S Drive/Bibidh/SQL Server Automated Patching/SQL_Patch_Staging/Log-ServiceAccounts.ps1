@@ -1,4 +1,4 @@
-﻿ [CmdletBinding()]
+ [CmdletBinding()]
     Param
     (
         # The SQL SERVER version that is going to be patched.

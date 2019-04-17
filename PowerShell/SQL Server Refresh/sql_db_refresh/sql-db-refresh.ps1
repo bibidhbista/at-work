@@ -7,7 +7,7 @@ Param(
    
    [Parameter(Mandatory=$True)]
    #[ValidateSet('*')] 
-   [ValidateSet("DWH_Auditing","eom","eom_pc","fhlb","fhlbStaging","MPF_Level_Yield","MPP_Level_Yield","MPF_LnCmt", "QRM_Source","qtr","yearly","Derivatives","Principia_Interface","SalesLogix")]
+   [ValidateSet("DWH_Auditing","eom","eom_pc","","Staging","MPF_Level_Yield","MPP_Level_Yield","MPF_LnCmt", "QRM_Source","qtr","yearly","Derivatives","Principia_Interface","SalesLogix")]
    [string]$DBInput
    
 )
@@ -16,7 +16,7 @@ Param(
 ####DEV Environments
 #($substring_list | %{$string.contains($_)}) -contains $true
 
-$db_14_list="AHP", "AHP_Final","AHP_Final_SEA","AHP_Rescore","AHP_Working","AHP_Working_SEA","BCP","cia","Director_Election","DlyInvestRpt","DWH_Auditing","eom","eom_pc","fhlb","FHLBAPPS","fhlbStaging","MKTG_DWH","MPF_DWH","MPF_Level_Yield","MPF_LnCmt","MPP_Level_Yield","Principia_Interface","QRM_Source","qtr","UDAHelper","VRI","yearly"
+$db_14_list="AHP", "AHP_Final","AHP_Final_SEA","AHP_Rescore","AHP_Working","AHP_Working_SEA","BCP","cia","Director_Election","DlyInvestRpt","DWH_Auditing","eom","eom_pc","","APPS","Staging","MKTG_DWH","MPF_DWH","MPF_Level_Yield","MPF_LnCmt","MPP_Level_Yield","Principia_Interface","QRM_Source","qtr","UDAHelper","VRI","yearly"
 $db_12_list="AML","CBS_Reconciliations","Collateral_Interface","Collateral_Reporting","Collateral_Staging","Data_Depot","Derivatives","peAdvantage","Products_Interface","Products_Reporting","pStatement_Sea","SalesLogix"
 $db_10_list="Response_Analytics"
 $db_07_list="DEA","HUB","HUBCore","HUBPersistent","HUBStaging","InfoGov"
@@ -24,104 +24,104 @@ $db_07_list="DEA","HUB","HUBCore","HUBPersistent","HUBStaging","InfoGov"
 if ($db_14_list -contains $DBInput)
 {
 $db_server='14'
-$db_source_server='PFHLBDMSQL14'
+$db_source_server='PDMSQL14'
 }
 if ($db_12_list -contains $DBInput)
 {
 $db_server='12'
-$db_source_server='PFHLBDMSQL12'
+$db_source_server='PDMSQL12'
 }
 if ($db_10_list -contains $DBInput)
 {
 $db_server='10'
-$db_source_server='PFHLBDMSQL10'
+$db_source_server='PDMSQL10'
 }
 if ($db_07_list -contains $DBInput)
 {
 $db_server='07'
-$db_source_server='PFHLBDMSQL07'
+$db_source_server='PDMSQL07'
 }
 
 if ($target_env -eq 'DEV' -And $db_server -eq '14')
     {
-    $target_server='DFHLBDMSQL14'
+    $target_server='DDMSQL14'
     }
 
 if ($target_env -eq 'DEV' -And $db_server -eq '12')
     {
-	$target_server='DFHLBDMSQL12'
+	$target_server='DDMSQL12'
     }
 
 if ($target_env -eq 'DEV' -And $db_server -eq '10')
     {
-	$target_server='DFHLBDMSQL10'
+	$target_server='DDMSQL10'
     }
     
 if ($target_env -eq 'DEV' -And $db_server -eq '07')
     {
-	$target_server='DFHLBDMSQL07'
+	$target_server='DDMSQL07'
     }   
     
 ###TEST Environments
 if ($target_env -eq 'TEST' -And $db_server -eq '14')
     {
-    $target_server='TFHLBDMSQL14'
+    $target_server='TDMSQL14'
     }
 
 if ($target_env -eq 'TEST' -And $db_server -eq '12')
     {
-	$target_server='TFHLBDMSQL12'
+	$target_server='TDMSQL12'
     }
 
 if ($target_env -eq 'TEST' -And $db_server -eq '10')
     {
-	$target_server='TFHLBDMSQL10'
+	$target_server='TDMSQL10'
     }
     
 if ($target_env -eq 'TEST' -And $db_server -eq '07')
     {
-	$target_server='TFHLBDMSQL07'
+	$target_server='TDMSQL07'
     }   
 ###UAT Environments
 if ($target_env -eq 'UAT' -And $db_server -eq '14')
     {
-    $target_server='UFHLBDMSQL14'
+    $target_server='UDMSQL14'
     }
 
 if ($target_env -eq 'UAT' -And $db_server -eq '12')
     {
-	$target_server='UFHLBDMSQL12'
+	$target_server='UDMSQL12'
     }
 
 if ($target_env -eq 'UAT' -And $db_server -eq '10')
     {
-	$target_server='UFHLBDMSQL10'
+	$target_server='UDMSQL10'
     }
     
 if ($target_env -eq 'UAT' -And $db_server -eq '07')
     {
-	$target_server='UFHLBDMSQL07'
+	$target_server='UDMSQL07'
     }       
 ###QA Environments
 if ($target_env -eq 'QA' -And $db_server -eq '14')
     {
-    $target_server='QFHLBDMSQL14'
+    $target_server='QDMSQL14'
     }
 
 #######QA Servers not built yet but coming soon.
 #if ($target_env -eq 'QA' -And $DBInput -contains  $db_12_list)
 #    {
-#	$target_server='QFHLBDMSQL12'
+#	$target_server='QDMSQL12'
 #    }
 
 #if ($target_env -eq 'QA' -And $DBInput -contains $db_10_list)
 #    {
-#	$target_server='QFHLBDMSQL10'
+#	$target_server='QDMSQL10'
 #    }
     
 #if ($target_env -eq 'QA' -And $DBInput -contains $db_07_list)
 #    {
-#	$target_server='QFHLBDMSQL07'
+#	$target_server='QDMSQL07'
 #    }        
     
 
@@ -177,7 +177,7 @@ if (Test-Path $bk_source_filename) {
 }
 
 
-##when target environment like %12 then PFHLBDMSQL12, %14 then PFHLBDMSQL14, %10 then PFHLBDMSQL10, %07 then PFHLBDMSQL07
+##when target environment like %12 then PDMSQL12, %14 then PDMSQL14, %10 then PDMSQL10, %07 then PDMSQL07
 ##backup source database first
 Write-Output $((Get-Date –f o) + ' Starting backup of ' + $DBInput + ' database on source server ' + $db_source_server ) | Tee-Object -file $dbrefresh_logfile
 try
@@ -314,7 +314,7 @@ Write-Output $((Get-Date –f o) + ' Backup of Target Database Permissions Script 
 ###########################
 ###########################
 
-#if ( $DBInput.contains("fhlb") and $target_server -eq 'TFHLBDMSQL14')
+#if ( $DBInput.contains("") and $target_server -eq 'TDMSQL14')
 #    { 
 	   Write-Output $((Get-Date –f o) + ' Starting database restore for on ' + $target_server + ' for the ' + $DBInput + ' database.') | Tee-Object -file $dbrefresh_logfile
 	try
@@ -419,10 +419,10 @@ foreach ($db in $dbs  | where-Object {$_.name -eq $element}) {
 ###Write-Output $((Get-Date –f o) + ' Final Kill Users Script for ' + $DBInput + ' completed') | Tee-Object -file $dbrefresh_logfile
 
 		
-#		if ( $server.contains("dfhlbdmsql")) {
+#		if ( $server.contains("ddmsql")) {
 #		
-#        $query = "EXEC sp_addrolemember N'db_owner', N'FHLBDM\G-FHLB-Developers'"
-#		#Write-Output $((Get-Date –f o) 'Granting db_owner to G-FHLB-Developers' )| Tee-Object -file $dbrefresh_logfile -append
+#        $query = "EXEC sp_addrolemember N'db_owner', N'DM\G--Developers'"
+#		#Write-Output $((Get-Date –f o) 'Granting db_owner to G--Developers' )| Tee-Object -file $dbrefresh_logfile -append
 #		Write-Output $query | Tee-Object -file $tsm_logfile -append
 #        Invoke-Sqlcmd -Query "$query;" -ServerInstance $svr -Database $dbname
 #		If ($LastExitCode -ne 0) {
@@ -438,9 +438,9 @@ foreach ($db in $dbs  | where-Object {$_.name -eq $element}) {
 ## Applying Post Refresh Scripts   ##
 #####################################
 		
-#		if ( $dbname.contains("fhlb"))
+#		if ( $dbname.contains(""))
 #        { 
-#			Write-Output $((Get-Date –f o) + ' starting Post-Deploy for fhlb') | Tee-Object -file $dbrefresh_logfile -append
+#			Write-Output $((Get-Date –f o) + ' starting Post-Deploy for ') | Tee-Object -file $dbrefresh_logfile -append
 #			try
 #			{
 #				Invoke-Sqlcmd -InputFile $script_path\Post_Deploy_Script.publish.sql -ServerInstance $target_server -Database $dbname -Verbose -AbortOnError | Tee-Object -file $dbrefresh_logfile -append
@@ -451,7 +451,7 @@ foreach ($db in $dbs  | where-Object {$_.name -eq $element}) {
 #				$ErrorMessage = $_.Exception.Message
 #				Write-Output $((Get-Date –f o) + ' Error during executing post refresh scripts: ' + $ErrorMessage )  | Tee-Object -file $dbrefresh_logfile -append
 #			} 
-#           Write-Output $((Get-Date –f o) + ' Post-Deploy for fhlb completed') | Tee-Object -file $dbrefresh_logfile -append
+#           Write-Output $((Get-Date –f o) + ' Post-Deploy for  completed') | Tee-Object -file $dbrefresh_logfile -append
 #		}
 #		
 #		

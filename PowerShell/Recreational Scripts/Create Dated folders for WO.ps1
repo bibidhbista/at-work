@@ -1,4 +1,4 @@
-﻿$Date = Get-Date -Format MMddyyyy
+$Date = Get-Date -Format MMddyyyy
 $thisMonth = $(get-date)
 $lastMonth = $thismonth.AddDays(-1)
 $diff =  $thisMonth.Month - $lastMonth.Month 

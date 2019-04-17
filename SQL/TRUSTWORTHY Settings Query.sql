@@ -2,12 +2,12 @@
 Checklist for Stored procs that use EXECUTE AS 
 			1. The databases ETL_Maintenance, Products_Interface, and Products_Reporting must have SET TRUSTWORTHY ON
 			2. The owner of Products_Interface and Products_Reporting must be the same as Master
-			3. The account under which we EXECUTE AS (FHLBDM\ETLUser) needs to be a database/server principal (which is already the case).
+			3. The account under which we EXECUTE AS (DM\ETLUser) needs to be a database/server principal (which is already the case).
 			4. GRANT EXECUTE permission to those users or groups that will call this stored procedure
 			5. GRANT IMPERSONATE as ETLUser permission to those users or groups that will call this stored procedure
 				use [master]
 				GO
-				GRANT IMPERSONATE ON LOGIN::[FHLBDM\ETLUser] TO [FHLBDM\G-FHLB-Developers]
+				GRANT IMPERSONATE ON LOGIN::[DM\ETLUser] TO [DM\G--Developers]
 				GO			
 */
 

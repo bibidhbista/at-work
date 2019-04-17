@@ -1,4 +1,4 @@
-ï»¿#########################################################################################
+#########################################################################################
 #########################################################################################
 ## Powershell Script that will backup SPECIFIC SERVER AND DATABASE FOR DEPLOYS
 ## REQUIRES MANDATORY SERVERNAME AND DATABASENAME FOR BACKUP TO \\pfs02\sqlbackup
@@ -19,11 +19,11 @@
 param( 
    [Parameter(Mandatory=$True, HelpMessage='ENTER A VALID SQL SERVER ENVIRONMENT FOR CONNECTION - NO ALIASES')]
    [ValidateNotNullorEmpty()]  
-   [ValidateSet('DFHLBDMSQL12','TFHLBDMSQL12','UFHLBDMSQL12','PFHLBDMSQL12','DFHLBDMSQL09','TFHLBDMSQL09','PFHLBDMSQL09','TSHAREPSQL02','PSHAREPSQL02','DFHLBDMSQL10','TFHLBDMSQL05',
-'TFHLBDMSQL10','TQRMSQL11','TVIEWSQL01','HVMSQL04','PADMINSQL01','PADMINSQL02','PADMINSQL03','PDSXAPP02','PFHLBDMSQL05','PFHLBDMSQL10','PFOGSQL01','PQRMSQL11','PVMSQL04',
-'PFHLBDMSSIS01','DFHLBDMSQL14','PFHLBDMSQL14','PFHLBDMSQL13','DFHLBDMSSIS01','UFHLBDMSQL07','DFHLBDMSQL08','UFHLBDMSQL10','PFHLBDMSSRS04','DFHLBDMSQL13','DFHLBDMSQL07','PFHLBDMSQL15','TFHLBDMSQL13',
-'SQLTEST2016','PFHLBDMSQL07','TFHLBDMSSIS01','TFHLBDMSQL07','TFHLBDMSSRS04','DFHLBDMSSRS04','UFHLBDMSQL14','TFHLBDMSQL14','UFHLBDMSSRS04','UFHLBDMSSIS01','PFHLBDMSQL08','DFHLBDMSSIS02', 'DFHLBDMSQL15','TFHLBDMSQL15',
-'TFHLBDMSSIS02','UFHLBDMSSIS02','PFHLBDMSSIS02','QFHLBDMSQL14','SQLTEST2016','SQLTEST2016-1','SQLTEST2016-2','SQLTEST2016-3','SQLTEST2016-4','PIDERAAPP01')]
+   [ValidateSet('DDMSQL12','TDMSQL12','UDMSQL12','PDMSQL12','DDMSQL09','TDMSQL09','PDMSQL09','TSHAREPSQL02','PSHAREPSQL02','DDMSQL10','TDMSQL05',
+'TDMSQL10','TQRMSQL11','TVIEWSQL01','HVMSQL04','PADMINSQL01','PADMINSQL02','PADMINSQL03','PDSXAPP02','PDMSQL05','PDMSQL10','PFOGSQL01','PQRMSQL11','PVMSQL04',
+'PDMSSIS01','DDMSQL14','PDMSQL14','PDMSQL13','DDMSSIS01','UDMSQL07','DDMSQL08','UDMSQL10','PDMSSRS04','DDMSQL13','DDMSQL07','PDMSQL15','TDMSQL13',
+'SQLTEST2016','PDMSQL07','TDMSSIS01','TDMSQL07','TDMSSRS04','DDMSSRS04','UDMSQL14','TDMSQL14','UDMSSRS04','UDMSSIS01','PDMSQL08','DDMSSIS02', 'DDMSQL15','TDMSQL15',
+'TDMSSIS02','UDMSSIS02','PDMSSIS02','QDMSQL14','SQLTEST2016','SQLTEST2016-1','SQLTEST2016-2','SQLTEST2016-3','SQLTEST2016-4','PIDERAAPP01')]
    [string] $ServerName,
    
    
@@ -90,9 +90,9 @@ try
 catch
 {
 	$ErrorMessage = $_.Exception.Message
-	Write-Output $((Get-Date â€“f o) + ' Error during executing backup of database ' + $DatabaseName + ' on database source server ' + $ServerName +':  ' + $ErrorMessage ) 
+	Write-Output $((Get-Date –f o) + ' Error during executing backup of database ' + $DatabaseName + ' on database source server ' + $ServerName +':  ' + $ErrorMessage ) 
 	} 
-Write-Output $((Get-Date â€“f o) + ' Backup of database for ' + $DatabaseName + ' completed successfully.')
+Write-Output $((Get-Date –f o) + ' Backup of database for ' + $DatabaseName + ' completed successfully.')
 Get-ChildItem "$defpath\*.bak" |? { $_.lastwritetime -le (Get-Date).AddDays(-$daysToStoreBackups)} |% {Remove-Item $_ -force }  
 "Removed all previous backups older than $daysToStoreBackups days"
 "Have a Nice Day!"

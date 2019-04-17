@@ -1,3 +1,0 @@
-USE master
-BACKUP DATABASE [DWH_Auditing] TO  DISK = N'\\pfs02\SQLtempBackup\PROD\DWH_Auditing.bak' WITH NOFORMAT, NOINIT,  NAME = N'DWH_Auditing-Full Database Backup', SKIP, NOREWIND, NOUNLOAD, COMPRESSION,  STATS = 10
-GO

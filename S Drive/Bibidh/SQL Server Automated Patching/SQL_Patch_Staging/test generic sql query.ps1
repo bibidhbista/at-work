@@ -1,4 +1,4 @@
-﻿
+
 [string] $Database = 'test_patching'
 [string] $x= "SELECT SERVERPROPERTY('ProductVersion') AS Version, SERVERPROPERTY('ProductLevel') as SP"
 $SQLQuery = "SELECT *  FROM [$Database].[dbo].[serverlist]"

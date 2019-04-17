@@ -1,4 +1,4 @@
-﻿
+
 write-host ---------------------------------------------------------
 write-host validate
 write-host ---------------------------------------------------------
@@ -6,7 +6,7 @@ write-host ---------------------------------------------------------
 ## create server list from comma seperated list
 ##$vserverlist =  "<name of server>", "<name of server>", "<name of server>"
 
-$vserverlist = 'atgdsmsq14'#'dfhlbdmssis01','dfhlbdmssis01', 'tfhlbdmssis01','tfhlbdmssis02', 'ufhlbdmssis01','ufhlbdmssis02','pfhlbdmssis01','pfhlbdmssis02'
+$vserverlist = 'atgdsmsq14'#'ddmssis01','ddmssis01', 'tdmssis01','tdmssis02', 'udmssis01','udmssis02','pdmssis01','pdmssis02'
 
 foreach($vserver in $vserverlist)
     {

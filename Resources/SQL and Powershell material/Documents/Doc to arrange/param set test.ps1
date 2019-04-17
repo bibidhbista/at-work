@@ -1,4 +1,4 @@
-﻿[CmdletBinding(DefaultParametersetName='None')] 
+[CmdletBinding(DefaultParametersetName='None')] 
 param( 
     [Parameter(Position=0,Mandatory=$true)]  [string]$Age, 
     [Parameter(ParameterSetName="FC")][switch]$FC,

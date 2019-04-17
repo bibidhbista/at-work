@@ -1,4 +1,4 @@
-﻿# Pull from Table (Dynamic)
+# Pull from Table (Dynamic)
 $server ="atgdsmsq17"
 $database = "MIDOC_INTF_META"
 $query = "Select Infilepath, outfilepath from [$database].[dbo].[JobFiles_HashCompare] where result is Null or result='null'" ############# Pull from a different metadata table ##############

@@ -1,5 +1,5 @@
-﻿$daysToStorefile = 10
-$targetFolder ="\\pfs02\sqlbackup\UFHLBDMSQL07\sql\"
+$daysToStorefile = 10
+$targetFolder ="\\pfs02\sqlbackup\UDMSQL07\sql\"
 $extension = '*.bak'
 $targetFiles= $targetFolder+$extension
 get-childitem $targetFiles|? {$_.LastWriteTime -le (Get-Date).AddDays(-5)}|

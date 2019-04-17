@@ -1,8 +1,8 @@
-https://pgitapp01.fhlbdm.com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Comparison%20Collateral%20Report%20Extended.rdl
-https://pgitapp01.fhlbdm.com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/External%20Collateral%20Activity%20Report%20Cleared%20Trades%20by%20FCM.rdl 
-https://pgitapp01.fhlbdm.com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/External%20Collateral%20Inventory%20Report.rdl 
-https://pgitapp01.fhlbdm.com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/External%20Summary%20Report%20Cleared%20Trades%20Daily%20from%20FCM.rdl 
-https://pgitapp01.fhlbdm.com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Internal%20Collateral%20Activity%20Report%20-%20Cleared%20Trades%20-%20by%20FCM.rdl 
-https://pgitapp01.fhlbdm.com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Internal%20Collateral%20Inventory%20Report.rdl 
-https://pgitapp01.fhlbdm.com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Internal%20Summary%20Report%20Cleared%20Trades%20Daily.rdl 
-https://pgitapp01.fhlbdm.com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Quarterly%20Threshold%20Review.rdl 
+https://pgitapp01..com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Comparison%20Collateral%20Report%20Extended.rdl
+https://pgitapp01..com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/External%20Collateral%20Activity%20Report%20Cleared%20Trades%20by%20FCM.rdl 
+https://pgitapp01..com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/External%20Collateral%20Inventory%20Report.rdl 
+https://pgitapp01..com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/External%20Summary%20Report%20Cleared%20Trades%20Daily%20from%20FCM.rdl 
+https://pgitapp01..com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Internal%20Collateral%20Activity%20Report%20-%20Cleared%20Trades%20-%20by%20FCM.rdl 
+https://pgitapp01..com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Internal%20Collateral%20Inventory%20Report.rdl 
+https://pgitapp01..com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Internal%20Summary%20Report%20Cleared%20Trades%20Daily.rdl 
+https://pgitapp01..com/SSRS/Derivatives_Clearing/blob/master/Derivatives_Clearing_SSRS/Quarterly%20Threshold%20Review.rdl 

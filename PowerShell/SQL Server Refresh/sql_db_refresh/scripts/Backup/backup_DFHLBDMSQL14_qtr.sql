@@ -1,3 +1,0 @@
-USE master
-BACKUP DATABASE [qtr] TO  DISK = N'\\pfs02\SQLtempBackup\DEV\qtr.bak' WITH NOFORMAT, NOINIT,  NAME = N'qtr-Full Database Backup', SKIP, NOREWIND, NOUNLOAD, COMPRESSION,  STATS = 10
-GO
