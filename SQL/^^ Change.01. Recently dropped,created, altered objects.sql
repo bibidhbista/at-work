@@ -21,8 +21,9 @@ WHEN 164 THEN 'Object:Altered'
 END,
 DatabaseName, ObjectName, HostName, ApplicationName, LoginName, StartTime,ad.*
 FROM::fn_trace_gettable(@start, DEFAULT) ad --WHERE databasename != 'tempdb' ORDER BY starttime DESC
-WHERE EventClass IN (46,47,164) AND EventSubclass = 0 AND DatabaseID <> 2 AND databasename LIKE '%MIDOC_FIDUCIARY_DEFAULTS%'
---AND objectname LIKE '%dmParoleBoardPhase1Recommendations%'--LIKE '%parole%'
+WHERE EventClass IN (46,47,164) AND EventSubclass = 0 AND DatabaseID <> 2
+ AND databasename LIKE '%corrlinks%'
+--AND objectname LIKE '%mn[_]%'--LIKE '%parole%'
 --AND hostname ='tmaulsby'
 ORDER BY ad.StartTime DESC
 

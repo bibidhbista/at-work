@@ -1,0 +1,154 @@
+-- both
+ALTER TABLE [ICONOffendersForBopConditionMigration]
+
+DROP CONSTRAINT [PK_ICONOffendersForBopConditionMigration];
+
+ALTER TABLE [ICONOffendersForBopConditionMigration] ADD CONSTRAINT [PK_ICONOffendersForBopConditionMigration] PRIMARY KEY CLUSTERED (OffenderCd ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);
+
+IF EXISTS (
+		SELECT NAME
+		FROM SYS.INDEXES
+		WHERE NAME = 'IX_ICONOffendersForBopConditionMigration_LocationCd'
+		)
+BEGIN
+	DROP INDEX [IX_ICONOffendersForBopConditionMigration_LocationCd] ON [ICONOffendersForBopConditionMigration];
+END
+
+CREATE NONCLUSTERED INDEX [IX_ICONOffendersForBopConditionMigration_LocationCd] ON [ICONOffendersForBopConditionMigration] ([LocationCd] ASC)
+
+
+-- offcd only
+
+ALTER TABLE [CallsComplete] DROP CONSTRAINT [PK_CallsComplete];
+
+ALTER TABLE [CallsComplete] ADD CONSTRAINT [PK_CallsComplete] PRIMARY KEY CLUSTERED (callrecord_id ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_CallsComplete_LocationCd') BEGIN  Drop INDEX [IX_CallsComplete_LocationCd] on [CallsComplete]; END */
+
+CREATE NONCLUSTERED INDEX [IX_CallsComplete_OffenderCd] ON [CallsComplete] (OffenderCd ASC)
+
+ALTER TABLE [CallsIncomplete]
+
+DROP CONSTRAINT [PK_CallsIncomplete];
+
+ALTER TABLE [CallsIncomplete] ADD CONSTRAINT [PK_CallsIncomplete] PRIMARY KEY CLUSTERED (callrecord_id ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_CallsIncomplete_LocationCd') BEGIN  Drop INDEX [IX_CallsIncomplete_LocationCd] on [CallsIncomplete]; END */
+
+CREATE NONCLUSTERED INDEX [IX_CallsIncomplete_OffenderCd] ON [CallsIncomplete] (OffenderCd ASC)
+
+ALTER TABLE [Charges_ProdFix]
+
+DROP CONSTRAINT [PK_Charges_2_ProdFix];
+
+ALTER TABLE [Charges_ProdFix] ADD CONSTRAINT [PK_Charges_2_ProdFix] PRIMARY KEY CLUSTERED (ChargeId ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_Charges_ProdFix_LocationCd') BEGIN  Drop INDEX [IX_Charges_ProdFix_LocationCd] on [Charges_ProdFix]; END */
+
+CREATE NONCLUSTERED INDEX [IX_Charges_ProdFix_OffenderCd] ON [Charges_ProdFix] (OffenderCd ASC)
+
+ALTER TABLE [ConsolidatedSupervisionStatuses]
+
+DROP CONSTRAINT [PK_NPConsolidatedSupervisionStatuses];
+
+ALTER TABLE [ConsolidatedSupervisionStatuses] ADD CONSTRAINT [PK_NPConsolidatedSupervisionStatuses] PRIMARY KEY CLUSTERED (ConsolidatedSupervisionStatusId ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_ConsolidatedSupervisionStatuses_LocationCd') BEGIN  Drop INDEX [IX_ConsolidatedSupervisionStatuses_LocationCd] on [ConsolidatedSupervisionStatuses]; END */
+
+CREATE NONCLUSTERED INDEX [IX_ConsolidatedSupervisionStatuses_OffenderCd] ON [ConsolidatedSupervisionStatuses] (OffenderCd ASC)
+
+ALTER TABLE [DOC_ApplicableCharges]
+
+DROP CONSTRAINT [PK_DOC_ApplicableCharges];
+
+ALTER TABLE [DOC_ApplicableCharges] ADD CONSTRAINT [PK_DOC_ApplicableCharges] PRIMARY KEY CLUSTERED ( RecId ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_DOC_ApplicableCharges_LocationCd') BEGIN  Drop INDEX [IX_DOC_ApplicableCharges_LocationCd] on [DOC_ApplicableCharges]; END */
+
+CREATE NONCLUSTERED INDEX [IX_DOC_ApplicableCharges_OffenderCd] ON [DOC_ApplicableCharges] (OffenderCd ASC)
+
+ALTER TABLE [ICSCurrent]
+
+DROP CONSTRAINT [PK_ICSCurrent];
+
+ALTER TABLE [ICSCurrent] ADD CONSTRAINT [PK_ICSCurrent] PRIMARY KEY CLUSTERED (ICSCurrentId ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_ICSCurrent_LocationCd') BEGIN  Drop INDEX [IX_ICSCurrent_LocationCd] on [ICSCurrent]; END */
+
+CREATE NONCLUSTERED INDEX [IX_ICSCurrent_OffenderCd] ON [ICSCurrent] (OffenderCd ASC)
+
+ALTER TABLE [ICSDifferences]
+
+DROP CONSTRAINT [PK_ICSDifferences];
+
+ALTER TABLE [ICSDifferences] ADD CONSTRAINT [PK_ICSDifferences] PRIMARY KEY CLUSTERED (ICSDifferenceId ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_ICSDifferences_LocationCd') BEGIN  Drop INDEX [IX_ICSDifferences_LocationCd] on [ICSDifferences]; END */
+
+CREATE NONCLUSTERED INDEX [IX_ICSDifferences_OffenderCd] ON [ICSDifferences] (OffenderCd ASC)
+
+ALTER TABLE [ICSPrevious]
+
+DROP CONSTRAINT [PK_ICSPrevious];
+
+ALTER TABLE [ICSPrevious] ADD CONSTRAINT [PK_ICSPrevious] PRIMARY KEY CLUSTERED (ICSPreviousId ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_ICSPrevious_LocationCd') BEGIN  Drop INDEX [IX_ICSPrevious_LocationCd] on [ICSPrevious]; END */
+
+CREATE NONCLUSTERED INDEX [IX_ICSPrevious_OffenderCd] ON [ICSPrevious] (OffenderCd ASC)
+
+ALTER TABLE [NPOffenderDailyHistory_DailyEval]
+
+DROP CONSTRAINT [PK_NPOffenderDailyHistory_DailyEval];
+
+ALTER TABLE [NPOffenderDailyHistory_DailyEval] ADD CONSTRAINT [PK_NPOffenderDailyHistory_DailyEval] PRIMARY KEY CLUSTERED (NPOffenderDailyHistoryId ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_NPOffenderDailyHistory_DailyEval_LocationCd') BEGIN  Drop INDEX [IX_NPOffenderDailyHistory_DailyEval_LocationCd] on [NPOffenderDailyHistory_DailyEval]; END */
+
+CREATE NONCLUSTERED INDEX [IX_NPOffenderDailyHistory_DailyEval_OffenderCd] ON [NPOffenderDailyHistory_DailyEval] (OffenderCd ASC)
+
+--ALTER TABLE [OffenderPanBalance]
+
+--DROP CONSTRAINT [PK_OffenderPanBalance];
+
+--ALTER TABLE [OffenderPanBalance] ADD CONSTRAINT [PK_OffenderPanBalance] PRIMARY KEY CLUSTERED (PAN ASC)
+--	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_OffenderPanBalance_LocationCd') BEGIN  Drop INDEX [IX_OffenderPanBalance_LocationCd] on [OffenderPanBalance]; END */
+
+--CREATE NONCLUSTERED INDEX [IX_OffenderPanBalance_OffenderCd] ON [OffenderPanBalance] (OffenderCd ASC)
+
+ALTER TABLE [OffenderWorkTable]
+
+DROP CONSTRAINT [PK_OffenderWorkTable];
+
+ALTER TABLE [OffenderWorkTable] ADD CONSTRAINT [PK_OffenderWorkTable] PRIMARY KEY CLUSTERED (OffenderWorkTableId  ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_OffenderWorkTable_LocationCd') BEGIN  Drop INDEX [IX_OffenderWorkTable_LocationCd] on [OffenderWorkTable]; END */
+
+CREATE NONCLUSTERED INDEX [IX_OffenderWorkTable_OffenderCd] ON [OffenderWorkTable] (OffenderCd ASC)
+
+ALTER TABLE [PCSCurrent]
+
+DROP CONSTRAINT [PK_PCSCurrent_1];
+
+ALTER TABLE [PCSCurrent] ADD CONSTRAINT [PK_PCSCurrent_1] PRIMARY KEY CLUSTERED (PCSCurrentId  ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_PCSCurrent_LocationCd') BEGIN  Drop INDEX [IX_PCSCurrent_LocationCd] on [PCSCurrent]; END */
+
+CREATE NONCLUSTERED INDEX [IX_PCSCurrent_OffenderCd] ON [PCSCurrent] (OffenderCd ASC)
+
+ALTER TABLE [PCSDifferences]
+
+DROP CONSTRAINT [PK_PCSDifferences_1];
+
+ALTER TABLE [PCSDifferences] ADD CONSTRAINT [PK_PCSDifferences_1] PRIMARY KEY CLUSTERED (PCSDiffereceId  ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_PCSDifferences_LocationCd') BEGIN  Drop INDEX [IX_PCSDifferences_LocationCd] on [PCSDifferences]; END */
+
+CREATE NONCLUSTERED INDEX [IX_PCSDifferences_OffenderCd] ON [PCSDifferences] (OffenderCd ASC)
+
+ALTER TABLE [PCSPrevious]
+
+DROP CONSTRAINT [PK_PCSPrevious_1];
+
+ALTER TABLE [PCSPrevious] ADD CONSTRAINT [PK_PCSPrevious_1] PRIMARY KEY CLUSTERED (PCSPreviousId  ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_PCSPrevious_LocationCd') BEGIN  Drop INDEX [IX_PCSPrevious_LocationCd] on [PCSPrevious]; END */
+
+CREATE NONCLUSTERED INDEX [IX_PCSPrevious_OffenderCd] ON [PCSPrevious] (OffenderCd ASC)
+
+ALTER TABLE [TimeCompGroups_ProdFix]
+
+DROP CONSTRAINT [PK_TimeCompGroups_2_ProdFix];
+
+ALTER TABLE [TimeCompGroups_ProdFix] ADD CONSTRAINT [PK_TimeCompGroups_2_ProdFix] PRIMARY KEY CLUSTERED (TimeCompGroupId ASC)
+	WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 100);/* IF EXISTS(SELECT NAME FROM SYS.INDEXES WHERE NAME = 'IX_TimeCompGroups_ProdFix_LocationCd') BEGIN  Drop INDEX [IX_TimeCompGroups_ProdFix_LocationCd] on [TimeCompGroups_ProdFix]; END */
+
+CREATE NONCLUSTERED INDEX [IX_TimeCompGroups_ProdFix_OffenderCd] ON [TimeCompGroups_ProdFix] (OffenderCd ASC)

@@ -5,13 +5,14 @@
 BEGIN tran
 DECLARE @ProjectName varchar(50) ,@ServerID int, @ProjectID int ,@DevDB varchar(50) ,@ChangeScriptPath varchar(100) ,@LastRolloutDt datetime ,@LastReleaseNo varchar(15) ,@EnforceEncryption smallint ,@RolloutUpdatePath varchar(100) ,@Status smallint ,@CustomerId int ,@BcpCommandFile smallint ,@Subversion smallint 
 
+
 SELECT	
-@ProjectName				= 'MIDOC_Medical',															-- varchar
-@ServerID					= 17  ,															--int
-@DevDB						= 'MIDOC_Medical_Dev',															--varchar(50) 
-@ChangeScriptPath			= 'F:\DBA\RolloutScripts\Michigan\MIDOC_Medical\' ,		-- varchar(100) 
+@ProjectName				= 'MEDOC_InmateKiosk',															-- varchar
+@ServerID					= 14  ,															--int
+@DevDB						= 'MEDOC_InmateKiosk_Dev',															--varchar(50) 
+@ChangeScriptPath			= 'F:\DBA\RolloutScripts\ATG_YIT\MEDOC\MEDOC_InmateKiosk\Database\Rollout\Update' ,		-- varchar(100) 
 @EnforceEncryption			=  1 ,															-- smallint 
-@RolloutUpdatePath			= 'F:\DBA\RolloutScripts\Michigan\MIDOC_Medical\Database\Rollout\Update',-- varchar(100) 
+@RolloutUpdatePath			= 'F:\DBA\RolloutScripts\ATG_YIT\MEDOC\MEDOC_InmateKiosk\Database\Rollout\Update',-- varchar(100) 
 @Status						= 1,															-- smallint 
 @CustomerId					= 15,															-- int  --100 for ATG_YIT
 @BcpCommandFile				= 0 ,															-- smallint 
@@ -53,6 +54,7 @@ VALUES
 
 
 SELECT @ProjectId = (SELECT ProjectId FROM Projects WHERE dbo.Projects.ProjectName = @ProjectName)
+PRINT @ProjectID
 --commit
 
 

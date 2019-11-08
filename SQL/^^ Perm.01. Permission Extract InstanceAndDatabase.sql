@@ -1,17 +1,23 @@
 SET NOCOUNT ON
 
-IF not exists (select * FROM tempdb.[sys].[sysobjects] WHERE name='##tbl_db_principals_statements')
+IF not exists (select * FROM tempdb.[sys].[sysobjects] WHERE name in ('##tbl_db_principals_statements'))
 BEGIN
 	CREATE TABLE ##tbl_db_principals_statements (stmt varchar(max), result_order decimal(4,1));
-	CREATE TABLE ##tbl_db_principals_statements_2 (stmt varchar(max), result_order decimal(4,1));
 End
 ELSE
 BEGIN
 	TRUNCATE TABLE	##tbl_db_principals_statements;
-	TRUNCATE TABLE	##tbl_db_principals_statements_2;
 END
 
 
+IF not exists (select * FROM tempdb.[sys].[sysobjects] WHERE name in ('##tbl_db_principals_statements_2'))
+BEGIN
+	CREATE TABLE ##tbl_db_principals_statements_2 (stmt varchar(max), result_order decimal(4,1));
+End
+ELSE
+BEGIN
+	TRUNCATE TABLE	##tbl_db_principals_statements_2;
+END
 
 -- FOR SERVER LEVEL LOGIN CREATION	  
 IF ((SELECT SUBSTRING(convert(sysname, SERVERPROPERTY('productversion')), 1, charindex('.',convert(sysname, SERVERPROPERTY('productversion')))-1)) > 10)
