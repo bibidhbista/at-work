@@ -64,7 +64,7 @@ LEFT JOIN
     sys.objects obj ON perm.[major_id] = obj.[object_id]
 WHERE 
     princ.[type] in ('S','U')
-	and princ.[name] LIKE '%pradips%'
+	and princ.[name] LIKE '%atgkiosk%' -- mass replace whatever's in here to what you want to look for
 UNION
 --List all access provisioned to a sql user or windows user/group through a database or application role
 SELECT  
@@ -104,7 +104,7 @@ LEFT JOIN
                     AND col.[column_id] = perm.[minor_id]
 LEFT JOIN
     sys.objects obj ON perm.[major_id] = obj.[object_id]
-	WHERE  memberprinc.[name] LIKE '%pradips%'
+	WHERE  memberprinc.[name] LIKE '%atgkiosk%'
 UNION
 --List all access provisioned to the public role, which everyone gets by default
 SELECT  

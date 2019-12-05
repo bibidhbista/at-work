@@ -1,0 +1,120 @@
+Create PROCEDURE [dbo].[Admin_LS_AutoFix]
+
+AS
+
+SET NOCOUNT ON      
+
+--CURSOR OF DBs out of threshhold
+DECLARE @DBs TABLE
+(
+	DB varchar(100) NOT NULL,
+	FilePath varchar(1000) NULL,
+	LastCopiedFile varchar(100) NULL, 
+	LastRestoredFile varchar(100) NULL, 
+	CopyLatency int NULL,
+	RestoreLatency int NULL
+)
+INSERT INTO @DBs exec Admin_LS_DbsPastThreshhold
+  
+DECLARE cur CURSOR      
+FOR SELECT DB, FilePath, LastCopiedFile, LastRestoredFile, CopyLatency, RestoreLatency FROM @DBs
+  
+DECLARE @DB varchar(100), @FilePath varchar(1000),@LastCopiedFile varchar(100), @LastRestoredFile varchar(100), @CopyLatency int, @RestoreLatency int
+DECLARE @LoopCounter int
+DECLARE @SQL varchar(2000)      
+DECLARE @JobId uniqueidentifier
+DECLARE	@Enabled tinyint
+DECLARE	@ExecStatus int
+DECLARE	@RunTime int 
+DECLARE @Success int 
+DECLARE @Body nvarchar(max)
+
+OPEN cur      
+  
+FETCH NEXT FROM cur INTO @DB, @FilePath, @LastCopiedFile, @LastRestoredFile, @CopyLatency, @RestoreLatency
+  
+WHILE (@@fetch_status =0)      
+BEGIN        
+ 
+	--Copy out of sync?
+	IF @CopyLatency < -30
+		BEGIN
+			--Get JobId of copy job for DB
+			select @JobId = job_id from msdb.dbo.sysjobs where name like 'LSCopy[_]%[_]' + @DB
+			exec Admin_LS_JobInfo @JobId,@Enabled OUTPUT,@ExecStatus OUTPUT, @RunTime OUTPUT
+			
+			--Copy job running longer than 30 minutes?
+			IF @RunTime > 30 AND @Enabled=1
+			BEGIN
+				--Stop copy job if still running
+				IF @ExecStatus=1
+				BEGIN
+					exec msdb.dbo.sp_stop_job @job_id = @JobId
+				END
+
+				--Start copy job
+				exec msdb.dbo.sp_start_job @job_id = @JobId
+				
+				--check threshholds x times with y waits between
+				exec Admin_LS_CheckThreshholds @DB, @Success OUTPUT 
+				IF @Success=1
+				BEGIN
+					--Email auto fix copy process
+					set @Body = 'Copy latency resolved for database ' + @DB
+					exec Admin_LS_SendMail 'DBA@a-t-g.com','HSCORRSQL@a-t-g.com','Logshipping Self Healing Event', @Body
+				END
+			END
+			--ELSE
+			--BEGIN
+				--No auto fix possible
+			--END
+		END
+	ELSE
+		--Restore out of sync
+		BEGIN
+			--Get JobId of restore job for DB
+			select @JobId = job_id from msdb.dbo.sysjobs where name like 'LSRestore[_]%' + @DB
+			exec Admin_LS_JobInfo @JobId,@Enabled OUTPUT,@ExecStatus OUTPUT, @RunTime OUTPUT
+			
+			--disable restore job if it is enabled
+			IF @Enabled = 1
+			BEGIN
+				exec msdb.dbo.sp_update_job @job_id=@JobId,@enabled=0
+
+				--Check for restore job running and stop if needed
+				IF @ExecStatus=1
+				BEGIN
+					exec msdb.dbo.sp_stop_job @job_id = @JobId
+				END
+				
+				--run restore commands
+				exec Admin_LS_RestoreFix @FilePath, @DB, @LastRestoredFile 
+				
+				--enable restore job
+				exec msdb.dbo.sp_update_job @job_id=@JobId,@enabled=1
+				
+				--start restore job
+				exec msdb.dbo.sp_start_job @job_id=@JobId
+	
+				--check threshholds x times with y waits between
+				exec Admin_LS_CheckThreshholds @DB, @Success OUTPUT 
+				IF @Success=1
+				BEGIN
+					--Email auto fix restore process
+					set @Body = 'Restore latency resolved for database ' + @DB
+					exec Admin_LS_SendMail 'DBA@a-t-g.com','HSCORRSQL@a-t-g.com','Logshipping Self Healing Event', @Body
+				END
+
+			END
+		END
+	
+  
+	FETCH NEXT FROM cur INTO @DB, @FilePath, @LastCopiedFile, @LastRestoredFile, @CopyLatency, @RestoreLatency    
+  
+END      
+  
+CLOSE cur      
+DEALLOCATE cur 
+
+
+
