@@ -88,6 +88,7 @@ CROSS APPLY sys.dm_exec_sql_text(sql_handle)
 
 
 -- CPU
+Select hostname,count(hostname) from sys.sysprocesses group by hostname
 DECLARE @ms_ticks_now BIGINT
 
 SELECT @ms_ticks_now = ms_ticks
@@ -102,7 +103,7 @@ FROM (
 	SELECT record.value('(./Record/@id)[1]', 'int') AS record_id
 		,record.value('(./Record/SchedulerMonitorEvent/SystemHealth/SystemIdle)[1]', 'int') AS SystemIdle
 		,record.value('(./Record/SchedulerMonitorEvent/SystemHealth/ProcessUtilization)[1]', 'int') AS SQLProcessUtilization
-		,TIMESTAMP
+		,TIMESTAMP 
 	FROM (
 		SELECT TIMESTAMP
 			,convert(XML, record) AS record
