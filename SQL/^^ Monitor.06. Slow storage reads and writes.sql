@@ -44,5 +44,5 @@ SELECT  DB_NAME(a.database_id) AS [Database Name] ,
 			INNER JOIN sys.master_files AS b ON a.file_id = b.file_id
 			AND a.database_id = b.database_id
 	WHERE   a.num_of_reads > 0
-			AND a.num_of_writes > 0
+			AND a.num_of_writes > 0 
 	ORDER BY  CAST(a.io_stall_read_ms / ( 1.0 * a.num_of_reads ) AS INT) DESC;
